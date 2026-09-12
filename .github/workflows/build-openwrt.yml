@@ -176,7 +176,7 @@ jobs:
 
       - name: 加载固件配置与预置文件
         run: |
-          [ -e files ] && cp -rf files openwrt/files
+          [ -e files ] && cp -rf files openwrt/files && rm -f openwrt/files/.gitkeep
           cp -f $CONFIG_FILE openwrt/.config
           chmod +x $DIY_P2_SH
 
