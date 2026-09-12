@@ -1,0 +1,313 @@
+#
+# BPI-R4 OpenWrt 自动编译工作流
+#
+# 固件源码 : https://github.com/chasey-dev/immortalwrt-mt798x-rebase (ImmortalWrt 25.12 + MTK 官方 Feeds)
+# 架构参考 : P3TERX/Actions-OpenWrt
+#
+# 触发方式 :
+#   1. 每周一北京时间 11:00 自动编译 (UTC 03:00)
+#   2. 手动触发 (Actions -> Run workflow)，可选"忽略缓存强制全量重编"和"失败时 SSH 调试"
+#
+# 编译产物 (Release 下载):
+#   *-sysupgrade.itb          已装系统在线升级用
+#   *-sdcard.img.gz           SD 卡一键启动镜像 (含引导+固件，新手推荐)
+#   *-emmc-preloader/fip      eMMC 引导文件
+#   *-snand-preloader/fip     SPI NAND 引导文件
+#
+
+name: Build BPI-R4 OpenWrt
+
+on:
+  schedule:
+    - cron: '0 3 * * 1' # 每周一 UTC 03:00 = 北京时间 11:00
+  workflow_dispatch:
+    inputs:
+      clean_cache:
+        description: '忽略缓存，强制全量重编'
+        required: false
+        default: false
+        type: boolean
+      debug_ssh:
+        description: '编译失败时进入 SSH 调试会话'
+        required: false
+        default: false
+        type: boolean
+
+env:
+  REPO_URL: https://github.com/chasey-dev/immortalwrt-mt798x-rebase.git
+  REPO_BRANCH: 25.12
+  CONFIG_FILE: config/bpi-r4.config
+  DIY_P1_SH: scripts/diy-part1.sh
+  DIY_P2_SH: scripts/diy-part2.sh
+  TZ: Asia/Shanghai
+
+permissions:
+  contents: write
+
+jobs:
+
+  # ============================================================
+  # 第一阶段：编译工具链并缓存
+  # 拆分原因：单次全量编译可能超过 GitHub Actions 6 小时上限，
+  # 分阶段后每个 job 都有充足的时间余量。
+  # 工具链缓存以源码 commit 为 key，源码不变则秒级跳过。
+  # ============================================================
+  toolchain:
+    name: 编译工具链
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    outputs:
+      source_sha: ${{ steps.src.outputs.sha }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: 初始化编译环境
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
+          sudo docker image prune --all --force >/dev/null 2>&1 || true
+          sudo -E apt-get -qq update
+          sudo -E apt-get -qq install ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp ninja-build p7zip p7zip-full patch pkgconf python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
+          sudo -E apt-get -qq autoremove --purge
+          sudo -E apt-get -qq clean
+          sudo timedatectl set-timezone "$TZ"
+          sudo mkdir -p /workdir
+          sudo chown $USER:$GROUPS /workdir
+          df -hT
+
+      - name: 克隆固件源码
+        working-directory: /workdir
+        run: |
+          git clone --depth 1 -b $REPO_BRANCH $REPO_URL openwrt
+          ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+
+      - name: 记录源码版本
+        id: src
+        run: |
+          cd /workdir/openwrt
+          SHA=$(git rev-parse --short=7 HEAD)
+          echo "sha=$SHA" >> $GITHUB_OUTPUT
+          echo "源码版本: $SHA ($(git log -1 --format=%cd --date=iso))"
+
+      - name: 注入自定义软件源 (diy-part1)
+        run: |
+          chmod +x $DIY_P1_SH
+          cd openwrt
+          $GITHUB_WORKSPACE/$DIY_P1_SH
+          echo "===== feeds.conf.default ====="
+          cat feeds.conf.default
+
+      - name: 更新并安装 feeds
+        run: |
+          cd openwrt
+          ./scripts/feeds update -a
+          ./scripts/feeds install -a
+
+      - name: 加载固件配置
+        run: |
+          cp -f $CONFIG_FILE openwrt/.config
+
+      - name: 缓存工具链
+        id: cache-toolchain
+        if: ${{ !inputs.clean_cache }}
+        uses: actions/cache@v4
+        with:
+          path: |
+            /workdir/openwrt/staging_dir/toolchain-*
+            /workdir/openwrt/staging_dir/tools-*
+            /workdir/openwrt/build_dir/toolchain-*
+            /workdir/openwrt/build_dir/tools-*
+          key: toolchain-v1-${{ steps.src.outputs.sha }}
+
+      - name: 编译工具链
+        if: steps.cache-toolchain.outputs.cache-hit != 'true'
+        run: |
+          cd openwrt
+          make defconfig
+          make tools/install toolchain/install -j$(nproc) || make tools/install toolchain/install -j1 V=s
+          df -hT
+
+  # ============================================================
+  # 第二阶段：编译完整固件
+  # ============================================================
+  firmware:
+    name: 编译固件
+    needs: toolchain
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: 初始化编译环境
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
+          sudo docker image prune --all --force >/dev/null 2>&1 || true
+          sudo -E apt-get -qq update
+          sudo -E apt-get -qq install ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp ninja-build p7zip p7zip-full patch pkgconf python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
+          sudo -E apt-get -qq autoremove --purge
+          sudo -E apt-get -qq clean
+          sudo timedatectl set-timezone "$TZ"
+          sudo mkdir -p /workdir
+          sudo chown $USER:$GROUPS /workdir
+          df -hT
+
+      - name: 克隆固件源码
+        working-directory: /workdir
+        run: |
+          git clone --depth 1 -b $REPO_BRANCH $REPO_URL openwrt
+          ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+
+      - name: 注入自定义软件源 (diy-part1)
+        run: |
+          chmod +x $DIY_P1_SH
+          cd openwrt
+          $GITHUB_WORKSPACE/$DIY_P1_SH
+
+      - name: 更新并安装 feeds
+        run: |
+          cd openwrt
+          ./scripts/feeds update -a
+          ./scripts/feeds install -a
+
+      - name: 加载固件配置与预置文件
+        run: |
+          [ -e files ] && cp -rf files openwrt/files
+          cp -f $CONFIG_FILE openwrt/.config
+          chmod +x $DIY_P2_SH
+
+      - name: 恢复工具链缓存
+        if: ${{ !inputs.clean_cache }}
+        uses: actions/cache@v4
+        with:
+          path: |
+            /workdir/openwrt/staging_dir/toolchain-*
+            /workdir/openwrt/staging_dir/tools-*
+            /workdir/openwrt/build_dir/toolchain-*
+            /workdir/openwrt/build_dir/tools-*
+          key: toolchain-v1-${{ needs.toolchain.outputs.source_sha }}
+
+      - name: 缓存源码包下载目录
+        id: cache-dl
+        if: ${{ !inputs.clean_cache }}
+        uses: actions/cache@v4
+        with:
+          path: /workdir/openwrt/dl
+          key: dl-v1-${{ github.run_number }}
+          restore-keys: dl-v1-
+
+      - name: 应用编译前定制 (diy-part2)
+        run: |
+          cd openwrt
+          $GITHUB_WORKSPACE/$DIY_P2_SH
+
+      - name: 生成最终配置并校验
+        run: |
+          cd openwrt
+          make defconfig
+          # 校验关键配置项，防止 feeds 变动导致插件静默丢失
+          check_config() {
+            grep -q "^$1=y" .config || { echo "::error::关键配置缺失: $1"; exit 1; }
+          }
+          check_config CONFIG_TARGET_mediatek_filogic_DEVICE_bananapi_bpi-r4
+          check_config CONFIG_PACKAGE_luci-app-passwall
+          grep -q "^CONFIG_PACKAGE_xray-core=y" .config \
+            && echo "✅ Passwall (Xray) 配置校验通过" \
+            || echo "::warning::Xray 内核未选中，请检查 passwall feeds 是否更新"
+
+      - name: 上传最终 .config (快照)
+        uses: actions/upload-artifact@v4
+        with:
+          name: final-defconfig
+          path: openwrt/.config
+
+      - name: 下载软件包
+        run: |
+          cd openwrt
+          make download -j$(nproc)
+          find dl -size -1024c -exec ls -l {} \;
+          find dl -size -1024c -exec rm -f {} \;
+
+      - name: 编译固件
+        id: compile
+        run: |
+          cd openwrt
+          echo "$(nproc) 线程编译开始: $(date)"
+          make -j$(nproc) || make -j1 || make -j1 V=s
+          echo "status=success" >> $GITHUB_OUTPUT
+          df -hT
+
+      - name: SSH 调试会话 (仅失败且手动开启时)
+        if: failure() && github.event_name == 'workflow_dispatch' && inputs.debug_ssh
+        uses: mxschmitt/action-tmate@v3
+
+      - name: 整理固件文件
+        id: organize
+        if: steps.compile.outputs.status == 'success'
+        run: |
+          cd openwrt/bin/targets/*/*
+          rm -rf packages
+          echo "FIRMWARE=$PWD" >> $GITHUB_ENV
+          echo "===== 固件产物 ====="
+          ls -lh
+          echo "status=success" >> $GITHUB_OUTPUT
+
+      - name: 上传固件到 Artifacts
+        uses: actions/upload-artifact@v4
+        if: steps.organize.outputs.status == 'success'
+        with:
+          name: OpenWrt_BPI-R4_firmware
+          path: ${{ env.FIRMWARE }}
+
+      - name: 生成 Release 信息
+        id: tag
+        if: steps.organize.outputs.status == 'success'
+        run: |
+          echo "release_tag=BPI-R4_$(date +"%Y.%m.%d-%H%M")" >> $GITHUB_OUTPUT
+          touch release.txt
+          echo "## BPI-R4 固件 (ImmortalWrt 25.12 + MTK Feeds)" >> release.txt
+          echo "" >> release.txt
+          echo "**源码版本**: \`${{ needs.toolchain.outputs.source_sha }}\`" >> release.txt
+          echo "**编译时间**: $(date +"%Y-%m-%d %H:%M") CST" >> release.txt
+          echo "**内置插件**: Passwall (Xray / sing-box / Hysteria2)、中文 LuCI" >> release.txt
+          echo "" >> release.txt
+          echo "### 固件文件说明" >> release.txt
+          echo "| 文件 | 用途 |" >> release.txt
+          echo "|---|---|" >> release.txt
+          echo "| \`*-sdcard.img.gz\` | 写入 SD 卡直接启动（首次安装推荐） |" >> release.txt
+          echo "| \`*-sysupgrade.itb\` | 已装系统的在线升级（LuCI/命令行） |" >> release.txt
+          echo "| \`*-initramfs-recovery.itb\` | 恢复模式镜像 |" >> release.txt
+          echo "| \`*-emmc-preloader.bin\` + \`*-emmc-bl31-uboot.fip\` | eMMC 引导写入 |" >> release.txt
+          echo "| \`*-snand-preloader.bin\` + \`*-snand-bl31-uboot.fip\` | SPI NAND 引导写入 |" >> release.txt
+          echo "" >> release.txt
+          echo "> 默认 IP: 192.168.1.1，账号 root / 无密码" >> release.txt
+
+      - name: 发布固件到 Release
+        uses: softprops/action-gh-release@v2
+        if: steps.tag.outputs.status == 'success'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.tag.outputs.release_tag }}
+          body_path: release.txt
+          files: ${{ env.FIRMWARE }}/*
+
+      - name: 清理旧的 workflow 记录
+        uses: Mattraks/delete-workflow-runs@main
+        if: steps.compile.outputs.status == 'success'
+        with:
+          retain_days: 0
+          keep_minimum_runs: 4
+
+      - name: 清理旧的 Releases (保留最近 4 个)
+        uses: dev-drprasad/delete-older-releases@master
+        if: steps.compile.outputs.status == 'success'
+        with:
+          keep_latest: 4
+          delete_tags: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
