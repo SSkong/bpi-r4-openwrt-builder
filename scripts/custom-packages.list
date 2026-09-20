@@ -1,0 +1,31 @@
+# ============================================================
+# 自定义包清单（每行一个包名，# 开头为注释）
+#
+# 用途：编译前由 scripts/verify-custom-packages.sh 自动校验
+#   1) 包已被扫描发现（git clone 成功）
+#   2) 生效来源为 package/custom/（防止被 feeds 同名包顶替）
+#      —— 当 feeds 中存在同名包时，OpenWrt 规则使 package/custom/
+#         版本自动顶替 feeds 版；本校验防止上游机制变化导致静默降级
+#   3) 包已选入最终固件配置（.config）
+#
+# 添加新自定义包的标准三步：
+#   ① scripts/diy-part1.sh 增加一行 git clone（到 package/custom/）
+#   ② config/bpi-r4.config 增加 CONFIG_PACKAGE_<包名>=y
+#   ③ 本清单增加一行包名
+#
+# 如何查询 feeds 中是否有同名包（决定是否必须走第③步）：
+#   ./scripts/feeds search <包名>
+#   —— 建议所有 git clone 的包都加入本清单，校验永远有益无害
+# ============================================================
+luci-app-honk
+honk
+luci-app-oxidns
+luci-app-netmonitor
+luci-app-trafficctl
+luci-app-adguardhome
+luci-app-hw-dashboard
+# 中文翻译包（同样来自 package/custom/，一并纳入校验）
+luci-i18n-honk-zh-cn
+luci-i18n-oxidns-zh-cn
+luci-i18n-netmonitor-zh-cn
+luci-i18n-adguardhome-zh-cn

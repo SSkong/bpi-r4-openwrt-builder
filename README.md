@@ -3,10 +3,10 @@ AIGC:
   ContentProducer: '001191110102MAD55U9H0F10002'
   ContentPropagator: '001191110102MAD55U9H0F10002'
   Label: '1'
-  ProduceID: '71a0065c-fe43-41fa-9e28-bbb91b6aa463'
-  PropagateID: '71a0065c-fe43-41fa-9e28-bbb91b6aa463'
-  ReservedCode1: '6e2c0ba6-9a8e-4803-9ecf-5930cb27dbad'
-  ReservedCode2: '6e2c0ba6-9a8e-4803-9ecf-5930cb27dbad'
+  ProduceID: '25cf1a6c-dc40-4810-a793-7478ccfd6c02'
+  PropagateID: '25cf1a6c-dc40-4810-a793-7478ccfd6c02'
+  ReservedCode1: '9ac5c194-7786-4133-8c90-33569720873a'
+  ReservedCode2: '9ac5c194-7786-4133-8c90-33569720873a'
 ---
 
 # BPI-R4 OpenWrt 自动编译
@@ -51,6 +51,20 @@ AIGC:
 | luci-app-hw-dashboard | 硬件信息仪表盘 | [AliLostInTheDark/luci-app-hw-dashboard](https://github.com/AliLostInTheDark/luci-app-hw-dashboard) |
 
 > 这些包在每次编译前由 diy-part1.sh 用 `git clone` 下载到源码树 `package/custom/`，OpenWrt 25.12 的包扫描深度为 5 层，整仓库放置即可被自动发现，无需手动移动子目录。
+
+### 如何添加新的自定义包（含替换 feeds 自带包）
+
+**固定三步，替换场景无需任何额外操作：**
+
+1. **克隆**：`scripts/diy-part1.sh` 增加一行 `git clone` 到 `package/custom/`
+2. **启用**：`config/bpi-r4.config` 增加 `CONFIG_PACKAGE_<包名>=y`
+3. **登记**：`scripts/custom-packages.list` 增加一行包名
+
+**关于替换 feeds 自带包：**
+
+- OpenWrt 规则是 `package/` 内置目录**优先于 feeds**——只要 clone 进来的包与 feeds 里的同名（PKG_NAME 相同），feeds install 会自动跳过 feeds 版，你的版本自动顶替生效，**不需要做任何删除操作**
+- 第 3 步的清单会触发 `verify-custom-packages.sh` 在每次编译前校验：包已扫描、来源是 `package/custom/`、已选入固件；若哪天被 feeds 版静默顶替，编译会立即报错而不是悄悄降级
+- 查询某包是否与 feeds 同名（决定是否必须走第 3 步）：源码树内执行 `./scripts/feeds search <包名>`；建议所有 git clone 的包都登记清单，校验永远有益无害
 
 ## 快速开始
 

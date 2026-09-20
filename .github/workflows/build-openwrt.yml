@@ -209,27 +209,17 @@ jobs:
         run: |
           cd openwrt
           make defconfig
-          # 校验关键配置项，防止 feeds 变动/clone 失败导致插件静默丢失
+          # 核心配置校验（目标设备 + Passwall）
           check_config() {
             grep -q "^$1=y" .config || { echo "::error::关键配置缺失: $1"; exit 1; }
           }
           check_config CONFIG_TARGET_mediatek_filogic_DEVICE_bananapi_bpi-r4
           check_config CONFIG_PACKAGE_luci-app-passwall
-          check_config CONFIG_PACKAGE_luci-app-honk
-          check_config CONFIG_PACKAGE_luci-app-oxidns
-          check_config CONFIG_PACKAGE_luci-app-netmonitor
-          check_config CONFIG_PACKAGE_luci-app-trafficctl
-          check_config CONFIG_PACKAGE_luci-app-adguardhome
-          check_config CONFIG_PACKAGE_luci-app-hw-dashboard
           grep -q "^CONFIG_PACKAGE_xray-core=y" .config \
             && echo "✅ Passwall (Xray) 配置校验通过" \
             || echo "::warning::Xray 内核未选中，请检查 passwall feeds 是否更新"
-          # 校验 adguardhome 生效为 package/custom/ 的 terrytyc 版本
-          # （luci feeds 自带同名旧版，OpenWrt 规则内置目录优先于 feeds，此校验防止上游行为变化导致被顶替）
-          grep -B5 "^Package: luci-app-adguardhome$" tmp/.packageinfo 2>/dev/null \
-            | grep -q "Source-Makefile: package/custom/luci-app-adguardhome" \
-            && echo "✅ AdGuard Home 来源校验通过 (terrytyc v3.3.0+，已替换 luci feeds 自带版)" \
-            || { echo "::error::luci-app-adguardhome 未生效为 package/custom/ 版本，疑似被 luci feeds 自带版顶替"; exit 1; }
+          # 自定义包校验（扫描 + 来源防顶替 + 选中），清单: scripts/custom-packages.list
+          bash $GITHUB_WORKSPACE/scripts/verify-custom-packages.sh $GITHUB_WORKSPACE/scripts/custom-packages.list
 
       - name: 上传最终 .config (快照)
         uses: actions/upload-artifact@v4
