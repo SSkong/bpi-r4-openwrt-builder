@@ -224,6 +224,12 @@ jobs:
           grep -q "^CONFIG_PACKAGE_xray-core=y" .config \
             && echo "✅ Passwall (Xray) 配置校验通过" \
             || echo "::warning::Xray 内核未选中，请检查 passwall feeds 是否更新"
+          # 校验 adguardhome 生效为 package/custom/ 的 terrytyc 版本
+          # （luci feeds 自带同名旧版，OpenWrt 规则内置目录优先于 feeds，此校验防止上游行为变化导致被顶替）
+          grep -B5 "^Package: luci-app-adguardhome$" tmp/.packageinfo 2>/dev/null \
+            | grep -q "Source-Makefile: package/custom/luci-app-adguardhome" \
+            && echo "✅ AdGuard Home 来源校验通过 (terrytyc v3.3.0+，已替换 luci feeds 自带版)" \
+            || { echo "::error::luci-app-adguardhome 未生效为 package/custom/ 版本，疑似被 luci feeds 自带版顶替"; exit 1; }
 
       - name: 上传最终 .config (快照)
         uses: actions/upload-artifact@v4

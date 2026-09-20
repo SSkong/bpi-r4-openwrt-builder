@@ -3,10 +3,10 @@ AIGC:
   ContentProducer: '001191110102MAD55U9H0F10002'
   ContentPropagator: '001191110102MAD55U9H0F10002'
   Label: '1'
-  ProduceID: '22ac04bb-0863-45e3-a513-a458a05044e0'
-  PropagateID: '22ac04bb-0863-45e3-a513-a458a05044e0'
-  ReservedCode1: 'cfd9049c-d843-482f-adc6-1450e87f7a2e'
-  ReservedCode2: 'cfd9049c-d843-482f-adc6-1450e87f7a2e'
+  ProduceID: '71a0065c-fe43-41fa-9e28-bbb91b6aa463'
+  PropagateID: '71a0065c-fe43-41fa-9e28-bbb91b6aa463'
+  ReservedCode1: '6e2c0ba6-9a8e-4803-9ecf-5930cb27dbad'
+  ReservedCode2: '6e2c0ba6-9a8e-4803-9ecf-5930cb27dbad'
 ---
 
 # BPI-R4 OpenWrt 自动编译
@@ -47,7 +47,7 @@ AIGC:
 | luci-app-oxidns | OxiDNS DNS 分流 | [hahaher123/luci-app-oxidns](https://github.com/hahaher123/luci-app-oxidns) |
 | luci-app-netmonitor | 网络质量监控（延迟/丢包） | [LianXia233/luci-app-netmonitor](https://github.com/LianXia233/luci-app-netmonitor) |
 | luci-app-trafficctl | 流量控制（限速/整形/断网） | [YusDyr/luci-app-trafficctl](https://github.com/YusDyr/luci-app-trafficctl) |
-| luci-app-adguardhome | AdGuard Home 去广告 | [terrytyc/luci-app-adguardhome](https://github.com/terrytyc/luci-app-adguardhome) |
+| luci-app-adguardhome | AdGuard Home 去广告（**替换 luci feeds 自带旧版**，内置目录优先于 feeds） | [terrytyc/luci-app-adguardhome](https://github.com/terrytyc/luci-app-adguardhome) |
 | luci-app-hw-dashboard | 硬件信息仪表盘 | [AliLostInTheDark/luci-app-hw-dashboard](https://github.com/AliLostInTheDark/luci-app-hw-dashboard) |
 
 > 这些包在每次编译前由 diy-part1.sh 用 `git clone` 下载到源码树 `package/custom/`，OpenWrt 25.12 的包扫描深度为 5 层，整仓库放置即可被自动发现，无需手动移动子目录。
