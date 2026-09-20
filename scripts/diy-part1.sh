@@ -14,8 +14,11 @@ set -e
 # Passwall（默认启用，见 config/bpi-r4.config）
 # openwrt-passwall           提供 luci-app-passwall 界面
 # openwrt-passwall-packages  提供 xray-core / sing-box 等核心依赖
-echo 'src-git passwall_packages https://github.com/Openwrt-Passwall/openwrt-passwall-packages.git;main' >> feeds.conf.default
-echo 'src-git passwall https://github.com/Openwrt-Passwall/openwrt-passwall.git;main' >> feeds.conf.default
+# grep 防重保证脚本幂等（重复执行不会重复追加源）
+grep -qF 'openwrt-passwall-packages.git' feeds.conf.default || \
+  echo 'src-git passwall_packages https://github.com/Openwrt-Passwall/openwrt-passwall-packages.git;main' >> feeds.conf.default
+grep -qF 'Openwrt-Passwall/openwrt-passwall.git' feeds.conf.default || \
+  echo 'src-git passwall https://github.com/Openwrt-Passwall/openwrt-passwall.git;main' >> feeds.conf.default
 
 # ============================================================
 # 二、自定义 LuCI 应用（编译前 git clone 到 package/custom/）
@@ -48,6 +51,11 @@ git clone -q --depth 1 -b main https://github.com/terrytyc/luci-app-adguardhome.
 
 # HW Dashboard 硬件信息仪表盘（根目录即包）
 git clone -q --depth 1 -b main https://github.com/AliLostInTheDark/luci-app-hw-dashboard.git package/custom/luci-app-hw-dashboard
+
+# Node.js 运行时（sbwml 预编译版，同名顶替 packages feeds 官方源码编译版）
+# 构建时直接下载预编译 apk 解压，相比官方源码编译节省 30-60 分钟
+# 注意分支 packages-25.12 与固件源码版本对应，勿随意改动
+git clone -q --depth 1 -b packages-25.12 https://github.com/sbwml/feeds_packages_lang_node.git package/custom/node
 
 # 校验 clone 结果：必须能找到至少一个含 BuildPackage 的包 Makefile
 echo "===== 自定义包 Makefile 扫描结果 ====="

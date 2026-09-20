@@ -3,10 +3,10 @@ AIGC:
   ContentProducer: '001191110102MAD55U9H0F10002'
   ContentPropagator: '001191110102MAD55U9H0F10002'
   Label: '1'
-  ProduceID: '25cf1a6c-dc40-4810-a793-7478ccfd6c02'
-  PropagateID: '25cf1a6c-dc40-4810-a793-7478ccfd6c02'
-  ReservedCode1: '9ac5c194-7786-4133-8c90-33569720873a'
-  ReservedCode2: '9ac5c194-7786-4133-8c90-33569720873a'
+  ProduceID: '7a8c2a46-ebc3-46dc-bfdc-eac500e1b712'
+  PropagateID: '7a8c2a46-ebc3-46dc-bfdc-eac500e1b712'
+  ReservedCode1: '273aefec-d0df-4e1b-9f22-fd0511017ebc'
+  ReservedCode2: '273aefec-d0df-4e1b-9f22-fd0511017ebc'
 ---
 
 # BPI-R4 OpenWrt 自动编译
@@ -49,6 +49,7 @@ AIGC:
 | luci-app-trafficctl | 流量控制（限速/整形/断网） | [YusDyr/luci-app-trafficctl](https://github.com/YusDyr/luci-app-trafficctl) |
 | luci-app-adguardhome | AdGuard Home 去广告（**替换 luci feeds 自带旧版**，内置目录优先于 feeds） | [terrytyc/luci-app-adguardhome](https://github.com/terrytyc/luci-app-adguardhome) |
 | luci-app-hw-dashboard | 硬件信息仪表盘 | [AliLostInTheDark/luci-app-hw-dashboard](https://github.com/AliLostInTheDark/luci-app-hw-dashboard) |
+| node / node-npm | Node.js 运行时（sbwml 预编译版，**替换 packages feeds 官方源码编译版**，构建时下载预编译 apk，节省 30-60 分钟编译时间） | [sbwml/feeds_packages_lang_node](https://github.com/sbwml/feeds_packages_lang_node) |
 
 > 这些包在每次编译前由 diy-part1.sh 用 `git clone` 下载到源码树 `package/custom/`，OpenWrt 25.12 的包扫描深度为 5 层，整仓库放置即可被自动发现，无需手动移动子目录。
 
