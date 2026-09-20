@@ -3,15 +3,15 @@ AIGC:
   ContentProducer: '001191110102MAD55U9H0F10002'
   ContentPropagator: '001191110102MAD55U9H0F10002'
   Label: '1'
-  ProduceID: '1f33d74b-a1ac-4a3e-b027-6a9b2e84b1af'
-  PropagateID: '1f33d74b-a1ac-4a3e-b027-6a9b2e84b1af'
-  ReservedCode1: '2fd87ef6-5225-422a-b96b-d8c81f58880d'
-  ReservedCode2: '2fd87ef6-5225-422a-b96b-d8c81f58880d'
+  ProduceID: '22ac04bb-0863-45e3-a513-a458a05044e0'
+  PropagateID: '22ac04bb-0863-45e3-a513-a458a05044e0'
+  ReservedCode1: 'cfd9049c-d843-482f-adc6-1450e87f7a2e'
+  ReservedCode2: 'cfd9049c-d843-482f-adc6-1450e87f7a2e'
 ---
 
 # BPI-R4 OpenWrt 自动编译
 
-使用 GitHub Actions **定时自动编译** Banana Pi BPI-R4（标准版，MT7988A）的 ImmortalWrt 固件，内置 Passwall 科学上网插件。
+使用 GitHub Actions **定时自动编译** Banana Pi BPI-R4（标准版，MT7988A）的 ImmortalWrt 固件，内置 Passwall 科学上网插件与 6 个自定义 LuCI 应用。
 
 ## 固件信息
 
@@ -20,6 +20,7 @@ AIGC:
 | 硬件平台 | Banana Pi BPI-R4 标准版 (MT7988A / 4GB RAM / 32GB eMMC) |
 | 固件源码 | [chasey-dev/immortalwrt-mt798x-rebase](https://github.com/chasey-dev/immortalwrt-mt798x-rebase) (ImmortalWrt 25.12 + MTK 官方 Feeds，内核 6.12) |
 | 科学上网 | **Passwall** (Xray / sing-box / Hysteria，SSR / Shadowsocks 等全协议) |
+| 自定义插件 | **Honk** 微博客、**OxiDNS** DNS 分流、**NetMonitor** 网络质量监控、**TrafficCtl** 流量控制、**AdGuard Home** 去广告、**HW Dashboard** 硬件仪表盘 |
 | 管理界面 | LuCI 中文 |
 | 默认地址 | `192.168.1.1`，账号 `root`，无密码 |
 | 更新频率 | 每周一北京时间 11:00 自动编译 |
@@ -30,13 +31,26 @@ AIGC:
 ├── .github/workflows/
 │   └── build-openwrt.yml    # 编译工作流（定时 + 手动触发）
 ├── scripts/
-│   ├── diy-part1.sh         # [feeds 阶段] 注入第三方软件源（Passwall 源等）
+│   ├── diy-part1.sh         # [feeds 阶段] 注入 Passwall 源 + git clone 自定义包到 package/custom/
 │   └── diy-part2.sh         # [编译前] 修改默认 IP / 时区 / 版本号等（示例已注释）
 ├── config/
 │   └── bpi-r4.config        # 固件配置种子文件（加/减插件改这里）
 ├── files/                   # 预置配置目录（放入 etc/xxx 会合并进固件）
 └── README.md
 ```
+
+### 自定义 LuCI 应用说明（diy-part1.sh git clone 方式注入）
+
+| 插件 | 功能 | 来源仓库 |
+|---|---|---|
+| luci-app-honk | Honk 微博客（含后端） | [QiuSimons/luci-app-honk](https://github.com/QiuSimons/luci-app-honk) |
+| luci-app-oxidns | OxiDNS DNS 分流 | [hahaher123/luci-app-oxidns](https://github.com/hahaher123/luci-app-oxidns) |
+| luci-app-netmonitor | 网络质量监控（延迟/丢包） | [LianXia233/luci-app-netmonitor](https://github.com/LianXia233/luci-app-netmonitor) |
+| luci-app-trafficctl | 流量控制（限速/整形/断网） | [YusDyr/luci-app-trafficctl](https://github.com/YusDyr/luci-app-trafficctl) |
+| luci-app-adguardhome | AdGuard Home 去广告 | [terrytyc/luci-app-adguardhome](https://github.com/terrytyc/luci-app-adguardhome) |
+| luci-app-hw-dashboard | 硬件信息仪表盘 | [AliLostInTheDark/luci-app-hw-dashboard](https://github.com/AliLostInTheDark/luci-app-hw-dashboard) |
+
+> 这些包在每次编译前由 diy-part1.sh 用 `git clone` 下载到源码树 `package/custom/`，OpenWrt 25.12 的包扫描深度为 5 层，整仓库放置即可被自动发现，无需手动移动子目录。
 
 ## 快速开始
 

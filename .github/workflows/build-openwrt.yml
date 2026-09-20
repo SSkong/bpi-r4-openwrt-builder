@@ -209,12 +209,18 @@ jobs:
         run: |
           cd openwrt
           make defconfig
-          # 校验关键配置项，防止 feeds 变动导致插件静默丢失
+          # 校验关键配置项，防止 feeds 变动/clone 失败导致插件静默丢失
           check_config() {
             grep -q "^$1=y" .config || { echo "::error::关键配置缺失: $1"; exit 1; }
           }
           check_config CONFIG_TARGET_mediatek_filogic_DEVICE_bananapi_bpi-r4
           check_config CONFIG_PACKAGE_luci-app-passwall
+          check_config CONFIG_PACKAGE_luci-app-honk
+          check_config CONFIG_PACKAGE_luci-app-oxidns
+          check_config CONFIG_PACKAGE_luci-app-netmonitor
+          check_config CONFIG_PACKAGE_luci-app-trafficctl
+          check_config CONFIG_PACKAGE_luci-app-adguardhome
+          check_config CONFIG_PACKAGE_luci-app-hw-dashboard
           grep -q "^CONFIG_PACKAGE_xray-core=y" .config \
             && echo "✅ Passwall (Xray) 配置校验通过" \
             || echo "::warning::Xray 内核未选中，请检查 passwall feeds 是否更新"
@@ -273,7 +279,7 @@ jobs:
           echo "" >> release.txt
           echo "**源码版本**: \`${{ needs.toolchain.outputs.source_sha }}\`" >> release.txt
           echo "**编译时间**: $(date +"%Y-%m-%d %H:%M") CST" >> release.txt
-          echo "**内置插件**: Passwall (Xray / sing-box / Hysteria2)、中文 LuCI" >> release.txt
+          echo "**内置插件**: Passwall (Xray/sing-box/Hysteria)、Honk、OxiDNS、NetMonitor、TrafficCtl、AdGuard Home、HW Dashboard、中文 LuCI" >> release.txt
           echo "" >> release.txt
           echo "### 固件文件说明" >> release.txt
           echo "| 文件 | 用途 |" >> release.txt
