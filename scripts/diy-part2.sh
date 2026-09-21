@@ -25,6 +25,18 @@ set -e
 # sed -i "s/DISTRIB_REVISION='.*'/DISTRIB_REVISION='BPI-R4-Custom'/" version.txt 2>/dev/null || true
 
 # ============================================================
+# 上游包兼容性修复（必须保留）
+# ============================================================
+
+# 修复 honk 包的 BTF 依赖死锁：
+#   honk 上游 Makefile 的 choice 中 HONK_USE_KERNEL_BTF 依赖
+#   KERNEL_DEBUG_INFO_BTF（本源码树未暴露该选项，不可见），
+#   Kconfig 被迫选中 HONK_USE_VMLINUX_BTF，进而依赖 vmlinux-btf 包，
+#   而本源码树无 vmlinux-btf 包生成机制 → rootfs 组装 (package/install) 必然失败。
+#   去除该条件依赖项即可；BTF 仅为 honk 的 eBPF 增强功能，主体功能不受影响。
+sed -i 's| +HONK_USE_VMLINUX_BTF:vmlinux-btf||' package/custom/luci-app-honk/honk/Makefile
+
+# ============================================================
 # 编译优化（可选）
 # ============================================================
 

@@ -282,7 +282,6 @@ jobs:
           echo "|---|---|" >> release.txt
           echo "| \`*-sdcard.img.gz\` | 写入 SD 卡直接启动（首次安装推荐） |" >> release.txt
           echo "| \`*-sysupgrade.itb\` | 已装系统的在线升级（LuCI/命令行） |" >> release.txt
-          echo "| \`*-initramfs-recovery.itb\` | 恢复模式镜像 |" >> release.txt
           echo "| \`*-emmc-preloader.bin\` + \`*-emmc-bl31-uboot.fip\` | eMMC 引导写入 |" >> release.txt
           echo "| \`*-snand-preloader.bin\` + \`*-snand-bl31-uboot.fip\` | SPI NAND 引导写入 |" >> release.txt
           echo "" >> release.txt
