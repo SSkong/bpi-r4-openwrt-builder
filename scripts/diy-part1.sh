@@ -34,8 +34,8 @@ grep -qF 'Openwrt-Passwall/openwrt-passwall.git' feeds.conf.default || \
 rm -rf package/custom
 mkdir -p package/custom
 
-# Honk 微博客（luci-app-honk + honk 后端，双包仓库，后端为预编译 aarch64 二进制）
-git clone -q --depth 1 -b master https://github.com/QiuSimons/luci-app-honk.git package/custom/luci-app-honk
+# Honk eBPF 透明代理引擎（498777 fork，luci-app-honk + honk 后端双包，后端为 daeuniverse/honk 预编译二进制）
+git clone -q --depth 1 https://github.com/498777/luci-app-honk.git package/custom/luci-app-honk
 
 # OxiDNS DNS 分流（根目录即包）
 git clone -q --depth 1 -b main https://github.com/hahaher123/luci-app-oxidns.git package/custom/luci-app-oxidns
@@ -102,6 +102,31 @@ git clone -q --depth 1 https://github.com/eamonxg/luci-theme-shadcn.git package/
 git clone -q --depth 1 https://github.com/VizzleTF/luci-theme-footstrap.git package/custom/luci-theme-footstrap
 git clone -q --depth 1 https://github.com/LazuliKao/luci-theme-fluent.git package/custom/luci-theme-fluent
 git clone -q --depth 1 https://github.com/OnyxAxisOwO/Obsidian-Theme.git package/custom/Obsidian-Theme
+
+# ============================================================
+# 四、第三批自定义包（11 个仓库）
+# ============================================================
+
+# --- 带宽监控 / 应用过滤 ---
+git clone -q --depth 1 https://github.com/timsaya/luci-app-bandix.git package/custom/luci-app-bandix
+git clone -q --depth 1 https://github.com/timsaya/openwrt-bandix.git package/custom/openwrt-bandix
+git clone -q --depth 1 https://github.com/destan19/OpenAppFilter.git package/custom/OpenAppFilter
+
+# --- 时间控制 / 分区扩展 / 任务计划 ---
+git clone -q --depth 1 https://github.com/sirpdboy/luci-app-timecontrol.git package/custom/luci-app-timecontrol
+git clone -q --depth 1 https://github.com/sirpdboy/luci-app-partexp.git package/custom/luci-app-partexp
+git clone -q --depth 1 https://github.com/sirpdboy/luci-app-taskplan.git package/custom/luci-app-taskplan
+
+# --- NAT 映射 / STUN 打洞 ---
+git clone -q --depth 1 https://github.com/muink/luci-app-natmapt.git package/custom/luci-app-natmapt
+git clone -q --depth 1 https://github.com/muink/openwrt-natmapt.git package/custom/openwrt-natmapt
+git clone -q --depth 1 https://github.com/muink/openwrt-stuntman.git package/custom/openwrt-stuntman
+
+# --- eBPF 透明代理 ---
+git clone -q --depth 1 https://github.com/498777/luci-app-dae.git package/custom/luci-app-dae
+
+# --- 文件管理 ---
+git clone -q --depth 1 https://github.com/whzhni1/luci-app-harbor-file-pro.git package/custom/luci-app-harbor-file-pro
 
 # 校验 clone 结果：必须能找到至少一个含 BuildPackage 的包 Makefile
 echo "===== 自定义包 Makefile 扫描结果 ====="

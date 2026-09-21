@@ -28,13 +28,21 @@ set -e
 # 上游包兼容性修复（必须保留）
 # ============================================================
 
-# 修复 honk 包的 BTF 依赖死锁：
-#   honk 上游 Makefile 的 choice 中 HONK_USE_KERNEL_BTF 依赖
-#   KERNEL_DEBUG_INFO_BTF（本源码树未暴露该选项，不可见），
-#   Kconfig 被迫选中 HONK_USE_VMLINUX_BTF，进而依赖 vmlinux-btf 包，
-#   而本源码树无 vmlinux-btf 包生成机制 → rootfs 组装 (package/install) 必然失败。
-#   去除该条件依赖项即可；BTF 仅为 honk 的 eBPF 增强功能，主体功能不受影响。
-sed -i 's| +HONK_USE_VMLINUX_BTF:vmlinux-btf||' package/custom/luci-app-honk/honk/Makefile
+# dae 预编译二进制下载：
+#   498777/luci-app-dae 仓库不含预编译二进制（files/prebuilt/aarch64/dae），
+#   需从 daeuniverse/dae release 下载 aarch64 静态二进制并放入对应目录。
+#   make download 不处理这种"非标准 PKG_SOURCE 的预置文件"。
+DAE_VER=$(grep 'DAE_RELEASE:=' package/custom/luci-app-dae/dae/Makefile 2>/dev/null | sed "s/.*:=//; s/ //g")
+if [ -n "$DAE_VER" ] && [ ! -f "package/custom/luci-app-dae/dae/files/prebuilt/aarch64/dae" ]; then
+  echo "📥 下载 dae 预编译二进制 ($DAE_VER aarch64)..."
+  mkdir -p package/custom/luci-app-dae/dae/files/prebuilt/aarch64
+  wget -q "https://github.com/daeuniverse/dae/releases/download/${DAE_VER}/dae-linux-arm64.tar.xz" -O /tmp/dae-arm64.tar.xz \
+    && tar -xf /tmp/dae-arm64.tar.xz -C /tmp/ --strip-components=1 \
+    && mv /tmp/usr/bin/dae package/custom/luci-app-dae/dae/files/prebuilt/aarch64/dae \
+    && rm -f /tmp/dae-arm64.tar.xz && rm -rf /tmp/usr \
+    && echo "✅ dae 二进制就位" \
+    || { echo "❌ dae 二进制下载失败"; rm -f /tmp/dae-arm64.tar.xz; }
+fi
 
 # 修复 luci-theme-graphite / luci-app-graphite / Obsidian-Theme 的 luci.mk include 路径：
 #   这三个仓库原始 Makefile 用 `include ../../luci.mk`（假设在 feeds/luci/applications/ 深度），
@@ -49,6 +57,14 @@ done
 #   luci feeds 自带 luci-theme-footstrap，feeds install 检测到 custom 同名后应跳过，
 #   但如果 feeds 链接已存在（乱序场景），需删除残留让 custom 版胜出。
 rm -f package/feeds/luci/luci-theme-footstrap
+
+# 删除 feeds 中与 custom 同名包的残留链接（防止 feeds 版顶替 custom 版）：
+#   ImmortalWrt 25.12 feeds 已内置 dae / open-app-filter / luci-app-dae，
+#   feeds install 可能先于 custom 创建链接导致 scan 让 feeds 版胜出。
+#   custom 版优先规则要求 feeds 链接不存在；删除后 defconfig 重新扫描使 custom 版生效。
+rm -f package/feeds/packages/dae
+rm -f package/feeds/packages/open-app-filter
+rm -f package/feeds/luci/luci-app-dae
 
 # ============================================================
 # 编译优化（可选）

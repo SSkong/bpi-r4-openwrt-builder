@@ -68,3 +68,18 @@ luci-theme-footstrap
 luci-theme-fluent
 luci-mod-fluentdashboard
 Obsidian-Theme
+# 第三批自定义包（11 个仓库）
+luci-app-bandix
+bandix
+kmod-oaf
+appfilter
+luci-app-oaf
+luci-app-timecontrol
+luci-app-partexp
+luci-app-taskplan
+natmapt
+stuntman-server
+luci-app-natmapt
+dae
+luci-app-dae
+luci-app-harbor-file-pro
