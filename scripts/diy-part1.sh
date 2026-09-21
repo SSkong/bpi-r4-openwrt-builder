@@ -57,6 +57,52 @@ git clone -q --depth 1 -b main https://github.com/AliLostInTheDark/luci-app-hw-d
 # 注意分支 packages-25.12 与固件源码版本对应，勿随意改动
 git clone -q --depth 1 -b packages-25.12 https://github.com/sbwml/feeds_packages_lang_node.git package/custom/node
 
+# ============================================================
+# 三、第二批自定义包（28 个仓库，41 个包）
+# ============================================================
+
+# --- QoS / 流量管理 ---
+git clone -q --depth 1 https://github.com/hudra0/qosmate.git package/custom/qosmate
+git clone -q --depth 1 https://github.com/hudra0/luci-app-qosmate.git package/custom/luci-app-qosmate
+
+# --- 网络工具 ---
+git clone -q --depth 1 https://github.com/sbwml/luci-app-openlist2.git package/custom/luci-app-openlist2
+git clone -q --depth 1 https://github.com/muink/luci-app-alwaysonline.git package/custom/luci-app-alwaysonline
+git clone -q --depth 1 https://github.com/muink/openwrt-alwaysonline.git package/custom/openwrt-alwaysonline
+git clone -q --depth 1 https://github.com/muink/luci-app-change-mac.git package/custom/luci-app-change-mac
+git clone -q --depth 1 https://github.com/muink/openwrt-rgmac.git package/custom/openwrt-rgmac
+
+# --- 系统监控 ---
+git clone -q --depth 1 https://github.com/gSpotx2f/luci-app-cpu-status.git package/custom/luci-app-cpu-status
+git clone -q --depth 1 https://github.com/gSpotx2f/luci-app-internet-detector.git package/custom/luci-app-internet-detector
+git clone -q --depth 1 https://github.com/gSpotx2f/luci-app-log.git package/custom/luci-app-log
+git clone -q --depth 1 https://github.com/gSpotx2f/luci-app-temp-status.git package/custom/luci-app-temp-status
+git clone -q --depth 1 https://github.com/sirpdboy/luci-app-watchdog.git package/custom/luci-app-watchdog
+
+# --- 磁盘 / 风扇 / 硬件管理 ---
+git clone -q --depth 1 https://github.com/4IceG/luci-app-mini-diskmanager.git package/custom/luci-app-mini-diskmanager
+git clone -q --depth 1 https://github.com/bigmalloy/luci-app-fancontrol.git package/custom/luci-app-fancontrol
+
+# --- 组网 / 代理 ---
+git clone -q --depth 1 https://github.com/EasyTier/luci-app-easytier.git package/custom/luci-app-easytier
+git clone -q --depth 1 https://github.com/fcshark-org/openwrt-fchomo.git package/custom/openwrt-fchomo
+git clone -q --depth 1 https://github.com/stevenjoezhang/luci-app-cloudflarespeedtest.git package/custom/luci-app-cloudflarespeedtest
+git clone -q --depth 1 https://github.com/hello-yunshu/luci-app-cloudflare-ip.git package/custom/luci-app-cloudflare-ip
+
+# --- 网络唤醒 ---
+git clone -q --depth 1 https://github.com/isalikai/luci-app-owq-wol.git package/custom/luci-app-owq-wol
+
+# --- LuCI 主题（10 款） ---
+git clone -q --depth 1 https://github.com/Zakkaus/luci-theme-graphite.git package/custom/luci-theme-graphite
+git clone -q --depth 1 https://github.com/Zakkaus/luci-app-graphite.git package/custom/luci-app-graphite
+git clone -q --depth 1 https://github.com/eamonxg/luci-theme-aurora.git package/custom/luci-theme-aurora
+git clone -q --depth 1 https://github.com/eamonxg/luci-app-aurora-config.git package/custom/luci-app-aurora-config
+git clone -q --depth 1 https://github.com/zzsj0928/luci-theme-liquid.git package/custom/luci-theme-liquid
+git clone -q --depth 1 https://github.com/eamonxg/luci-theme-shadcn.git package/custom/luci-theme-shadcn
+git clone -q --depth 1 https://github.com/VizzleTF/luci-theme-footstrap.git package/custom/luci-theme-footstrap
+git clone -q --depth 1 https://github.com/LazuliKao/luci-theme-fluent.git package/custom/luci-theme-fluent
+git clone -q --depth 1 https://github.com/OnyxAxisOwO/Obsidian-Theme.git package/custom/Obsidian-Theme
+
 # 校验 clone 结果：必须能找到至少一个含 BuildPackage 的包 Makefile
 echo "===== 自定义包 Makefile 扫描结果 ====="
 find package/custom -maxdepth 3 -name Makefile -not -path '*/.git/*' \

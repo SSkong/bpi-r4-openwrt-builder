@@ -36,6 +36,20 @@ set -e
 #   去除该条件依赖项即可；BTF 仅为 honk 的 eBPF 增强功能，主体功能不受影响。
 sed -i 's| +HONK_USE_VMLINUX_BTF:vmlinux-btf||' package/custom/luci-app-honk/honk/Makefile
 
+# 修复 luci-theme-graphite / luci-app-graphite / Obsidian-Theme 的 luci.mk include 路径：
+#   这三个仓库原始 Makefile 用 `include ../../luci.mk`（假设在 feeds/luci/applications/ 深度），
+#   放到 package/custom/ 后路径不对，DUMP 静默失败，包不进 Kconfig。
+#   修正为绝对路径 $(TOPDIR)/feeds/luci/luci.mk。
+for pkg in luci-theme-graphite luci-app-graphite Obsidian-Theme; do
+  [ -f "package/custom/$pkg/Makefile" ] && \
+    sed -i 's|include ../../luci\.mk|include $(TOPDIR)/feeds/luci/luci.mk|' "package/custom/$pkg/Makefile"
+done
+
+# 修复 luci-theme-footstrap 被 luci feeds 同名包顶替：
+#   luci feeds 自带 luci-theme-footstrap，feeds install 检测到 custom 同名后应跳过，
+#   但如果 feeds 链接已存在（乱序场景），需删除残留让 custom 版胜出。
+rm -f package/feeds/luci/luci-theme-footstrap
+
 # ============================================================
 # 编译优化（可选）
 # ============================================================
