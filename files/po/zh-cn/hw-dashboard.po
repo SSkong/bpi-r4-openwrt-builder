@@ -1,0 +1,2214 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: zh_CN\n"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:30
+msgid "\"This Network\" Address Space (RFC 1122). Exclusively utilised for local broadcast communications or during initial dynamic address assignment (DHCP discovery)."
+msgstr "\"本网络\"地址空间（RFC 1122）。仅用于本地广播通信或初始动态地址分配（DHCP 发现阶段）。"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:296
+msgid "%.1f%% filesystem used"
+msgstr "文件系统已用 %.1f%%"
+
+#: htdocs/luci-static/resources/hwdash/cpu.js:220
+msgid "%d Cores"
+msgstr "%d 核心"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:72
+msgid "%d bad PEB on UBI"
+msgid_plural "%d bad PEBs on UBI"
+msgstr[0] "UBI 上 %d 个坏 PEB"
+msgstr[1] "UBI 上 %d 个坏 PEB"
+
+#: htdocs/luci-static/resources/hwdash/thermal.js:113
+msgid "%d core / %d package events since boot, %s in total"
+msgstr "启动以来 %d 个核心 / %d 个封装事件，总计 %s"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:38
+msgid "%d core / %d package throttle events since boot"
+msgstr "启动以来 %d 个核心 / %d 个封装降频事件"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:85
+msgid "%d corr"
+msgstr "纠正 %d"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:86
+msgid "%d fail"
+msgstr "失败 %d"
+
+#: htdocs/luci-static/resources/hwdash/ports.js:143
+msgid "%d link flaps"
+msgstr "%d 次链路抖动"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:80
+msgid "%d of %d (%d%%)"
+msgstr "%d / %d（%d%%）"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:78
+msgid "%d of %d (%d%%) — new connections will start being dropped"
+msgstr "%d / %d（%d%%）— 新连接将开始被丢弃"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:94
+msgid "%d out-of-memory kill since boot"
+msgid_plural "%d out-of-memory kills since boot"
+msgstr[0] "启动以来 %d 次 OOM 终止进程"
+msgstr[1] "启动以来 %d 次 OOM 终止进程"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:142
+msgid "%d%% (threshold %d%%)"
+msgstr "%d%%（阈值 %d%%）"
+
+#: htdocs/luci-static/resources/hwdash/wifi.js:144
+msgid "%d%% busy (%d%% tx / %d%% rx)"
+msgstr "占用率 %d%%（发送 %d%% / 接收 %d%%）"
+
+#: htdocs/luci-static/resources/hwdash/wifi.js:79
+msgid "%s (%dx%d MIMO @ %s)"
+msgstr "%s（%dx%d MIMO @ %s）"
+
+#: htdocs/luci-static/resources/hwdash/ping.js:230
+msgid "%s (v%d)"
+msgstr "%s（v%d）"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:425
+#: htdocs/luci-static/resources/hwdash/storage.js:426
+msgid "%s (via %s)"
+msgstr "%s（经由 %s）"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:23
+msgid "%s / %s / %s cycles"
+msgstr "%s / %s / %s 次循环"
+
+#: htdocs/luci-static/resources/hwdash/ports.js:97
+msgid "%s Mbps (%s)"
+msgstr "%s Mbps（%s）"
+
+#: htdocs/luci-static/resources/hwdash/power.js:50
+msgid "%s Power"
+msgstr "%s 功耗"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:31
+msgid "%s at %.1f °C, 90%% of the %d °C trip"
+msgstr "%s 当前 %.1f °C，已达 %d °C 临界值的 90%%"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:29
+msgid "%s at %.1f °C, trip point %d °C"
+msgstr "%s 当前 %.1f °C，临界点 %d °C"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:125
+msgid "%s at %.2f%% uptime over 24h"
+msgstr "%s 在 24 小时内在线率 %.2f%%"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:89
+msgid "%s at %d%% (%s free)"
+msgstr "%s 已用 %d%%（剩余 %s）"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:21
+msgid "%s blocks"
+msgstr "%s 个块"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:149
+msgid "%s h (≈%d days)"
+msgstr "%s 小时（≈%d 天）"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:121
+msgid "%s has been down for %s"
+msgstr "%s 已离线 %s"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:45
+msgid "%s held at cooling step %d of %d"
+msgstr "%s 保持在散热第 %d / %d 级"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:105
+msgid "%s linked at %d Mb/s; both ends support %d Mb/s"
+msgstr "%s 链接速率为 %d Mb/s；两端均支持 %d Mb/s"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:155
+msgid "%s min over warning, %s min over critical"
+msgstr "超过警告 %s 分钟，超过严重 %s 分钟"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:112
+msgid "%s recorded %s — see /sys/fs/pstore"
+msgstr "%s 记录了 %s — 参见 /sys/fs/pstore"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:39
+msgid "%s used, %s free"
+msgstr "已用 %s，剩余 %s"
+
+#: htdocs/luci-static/resources/hwdash/system.js:72
+msgid "%s, %s, %d s timeout"
+msgstr "%s，%s，超时 %d 秒"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:55
+msgid "%s: %d corrected since boot"
+msgstr "%s：启动以来纠正 %d 次"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:53
+msgid "%s: %d fatal, %d non-fatal since boot"
+msgstr "%s：启动以来 %d 次严重错误，%d 次非严重错误"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:296
+msgid "(%dR / %dW) IOPS"
+msgstr "(%d读 / %d写) IOPS"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:243
+msgid "/mnt/usb1/hwdash (leave empty to disable)"
+msgstr "/mnt/usb1/hwdash（留空则禁用）"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:98
+msgid "/tmp at %d%% of its %s limit"
+msgstr "/tmp 已达其 %s 限制的 %d%%"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:46
+msgid "464XLAT (CLAT)"
+msgstr "464XLAT (CLAT)"
+
+#: htdocs/luci-static/resources/hwdash/ping.js:153
+msgid "95th %ile (ms)"
+msgstr "第 95 百分位（毫秒）"
+
+#: htdocs/luci-static/resources/hwdash/ping.js:153
+msgid "95th percentile round-trip delay, nearest-rank (RFC 2330). Requires at least 20 samples."
+msgstr "第 95 百分位往返延迟，最近秩法（RFC 2330）。至少需要 20 个样本。"
+
+#: htdocs/luci-static/resources/hwdash/wan.js:177
+#: htdocs/luci-static/resources/view/status/hw_dash.js:197
+msgid "AP Mode"
+msgstr "AP 模式"
+
+#: htdocs/luci-static/resources/hwdash/wan.js:159
+msgid "AP Uplink"
+msgstr "AP 上行"
+
+#: htdocs/luci-static/resources/hwdash/wan.js:61
+msgid "Active"
+msgstr "活动"
+
+#: htdocs/luci-static/resources/hwdash/cpu.js:140
+msgid "Active Connections"
+msgstr "活动连接数"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:219
+msgid "Add Target"
+msgstr "添加目标"
+
+#: htdocs/luci-static/resources/hwdash/ping.js:211
+msgid "Additional probe targets may be configured under Settings, or in /etc/hwdash-ping.targets on the router."
+msgstr "可在设置或路由器上的 /etc/hwdash-ping.targets 中配置额外的探测目标。"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:60
+msgid "Address and Port-Dependent"
+msgstr "地址和端口相关"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:59
+msgid "Address-Dependent"
+msgstr "地址相关"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:96
+msgid "Address-and-port-dependent mapping (RFC 4787, Section 4.1). A distinct external port is allocated per destination, which prevents inbound connection establishment; the equivalent TCP requirements are given in RFC 5382."
+msgstr "地址和端口相关映射（RFC 4787 第 4.1 节）。每个目标分配不同的外部端口，阻止入站连接建立；等效 TCP 要求见 RFC 5382。"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:135
+#: htdocs/luci-static/resources/view/status/hw_dash.js:194
+msgid "Alerts"
+msgstr "告警"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:224
+msgid "Alias of %s"
+msgstr "%s 的别名"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:435
+msgid "All settings reset to defaults."
+msgstr "所有设置已重置为默认值。"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:403
+msgid "All settings saved."
+msgstr "所有设置已保存。"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:42
+msgid "Already present on the router outside apk."
+msgstr "已存在于路由器上，非 apk 安装。"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:292
+msgid "Already present — not from this package"
+msgstr "已存在 — 非本包安装"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:39
+msgid "Another package job is still running."
+msgstr "另一个包操作仍在进行中。"
+
+#: htdocs/luci-static/resources/hwdash/system.js:56
+msgid "Architecture"
+msgstr "架构"
+
+#: htdocs/luci-static/resources/hwdash/ping.js:152
+msgid "Arithmetic mean round-trip delay over the selected range"
+msgstr "所选范围内的算术平均往返延迟"
+
+#: htdocs/luci-static/resources/hwdash/system.js:78
+msgid "As last reported by the router’s NTP client. HTTPS, encrypted DNS and log timestamps all depend on a correct clock."
+msgstr "路由器 NTP 客户端最后一次报告的时间。HTTPS、加密 DNS 和日志时间戳都依赖正确的时钟。"
+
+#: htdocs/luci-static/resources/hwdash/memory.js:53
+msgid "Available"
+msgstr "可用"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:142
+msgid "Available Spare"
+msgstr "可用备用空间"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:163
+msgid "Backup device failed"
+msgstr "备份设备故障"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:72
+msgid "Bad flash blocks present"
+msgstr "存在坏闪存块"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:28
+msgid "Behind upstream NAT"
+msgstr "在上游 NAT 之后"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:32
+msgid "Benchmarking Address Space (RFC 2544). Officially reserved for network performance testing, yet frequently repurposed by service providers for internal private routing."
+msgstr "基准测试地址空间（RFC 2544）。官方保留用于网络性能测试，但常被运营商用于内部私有路由。"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:29
+msgid "Block %s"
+msgstr "块 %s"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:195
+msgid "Block Size"
+msgstr "块大小"
+
+#: htdocs/luci-static/resources/hwdash/memory.js:60
+msgid "Block-device buffers (Buffers in /proc/meminfo)."
+msgstr "块设备缓冲区（/proc/meminfo 中的 Buffers）。"
+
+#: htdocs/luci-static/resources/hwdash/system.js:64
+msgid "BogoMIPS"
+msgstr "BogoMIPS"
+
+#: htdocs/luci-static/resources/hwdash/memory.js:59
+msgid "Buffers"
+msgstr "缓冲区"
+
+#: htdocs/luci-static/resources/hwdash/system.js:63
+msgid "Byte Order"
+msgstr "字节序"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:26
+msgid "CG-NAT"
+msgstr "CG-NAT"
+
+#: htdocs/luci-static/resources/hwdash/cpu.js:65
+#: htdocs/luci-static/resources/hwdash/thermal.js:113
+#: htdocs/luci-static/resources/view/status/hw_dash.js:194
+msgid "CPU"
+msgstr "CPU"
+
+#: htdocs/luci-static/resources/hwdash/system.js:60
+msgid "CPU Core"
+msgstr "CPU 核心"
+
+#: htdocs/luci-static/resources/hwdash/system.js:66
+msgid "CPU Detail"
+msgstr "CPU 详情"
+
+#: htdocs/luci-static/resources/hwdash/cpu.js:72
+#: htdocs/luci-static/resources/view/status/hw_dash.js:195
+msgid "CPU Detailed Load"
+msgstr "CPU 详细负载"
+
+#: htdocs/luci-static/resources/hwdash/system.js:107
+msgid "CPU Features"
+msgstr "CPU 特性"
+
+#: htdocs/luci-static/resources/hwdash/cpu.js:120
+msgid "CPU Governor"
+msgstr "CPU 调频策略"
+
+#: htdocs/luci-static/resources/hwdash/system.js:113
+msgid "CPU Security"
+msgstr "CPU 安全"
+
+#: htdocs/luci-static/resources/hwdash/system.js:61
+msgid "CPU Vendor"
+msgstr "CPU 厂商"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:32
+msgid "CPU core name on ARM (e.g. Cortex-A73) — the only source for it"
+msgstr "ARM 上的 CPU 核心名称（如 Cortex-A73）— 唯一数据来源"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:38
+msgid "CPU thermal throttling"
+msgstr "CPU 热降频"
+
+#: htdocs/luci-static/resources/hwdash/cpu.js:65
+msgid "CPU usage"
+msgstr "CPU 使用率"
+
+#: htdocs/luci-static/resources/hwdash/thermal.js:75
+msgid "CRIT %d°"
+msgstr "严重 %d°"
+
+#: htdocs/luci-static/resources/hwdash/cpu.js:111
+msgid "Cache"
+msgstr "缓存"
+
+#: htdocs/luci-static/resources/hwdash/memory.js:57
+msgid "Cached"
+msgstr "已缓存"
+
+#: htdocs/luci-static/resources/hwdash/layout.js:101
+msgid "Card width: Small / Half / Full — click to cycle"
+msgstr "卡片宽度：小 / 半 / 全 — 点击切换"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:96
+msgid "Cards not selected here are hidden from the dashboard."
+msgstr "未在此处选中的卡片将从仪表盘隐藏。"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:26
+msgid "Carrier-Grade Network Address Translation (RFC 6598). Ingress traffic is restricted by the service provider; port forwarding and unsolicited inbound connections are unsupported."
+msgstr "运营商级网络地址转换（RFC 6598）。入站流量受运营商限制；不支持端口转发和未经请求的入站连接。"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:81
+msgid "Carrier-Grade Network Address Translation (RFC 6598). The service provider translates this address upstream, so unsolicited inbound IPv4 connections cannot be delivered."
+msgstr "运营商级网络地址转换（RFC 6598）。运营商在上游转换此地址，因此未经请求的入站 IPv4 连接无法到达。"
+
+#: htdocs/luci-static/resources/hwdash/wifi.js:156
+msgid "Channel Load"
+msgstr "信道负载"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:282
+msgid "Checking the egress address… this can still turn out to be NATed."
+msgstr "正在检查出口地址… 结果仍可能为 NAT 转换。"
+
+#: htdocs/luci-static/resources/hwdash/wifi.js:92
+msgid "Chip HW Max"
+msgstr "芯片硬件最大值"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:346
+msgid "Click again to remove"
+msgstr "再次点击以移除"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:425
+msgid "Click again to reset everything"
+msgstr "再次点击以重置全部"
+
+#: htdocs/luci-static/resources/hwdash/system.js:75
+msgid "Clock"
+msgstr "时钟"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:110
+msgid "Clock not synchronised"
+msgstr "时钟未同步"
+
+#: htdocs/luci-static/resources/hwdash/cpu.js:90
+msgid "Clock speed, and this core’s share of received-packet processing (NET_RX) since the last update"
+msgstr "时钟频率及该核心自上次更新以来处理接收数据包（NET_RX）的占比"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:192
+msgid "Close"
+msgstr "关闭"
+
+#: htdocs/luci-static/resources/hwdash/system.js:33
+msgid "Code 0x%s"
+msgstr "代码 0x%s"
+
+#: htdocs/luci-static/resources/hwdash/ports.js:121
+msgid "Combined Throughput:"
+msgstr "合计吞吐量："
+
+#: htdocs/luci-static/resources/hwdash/ports.js:47
+msgid "Combined traffic for every port below, not this link alone — packets routed between two ports both cross it."
+msgstr "下方所有端口的合计流量，非仅本链路 — 两个端口间路由的数据包均经过此链路。"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:196
+msgid "Compressed Size"
+msgstr "压缩大小"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:194
+msgid "Compression"
+msgstr "压缩"
+
+#: htdocs/luci-static/resources/hwdash/memory.js:70
+msgid "Compression: %sx"
+msgstr "压缩率：%s 倍"
+
+#: htdocs/luci-static/resources/hwdash/wifi.js:93
+msgid "Config Max"
+msgstr "配置最大值"
+
+#: htdocs/luci-static/resources/hwdash/clients.js:38
+msgid "Connected"
+msgstr "已连接"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:80
+msgid "Connection table filling"
+msgstr "连接表正在填满"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:78
+msgid "Connection table nearly full"
+msgstr "连接表即将满"
+
+#: htdocs/luci-static/resources/hwdash/cpu.js:136
+msgid "Context Switches / s"
+msgstr "上下文切换 / 秒"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:133
+msgid "Continuous"
+msgstr "持续"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:45
+msgid "Cooling limiting performance"
+msgstr "散热限制性能"
+
+#: htdocs/luci-static/resources/hwdash/cpu.js:89
+msgid "Core %d"
+msgstr "核心 %d"
+
+#: htdocs/luci-static/resources/hwdash/power.js:27
+msgid "Core Power"
+msgstr "核心功耗"
+
+#: htdocs/luci-static/resources/hwdash/cpu.js:110
+msgid "Cores / Threads"
+msgstr "核心 / 线程"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:338
+msgid "Could not read package state from the router."
+msgstr "无法从路由器读取包状态。"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:372
+msgid "Could not read the hardware readout from the router."
+msgstr "无法从路由器读取硬件信息。"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:112
+#: htdocs/luci-static/resources/hwdash/system.js:82
+msgid "Crash"
+msgstr "崩溃"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:117
+msgid "Critical"
+msgstr "严重"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:165
+msgid "Critical Warning"
+msgstr "严重警告"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:29
+msgid "Critical temperature"
+msgstr "临界温度"
+
+#: htdocs/luci-static/resources/hwdash/ping.js:150
+msgid "Current (ms)"
+msgstr "当前（毫秒）"
+
+#: htdocs/luci-static/resources/hwdash/wifi.js:94
+msgid "Current Channel"
+msgstr "当前信道"
+
+#: htdocs/luci-static/resources/hwdash/cpu.js:112
+msgid "Current Freq"
+msgstr "当前频率"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:30
+msgid "Current Network"
+msgstr "当前网络"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:162
+msgid "Custom"
+msgstr "自定义"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:47
+msgid "DHCP client"
+msgstr "DHCP 客户端"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:47
+msgid "DHCPv6 client"
+msgstr "DHCPv6 客户端"
+
+#: htdocs/luci-static/resources/hwdash/power.js:28
+msgid "DRAM Power"
+msgstr "DRAM 功耗"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:159
+msgid "Data Read"
+msgstr "数据读取"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:154
+msgid "Default"
+msgstr "默认"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:158
+msgid "Delegated"
+msgstr "委派"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:377
+msgid "Diagnostics"
+msgstr "诊断"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:258
+msgid "Directory"
+msgstr "目录"
+
+#: htdocs/luci-static/resources/hwdash/memory.js:73
+msgid "Dirty / Writeback"
+msgstr "脏页 / 回写"
+
+#: htdocs/luci-static/resources/hwdash/wifi.js:163
+msgid "Disabled (Regdomain): %s"
+msgstr "已禁用（监管域）：%s"
+
+#: htdocs/luci-static/resources/hwdash/ports.js:97
+msgid "Disconnected"
+msgstr "已断开"
+
+#: htdocs/luci-static/resources/hwdash/wan.js:62
+msgid "Down %s"
+msgstr "离线 %s"
+
+#: htdocs/luci-static/resources/hwdash/wan.js:100
+#: htdocs/luci-static/resources/hwdash/wan.js:139
+msgid "Down / Up Rate"
+msgstr "下行 / 上行速率"
+
+#: htdocs/luci-static/resources/hwdash/wan.js:102
+#: htdocs/luci-static/resources/hwdash/wan.js:141
+msgid "Down 24h"
+msgstr "24h 离线"
+
+#: htdocs/luci-static/resources/hwdash/layout.js:100
+msgid "Drag to reorder"
+msgstr "拖拽以重新排序"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:47
+msgid "Dual-Stack Lite (RFC 6333)"
+msgstr "双栈精简版（RFC 6333）"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:236
+msgid "Dynamic"
+msgstr "动态"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:79
+msgid "ECC Alerts"
+msgstr "ECC 告警"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:78
+msgid "ECC Alerts (+n since %s)"
+msgstr "ECC 告警（自 %s 起 +n）"
+
+#: htdocs/luci-static/resources/hwdash/ports.js:134
+msgid "EEE %s"
+msgstr "节能以太网 %s"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:39
+msgid "Egress Unreachable"
+msgstr "出口不可达"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:58
+msgid "Endpoint-Independent"
+msgstr "端点无关"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:93
+msgid "Endpoint-independent mapping with address-and-port-dependent filtering (RFC 4787, Sections 4.1 and 5). Historically termed a port-restricted cone NAT under RFC 3489."
+msgstr "端点无关映射 + 地址和端口相关过滤（RFC 4787 第 4.1 和 5 节）。在 RFC 3489 中称为端口限制锥形 NAT。"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:95
+msgid "Endpoint-independent mapping with address-dependent filtering (RFC 4787, Sections 4.1 and 5). Historically termed a restricted-cone NAT under RFC 3489."
+msgstr "端点无关映射 + 地址相关过滤（RFC 4787 第 4.1 和 5 节）。在 RFC 3489 中称为限制锥形 NAT。"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:91
+msgid "Endpoint-independent mapping with endpoint-independent filtering (RFC 4787, Sections 4.1 and 5). Historically termed a full-cone NAT under RFC 3489, which RFC 4787 supersedes."
+msgstr "端点无关映射 + 端点无关过滤（RFC 4787 第 4.1 和 5 节）。在 RFC 3489 中称为全锥形 NAT，RFC 4787 已取代该标准。"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:23
+msgid "Erase Count (min / mean / max)"
+msgstr "擦除次数（最小 / 平均 / 最大）"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:158
+msgid "Error Log Entries"
+msgstr "错误日志条目"
+
+#: htdocs/luci-static/resources/hwdash/ports.js:49
+msgid "Errors/Drops:"
+msgstr "错误/丢包："
+
+#: htdocs/luci-static/resources/hwdash/ports.js:81
+msgid "Ethernet"
+msgstr "以太网"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:362
+msgid "Everything here is optional. The dashboard works without them and says so where data is missing — installing one just adds detail to a card."
+msgstr "此处所有内容均为可选。仪表盘在数据缺失时仍可正常工作并予以提示 — 安装这些包只是为卡片增加更多细节。"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:10
+#: htdocs/luci-static/resources/hwdash/storage.js:102
+msgid "Exceeded"
+msgstr "已超限"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:225
+#: htdocs/luci-static/resources/view/status/hw_dash.js:196
+msgid "External Storage"
+msgstr "外部存储"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:100
+msgid "FW Rev / HW Rev"
+msgstr "固件版本 / 硬件版本"
+
+#: htdocs/luci-static/resources/hwdash/ping.js:147
+msgid "Family"
+msgstr "协议族"
+
+#: htdocs/luci-static/resources/hwdash/memory.js:63
+msgid "Files in /tmp are held in RAM: logs, downloads and package caches there take memory from everything else. The second figure is the most /tmp may grow to."
+msgstr "/tmp 中的文件存储在 RAM 中：日志、下载和包缓存会占用其他程序的内存。第二个数字是 /tmp 可增长的上限。"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:88
+msgid "Filesystem almost full"
+msgstr "文件系统即将满"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:88
+msgid "Filesystem filling up"
+msgstr "文件系统正在填满"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:137
+msgid "Filtering"
+msgstr "过滤"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:129
+msgid "Firmware"
+msgstr "固件"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:66
+msgid "Flash bitflips accumulating"
+msgstr "闪存位翻转累积"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:440
+msgid "Format:"
+msgstr "格式："
+
+#: htdocs/luci-static/resources/hwdash/memory.js:55
+msgid "Free"
+msgstr "空闲"
+
+#: htdocs/luci-static/resources/hwdash/cpu.js:80
+msgid "Frequency Residency (since boot)"
+msgstr "频率驻留（启动以来）"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:50
+msgid "GRE over IPv6"
+msgstr "IPv6 上的 GRE"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:51
+msgid "GRETAP over IPv6"
+msgstr "IPv6 上的 GRETAP"
+
+#: htdocs/luci-static/resources/hwdash/wan.js:165
+msgid "GW %s"
+msgstr "网关 %s"
+
+#: htdocs/luci-static/resources/hwdash/ping.js:276
+#: htdocs/luci-static/resources/hwdash/ping.js:283
+#: htdocs/luci-static/resources/hwdash/settings.js:156
+msgid "Gateway"
+msgstr "网关"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:156
+msgid "Gateway (auto-detected)"
+msgstr "网关（自动检测）"
+
+#: htdocs/luci-static/resources/hwdash/wan.js:138
+msgid "Gateway Ping"
+msgstr "网关 Ping"
+
+#: htdocs/luci-static/resources/hwdash/ping.js:230
+msgid "Gateway v%d"
+msgstr "网关 v%d"
+
+#: htdocs/luci-static/resources/hwdash/ping.js:256
+msgid "Gateway v6"
+msgstr "网关 v6"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:36
+msgid "Globally Routable IPv6 Address Space (RFC 4291). Provides direct, end-to-end Internet reachability without intermediary address translation."
+msgstr "全球可路由 IPv6 地址空间（RFC 4291）。提供直接的端到端互联网可达性，无需中间地址转换。"
+
+#: root/usr/share/rpcd/acl.d/luci-app-hardware-dashboard.json:3
+msgid "Grant access to Hardware Dashboard"
+msgstr "授予硬件仪表盘访问权限"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:319
+msgid "Green means installed."
+msgstr "绿色表示已安装。"
+
+#: htdocs/luci-static/resources/view/status/hw_dash.js:149
+msgid "HIDE GRAPH"
+msgstr "隐藏图表"
+
+#: htdocs/luci-static/resources/hwdash/wifi.js:91
+msgid "HW Mode(s)"
+msgstr "硬件模式"
+
+#: root/usr/share/luci/menu.d/luci-app-hardware-dashboard.json:3
+msgid "Hardware Dashboard"
+msgstr "硬件仪表盘"
+
+#: htdocs/luci-static/resources/hwdash/cpu.js:137
+msgid "Hardware Interrupts / s"
+msgstr "硬件中断 / 秒"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:117
+msgid "Healthy"
+msgstr "健康"
+
+#: htdocs/luci-static/resources/hwdash/thermal.js:123
+msgid "Held at cooling step %d of %d"
+msgstr "保持在散热第 %d / %d 级"
+
+#: htdocs/luci-static/resources/hwdash/ping.js:154
+msgid "Highest round-trip delay observed in the selected range"
+msgstr "所选范围内观测到的最高往返延迟"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:160
+msgid "Host Read / Write Commands"
+msgstr "主机读 / 写命令"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:188
+msgid "Host name or IP address (for example, quad9.net)"
+msgstr "主机名或 IP 地址（例如 quad9.net）"
+
+#: htdocs/luci-static/resources/hwdash/system.js:54
+msgid "Hostname"
+msgstr "主机名"
+
+#: htdocs/luci-static/resources/hwdash/cpu.js:227
+msgid "I/O Wait"
+msgstr "I/O 等待"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:31
+msgid "IETF Protocol Assignments (RFC 6890). Designated for specialised networking protocols, frequently deployed for Dual-Stack Lite (DS-Lite) IPv4-in-IPv6 tunneling."
+msgstr "IETF 协议分配地址（RFC 6890）。专用于特殊网络协议，常用于双栈精简版（DS-Lite）IPv4-in-IPv6 隧道。"
+
+#: htdocs/luci-static/resources/hwdash/wan.js:169
+msgid "INET %s"
+msgstr "INET %s"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:434
+msgid "IOPS:"
+msgstr "IOPS："
+
+#: htdocs/luci-static/resources/hwdash/ping.js:149
+msgid "IP Address"
+msgstr "IP 地址"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:231
+msgid "IP or domain (e.g. 1.1.1.1 or dns.google)"
+msgstr "IP 或域名（如 1.1.1.1 或 dns.google）"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:232
+msgid "IP or domain (e.g. 2606:4700:4700::1111)"
+msgstr "IP 或域名（如 2606:4700:4700::1111）"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:203
+msgid "IPv4 NAT Behaviour (RFC 4787)"
+msgstr "IPv4 NAT 行为（RFC 4787）"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:236
+msgid "IPv4 Quality Target"
+msgstr "IPv4 探测目标"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:47
+msgid "IPv4 over IPv6 (RFC 2473)"
+msgstr "IPv6 上的 IPv4（RFC 2473）"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:237
+msgid "IPv6 Quality Target"
+msgstr "IPv6 探测目标"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:277
+msgid "IPv6 link-local"
+msgstr "IPv6 链路本地地址"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:46
+msgid "IPv6-in-IPv4 (RFC 4213)"
+msgstr "IPv4 上的 IPv6（RFC 4213）"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:46
+msgid "IPv6-over-IPv4 (6rd)"
+msgstr "IPv4 上的 IPv6 (6rd)"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:46
+msgid "IPv6-over-IPv4 (6to4)"
+msgstr "IPv4 上的 IPv6 (6to4)"
+
+#: htdocs/luci-static/resources/hwdash/cpu.js:228
+msgid "IRQ"
+msgstr "IRQ"
+
+#: htdocs/luci-static/resources/hwdash/system.js:59
+msgid "ISA"
+msgstr "指令集架构"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:32
+msgid "ISP Private Routing"
+msgstr "运营商私有路由"
+
+#: htdocs/luci-static/resources/hwdash/cpu.js:223
+msgid "Idle"
+msgstr "空闲"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:312
+msgid "Inodes Used"
+msgstr "已用 Inode"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:313
+msgid "Install"
+msgstr "安装"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:304
+msgid "Install failed"
+msgstr "安装失败"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:179
+msgid "Install stuntman-client (Settings → Optional Packages) to test your NAT type."
+msgstr "安装 stuntman-client（设置 → 可选包）以测试您的 NAT 类型。"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:252
+msgid "Install stuntman-client to enable on-demand STUN NAT type testing."
+msgstr "安装 stuntman-client 以启用按需 STUN NAT 类型测试。"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:286
+msgid "Installed"
+msgstr "已安装"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:319
+msgid "Installed from this router’s own apk feeds"
+msgstr "已从本路由器的 apk 源安装"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:288
+#: htdocs/luci-static/resources/hwdash/settings.js:349
+msgid "Installing…"
+msgstr "正在安装…"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:188
+msgid "Interface %s is being probed using the STUN behaviour discovery procedure (RFC 5780), which determines the IPv4 mapping and filtering behaviour of the address translation on this link as classified by RFC 4787."
+msgstr "正在使用 STUN 行为发现程序（RFC 5780）探测接口 %s，该程序确定此链路上地址转换的 IPv4 映射和过滤行为（RFC 4787 分类）。"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:223
+#: htdocs/luci-static/resources/view/status/hw_dash.js:196
+msgid "Internal Storage"
+msgstr "内部存储"
+
+#: htdocs/luci-static/resources/hwdash/ping.js:147
+msgid "Internet Protocol version used for this probe"
+msgstr "此探测使用的互联网协议版本"
+
+#: htdocs/luci-static/resources/hwdash/ping.js:155
+msgid "Jitter (ms)"
+msgstr "抖动（毫秒）"
+
+#: htdocs/luci-static/resources/hwdash/system.js:55
+msgid "Kernel"
+msgstr "内核"
+
+#: htdocs/luci-static/resources/hwdash/system.js:81
+msgid "Kernel Crash Log"
+msgstr "内核崩溃日志"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:112
+msgid "Kernel crash log saved"
+msgstr "内核崩溃日志已保存"
+
+#: htdocs/luci-static/resources/hwdash/system.js:91
+msgid "L0 Cache"
+msgstr "L0 缓存"
+
+#: htdocs/luci-static/resources/hwdash/system.js:96
+msgid "L1 Cache"
+msgstr "L1 缓存"
+
+#: htdocs/luci-static/resources/hwdash/system.js:98
+msgid "L2 Cache"
+msgstr "L2 缓存"
+
+#: htdocs/luci-static/resources/hwdash/system.js:99
+msgid "L3 Cache"
+msgstr "L3 缓存"
+
+#: htdocs/luci-static/resources/hwdash/system.js:100
+msgid "L4 Cache"
+msgstr "L4 缓存"
+
+#: htdocs/luci-static/resources/hwdash/system.js:69
+msgid "Last Boot"
+msgstr "上次启动"
+
+#: htdocs/luci-static/resources/hwdash/wan.js:99
+msgid "Latency"
+msgstr "延迟"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:107
+msgid "Lifetime"
+msgstr "寿命"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:104
+msgid "Lifetime Type A"
+msgstr "寿命类型 A"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:105
+msgid "Lifetime Type B"
+msgstr "寿命类型 B"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:203
+msgid "Lifetime Written"
+msgstr "已写入寿命"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:37
+msgid "Link-Local Address Space (RFC 3927). Valid exclusively for communication within the local network segment; signifies the absence of a globally routable prefix."
+msgstr "链路本地地址空间（RFC 3927）。仅在本网段内通信有效；表示无全球可路由前缀。"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:37
+msgid "Link-local only"
+msgstr "仅链路本地"
+
+#: htdocs/luci-static/resources/hwdash/ports.js:106
+msgid "Linked at %d Mb/s, but both ends support %d Mb/s — usually a damaged or two-pair cable."
+msgstr "链接速率为 %d Mb/s，但两端均支持 %d Mb/s — 通常是线缆损坏或仅两对线。"
+
+#: htdocs/luci-static/resources/hwdash/cpu.js:117
+msgid "Load Average"
+msgstr "平均负载"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:134
+msgid "Local Address"
+msgstr "本地地址"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:29
+msgid "Localhost (Loopback)"
+msgstr "本地回环"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:29
+msgid "Loopback Address Space (RFC 1122). A virtual interface utilised for routing traffic strictly back to the local host system."
+msgstr "回环地址空间（RFC 1122）。虚拟接口，仅将流量路由回本机。"
+
+#: htdocs/luci-static/resources/hwdash/ping.js:151
+msgid "Lowest round-trip delay observed in the selected range"
+msgstr "所选范围内观测到的最低往返延迟"
+
+#: htdocs/luci-static/resources/hwdash/ports.js:51
+msgid "MAC / MTU:"
+msgstr "MAC / MTU："
+
+#: htdocs/luci-static/resources/hwdash/nat.js:48
+msgid "MAP / LW4over6"
+msgstr "MAP / LW4over6"
+
+#: htdocs/luci-static/resources/hwdash/wan.js:166
+msgid "MGMT %s"
+msgstr "管理 %s"
+
+#: htdocs/luci-static/resources/hwdash/wifi.js:89
+msgid "MIMO / Antennas"
+msgstr "MIMO / 天线"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:93
+msgid "MODERATE · PORT RESTRICTED"
+msgstr "中等 · 端口限制"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:95
+msgid "MODERATE · RESTRICTED CONE"
+msgstr "中等 · 限制锥形"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:65
+msgid "MTD Partition Table"
+msgstr "MTD 分区表"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:362
+msgid "MTD Partitions"
+msgstr "MTD 分区"
+
+#: htdocs/luci-static/resources/hwdash/system.js:87
+msgid "Machine"
+msgstr "机型"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:98
+msgid "Manufacturer"
+msgstr "制造商"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:136
+msgid "Mapping"
+msgstr "映射"
+
+#: htdocs/luci-static/resources/hwdash/wifi.js:97
+msgid "Max Channel Width"
+msgstr "最大信道宽度"
+
+#: htdocs/luci-static/resources/hwdash/cpu.js:113
+msgid "Max Freq"
+msgstr "最大频率"
+
+#: htdocs/luci-static/resources/hwdash/ports.js:175
+msgid "Max Speed:"
+msgstr "最大速度："
+
+#: htdocs/luci-static/resources/hwdash/wifi.js:98
+msgid "Max TX Power"
+msgstr "最大发射功率"
+
+#: htdocs/luci-static/resources/hwdash/ping.js:154
+msgid "Maximum (ms)"
+msgstr "最大值（毫秒）"
+
+#: htdocs/luci-static/resources/hwdash/ping.js:152
+msgid "Mean (ms)"
+msgstr "平均值（毫秒）"
+
+#: htdocs/luci-static/resources/hwdash/ping.js:155
+msgid "Mean absolute difference between consecutive round-trip samples (cf. RFC 3393)"
+msgstr "连续往返样本之间的平均绝对差（参见 RFC 3393）"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:152
+msgid "Media Errors"
+msgstr "介质错误"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:163
+msgid "Media read-only"
+msgstr "介质只读"
+
+#: htdocs/luci-static/resources/hwdash/memory.js:54
+msgid "MemAvailable: what programs can still claim without swapping, including cache the kernel can drop. LuCI shows this as Total Available."
+msgstr "MemAvailable：程序无需交换即可申请的内存，包括内核可释放的缓存。LuCI 将其显示为总可用量。"
+
+#: htdocs/luci-static/resources/hwdash/memory.js:56
+msgid "MemFree: RAM holding nothing at all. A low figure is normal — Linux fills idle RAM with cache, which counts towards Available instead."
+msgstr "MemFree：完全空闲的 RAM。低值是正常的 — Linux 会用缓存填满空闲 RAM，这些计入可用量。"
+
+#: htdocs/luci-static/resources/hwdash/memory.js:26
+#: htdocs/luci-static/resources/view/status/hw_dash.js:194
+msgid "Memory"
+msgstr "内存"
+
+#: htdocs/luci-static/resources/hwdash/memory.js:77
+msgid "Memory Pressure (10s)"
+msgstr "内存压力（10秒）"
+
+#: htdocs/luci-static/resources/hwdash/memory.js:43
+msgid "Memory Speed"
+msgstr "内存速度"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:33
+msgid "Memory speed in the Memory card — x86 only"
+msgstr "内存卡片中的内存速度 — 仅 x86"
+
+#: htdocs/luci-static/resources/hwdash/memory.js:26
+msgid "Memory usage"
+msgstr "内存使用率"
+
+#: htdocs/luci-static/resources/hwdash/ports.js:63
+msgid "Min Speed:"
+msgstr "最小速度："
+
+#: htdocs/luci-static/resources/hwdash/ping.js:151
+msgid "Minimum (ms)"
+msgstr "最小值（毫秒）"
+
+#: htdocs/luci-static/resources/hwdash/system.js:116
+msgid "Mitigated"
+msgstr "已缓解"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:452
+msgid "Model:"
+msgstr "型号："
+
+#: htdocs/luci-static/resources/hwdash/ping.js:150
+msgid "Most recent round-trip delay (RFC 2681)"
+msgstr "最近的往返延迟（RFC 2681）"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:35
+msgid "Motherboard fans, fan duty and voltage rails in Power & Fans — ITE Super I/O, x86 only"
+msgstr "Power & Fans 中的主板风扇、风扇占空比和电压轨 — ITE Super I/O，仅 x86"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:34
+msgid "Motherboard fans, fan duty and voltage rails in Power & Fans — Nuvoton Super I/O, x86 only"
+msgstr "Power & Fans 中的主板风扇、风扇占空比和电压轨 — Nuvoton Super I/O，仅 x86"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:441
+msgid "Mounted:"
+msgstr "已挂载："
+
+#: htdocs/luci-static/resources/hwdash/nat.js:34
+msgid "Multicast Address Space (RFC 1112). Reserved for one-to-many communication flows, predominantly utilised by routing protocols and IPTV distributions."
+msgstr "组播地址空间（RFC 1112）。保留用于一对多通信，主要用于路由协议和 IPTV 分发。"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:34
+msgid "Multicast Network"
+msgstr "组播网络"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:248
+msgid "Must be an absolute path (e.g. /mnt/usb1/hwdash), without a trailing slash."
+msgstr "必须是绝对路径（如 /mnt/usb1/hwdash），末尾不含斜杠。"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:31
+msgid "NAND Geometry"
+msgstr "NAND 几何参数"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:83
+#: htdocs/luci-static/resources/hwdash/nat.js:249
+msgid "NAT TYPE · NOT TESTED"
+msgstr "NAT 类型 · 未测试"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:181
+#: htdocs/luci-static/resources/view/status/hw_dash.js:198
+msgid "NAT Type"
+msgstr "NAT 类型"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:191
+msgid "NAT Type Test · %s"
+msgstr "NAT 类型测试 · %s"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:29
+msgid "NAT Type Test — the STUN probe behind the TEST NAT TYPE button"
+msgstr "NAT 类型测试 — 测试 NAT 类型 按钮背后的 STUN 探测"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:210
+msgid "NAT probe timed out or was interrupted."
+msgstr "NAT 探测超时或被中断。"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:201
+msgid "NAT test could not run: %s."
+msgstr "NAT 测试无法运行：%s。"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:210
+msgid "NAT test error: %s"
+msgstr "NAT 测试错误：%s"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:85
+msgid "NOT AVAILABLE"
+msgstr "不可用"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:87
+msgid "NOT DETERMINED"
+msgstr "无法确定"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:191
+msgid "NVMe Details"
+msgstr "NVMe 详情"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:31
+msgid "NVMe/SATA SMART health: wear, TBW, spare, power-on hours"
+msgstr "NVMe/SATA SMART 健康：磨损、总写入量、备用空间、通电时间"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:190
+msgid "Name (optional, for example Branch Office Router)"
+msgstr "名称（可选，例如分公司路由器）"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:146
+msgid "Namespace Utilization"
+msgstr "命名空间使用率"
+
+#: htdocs/luci-static/resources/hwdash/cpu.js:225
+msgid "Nice"
+msgstr "Nice 优先级"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:423
+msgid "No"
+msgstr "否"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:38
+msgid "No IP address is currently assigned to this logical interface."
+msgstr "当前未为此逻辑接口分配 IP 地址。"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:204
+msgid "No IPv4 address is available on this interface, or its tunnel parent, to test."
+msgstr "此接口或其隧道父接口上没有可用的 IPv4 地址供测试。"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:177
+msgid "No IPv6 WAN interface was detected on this router. These targets are unreachable and will be reported as such."
+msgstr "此路由器上未检测到 IPv6 WAN 接口。这些目标不可达，并将如此报告。"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:251
+msgid "No STUN test has been performed for this interface. Select TEST NAT TYPE to measure the mapping and filtering behaviour of this link (RFC 4787)."
+msgstr "此接口尚未执行 STUN 测试。选择 测试 NAT 类型 以测量此链路的映射和过滤行为（RFC 4787）。"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:57
+msgid "No Translation"
+msgstr "无转换"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:38
+msgid "No address"
+msgstr "无地址"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:89
+msgid "No address translation is present on this link. Traffic is routed directly, providing end-to-end reachability (RFC 4787, Section 4.1)."
+msgstr "此链路上无地址转换。流量直接路由，提供端到端可达性（RFC 4787 第 4.1 节）。"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:83
+msgid "No measurement has been performed. Run an on-demand STUN test (RFC 5780) to determine the mapping and filtering behaviour of this link."
+msgstr "尚未执行任何测量。运行按需 STUN 测试（RFC 5780）以确定此链路的映射和过滤行为。"
+
+#: htdocs/luci-static/resources/hwdash/clients.js:75
+msgid "No stations associated."
+msgstr "无关联的客户端。"
+
+#: htdocs/luci-static/resources/hwdash/wifi.js:157
+msgid "Noise Floor"
+msgstr "底噪"
+
+#: htdocs/luci-static/resources/hwdash/wan.js:167
+msgid "None"
+msgstr "无"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:8
+msgid "Normal"
+msgstr "正常"
+
+#: htdocs/luci-static/resources/hwdash/system.js:34
+msgid "Normal (power-on)"
+msgstr "正常（开机）"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:8
+msgid "Not Defined"
+msgstr "未定义"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:61
+msgid "Not Determined"
+msgstr "无法确定"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:135
+msgid "Not Supported"
+msgstr "不支持"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:298
+msgid "Not available for %s"
+msgstr "对 %s 不可用"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:41
+msgid "Not available for this router."
+msgstr "此路由器不可用。"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:300
+msgid "Not in this router’s package feeds"
+msgstr "不在本路由器的包源中"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:286
+msgid "Not installed"
+msgstr "未安装"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:107
+msgid "Not reported by device"
+msgstr "设备未报告"
+
+#: htdocs/luci-static/resources/hwdash/system.js:76
+msgid "Not synced"
+msgstr "未同步"
+
+#: htdocs/luci-static/resources/hwdash/system.js:116
+msgid "OK"
+msgstr "正常"
+
+#: htdocs/luci-static/resources/hwdash/memory.js:65
+msgid "OOM Kills (since boot)"
+msgstr "OOM 终止进程（启动以来）"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:91
+msgid "OPEN · FULL CONE"
+msgstr "开放 · 全锥形"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:89
+msgid "OPEN · NO TRANSLATION"
+msgstr "开放 · 无转换"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:139
+msgid "Official STUN Server"
+msgstr "官方 STUN 服务器"
+
+#: htdocs/luci-static/resources/hwdash/wan.js:61
+msgid "Offline"
+msgstr "离线"
+
+#: htdocs/luci-static/resources/hwdash/wan.js:129
+msgid "On %s"
+msgstr "在 %s"
+
+#: htdocs/luci-static/resources/hwdash/system.js:62
+msgid "Op Modes"
+msgstr "工作模式"
+
+#: htdocs/luci-static/resources/hwdash/system.js:43
+msgid "OpenWrt Device"
+msgstr "OpenWrt 设备"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:361
+msgid "Optional Packages"
+msgstr "可选包"
+
+#: htdocs/luci-static/resources/hwdash/wifi.js:195
+msgid "Other"
+msgstr "其他"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:40
+msgid "Other installed packages still need it."
+msgstr "其他已安装的包仍需要它。"
+
+#: htdocs/luci-static/resources/hwdash/system.js:32
+msgid "Overheat reset"
+msgstr "过热重置"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:348
+msgid "Overlay Free"
+msgstr "Overlay 剩余"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:346
+msgid "Overlay Total"
+msgstr "Overlay 总量"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:347
+msgid "Overlay Used"
+msgstr "Overlay 已用"
+
+#: htdocs/luci-static/resources/hwdash/thermal.js:74
+msgid "PASS %d°"
+msgstr "通过 %d°"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:55
+msgid "PCIe link errors"
+msgstr "PCIe 链路错误"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:53
+msgid "PCIe uncorrectable errors"
+msgstr "PCIe 不可纠正错误"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:25
+msgid "PEB Status"
+msgstr "PEB 状态"
+
+#: htdocs/luci-static/resources/hwdash/ports.js:50
+msgid "PHY:"
+msgstr "PHY："
+
+#: htdocs/luci-static/resources/hwdash/power.js:25
+msgid "Package Power"
+msgstr "封装功耗"
+
+#: htdocs/luci-static/resources/hwdash/power.js:26
+msgid "Package Power (1)"
+msgstr "封装功耗 (1)"
+
+#: htdocs/luci-static/resources/hwdash/ping.js:156
+msgid "Packet Loss"
+msgstr "丢包率"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:29
+msgid "Page %s"
+msgstr "页 %s"
+
+#: htdocs/luci-static/resources/hwdash/memory.js:58
+msgid "Page cache (Cached in /proc/meminfo), the same figure btop and LuCI show."
+msgstr "页缓存（/proc/meminfo 中的 Cached），与 btop 和 LuCI 显示的数字相同。"
+
+#: htdocs/luci-static/resources/hwdash/cpu.js:83
+#: htdocs/luci-static/resources/view/status/hw_dash.js:195
+msgid "Per-Core Usage"
+msgstr "每核使用率"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:30
+msgid "Per-port negotiated flow control and EEE state in Ports Topology"
+msgstr "端口拓扑中每端口协商的流控和节能以太网状态"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:133
+msgid "Periodic (fstrim)"
+msgstr "周期性 (fstrim)"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:256
+msgid "Persistent Storage Directory"
+msgstr "持久化存储目录"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:354
+msgid "Physical Disk Total"
+msgstr "物理磁盘总量"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:343
+msgid "Physical NAND Total"
+msgstr "物理 NAND 总量"
+
+#: htdocs/luci-static/resources/hwdash/memory.js:41
+msgid "Physical Total"
+msgstr "物理总量"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:352
+msgid "Physical eMMC Total"
+msgstr "物理 eMMC 总量"
+
+#: htdocs/luci-static/resources/hwdash/ping.js:208
+#: htdocs/luci-static/resources/view/status/hw_dash.js:197
+msgid "Ping Latency"
+msgstr "Ping 延迟"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:214
+msgid "Ping Targets"
+msgstr "Ping 目标"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:257
+msgid "Point this at an already-mounted, writable directory — typically on a USB drive — to keep a second copy of the WAN interface list and NAND wear baseline there, and to let the WAN Uptime card’s 24-hour history and any saved NAT type test result survive a real power outage rather than only a graceful reboot. Internal flash keeps its own copy of everything regardless of this setting, so an unplugged or missing drive never breaks the dashboard — it is checked before every write, and anything written here is skipped rather than silently landing back on internal flash. This package does not mount the drive itself."
+msgstr "指向一个已挂载的可写目录 — 通常在 USB 驱动器上 — 用于保存 WAN 接口列表和 NAND 磨损基线的副本，并使 WAN 在线卡片的 24 小时历史记录和已保存的 NAT 类型测试结果在真实断电后仍可保留（而非仅在正常重启时）。无论此设置如何，内部闪存都会保留自己的完整副本，因此拔出或缺少驱动器不会影响仪表盘 — 每次写入前都会检查，写入此处的数据若失败会被跳过而非静默回退到内部闪存。本包不负责挂载驱动器。"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:105
+msgid "Port running below its rated speed"
+msgstr "端口运行速率低于额定值"
+
+#: htdocs/luci-static/resources/hwdash/ports.js:84
+#: htdocs/luci-static/resources/view/status/hw_dash.js:196
+msgid "Ports Topology"
+msgstr "端口拓扑"
+
+#: htdocs/luci-static/resources/hwdash/power.js:22
+#: htdocs/luci-static/resources/view/status/hw_dash.js:195
+msgid "Power & Fans"
+msgstr "电源与风扇"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:150
+msgid "Power Cycles"
+msgstr "开关机次数"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:149
+msgid "Power-On Hours"
+msgstr "通电时间"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:286
+msgid "Present, but not installed with apk"
+msgstr "已存在，但非通过 apk 安装"
+
+#: htdocs/luci-static/resources/hwdash/cpu.js:123
+msgid "Pressure (CPU / IO, 10s)"
+msgstr "压力（CPU / IO，10秒）"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:28
+msgid "Private Address Space (RFC 1918). Non-routable on the public Internet; Network Address Translation (NAT) is actively performed by an upstream gateway."
+msgstr "私有地址空间（RFC 1918）。在公网不可路由；上游网关正在执行网络地址转换（NAT）。"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:175
+msgid "Probe the IPv%d targets below"
+msgstr "探测下方的 IPv%d 目标"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:94
+msgid "Processes killed for lack of memory"
+msgstr "因内存不足被终止的进程"
+
+#: htdocs/luci-static/resources/hwdash/ping.js:156
+msgid "Proportion of ICMP echo requests transmitted for which no reply was received (RFC 7680)"
+msgstr "已发送 ICMP 回显请求中未收到回复的比例（RFC 7680）"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:31
+msgid "Protocol Assignment"
+msgstr "协议分配"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:135
+msgid "Public Egress"
+msgstr "公共出口"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:25
+msgid "Public IPv4"
+msgstr "公共 IPv4"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:36
+msgid "Public IPv6"
+msgstr "公共 IPv6"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:25
+msgid "Publicly routable IPv4 address space. Direct ingress reachability is available; inbound connections and port forwarding operate without hindrance."
+msgstr "公共可路由 IPv4 地址空间。可直接入站访问；入站连接和端口转发无障碍。"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:49
+msgid "QMI Cellular"
+msgstr "QMI 蜂窝网络"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:416
+msgid "R: %d / W: %d"
+msgstr "读：%d / 写：%d"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:415
+msgid "R: %s / W: %s"
+msgstr "读：%s / 写：%s"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:295
+msgid "R: %s | W: %s"
+msgstr "读：%s | 写：%s"
+
+#: htdocs/luci-static/resources/hwdash/memory.js:62
+msgid "RAM Disk (/tmp)"
+msgstr "内存盘 (/tmp)"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:98
+msgid "RAM disk filling up"
+msgstr "内存盘正在填满"
+
+#: htdocs/luci-static/resources/hwdash/cpu.js:94
+msgid "RX %d%%"
+msgstr "接收 %d%%"
+
+#: htdocs/luci-static/resources/hwdash/wifi.js:165
+msgid "Radar Detection (DFS): %s"
+msgstr "雷达检测 (DFS)：%s"
+
+#: htdocs/luci-static/resources/hwdash/wifi.js:99
+msgid "Regulatory Domain"
+msgstr "监管域"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:50
+msgid "Relay bridge"
+msgstr "中继桥接"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:162
+msgid "Reliability degraded"
+msgstr "可靠性下降"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:304
+msgid "Removal failed"
+msgstr "移除失败"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:313
+msgid "Remove"
+msgstr "移除"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:133
+msgid "Remove target"
+msgstr "移除目标"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:288
+#: htdocs/luci-static/resources/hwdash/settings.js:349
+msgid "Removing…"
+msgstr "正在移除…"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:355
+#: htdocs/luci-static/resources/hwdash/settings.js:357
+msgid "Request failed."
+msgstr "请求失败。"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:294
+msgid "Required by %s"
+msgstr "被 %s 依赖"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:35
+msgid "Reserved Address"
+msgstr "保留地址"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:35
+msgid "Reserved Address Space (RFC 1112). Explicitly restricted from deployment within active public routing tables."
+msgstr "保留地址空间（RFC 1112）。明确禁止在活动公共路由表中部署。"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:382
+msgid "Reset"
+msgstr "重置"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:437
+msgid "Reset failed."
+msgstr "重置失败。"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:226
+msgid "Reset to defaults"
+msgstr "重置为默认值"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:428
+msgid "Resetting…"
+msgstr "正在重置…"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:381
+msgid "Revert"
+msgstr "恢复"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:420
+msgid "Revert failed."
+msgstr "恢复失败。"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:417
+msgid "Reverted to saved settings."
+msgstr "已恢复为保存的设置。"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:411
+msgid "Reverting…"
+msgstr "正在恢复…"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:293
+msgid "Root FS"
+msgstr "根文件系统"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:344
+#: htdocs/luci-static/resources/hwdash/storage.js:355
+msgid "Rootfs Total"
+msgstr "根文件系统总量"
+
+#: htdocs/luci-static/resources/hwdash/wan.js:99
+msgid "Round-trip delay of the most recent successful probe (RFC 2681). While a link is failing but not yet declared down, this remains the last good measurement."
+msgstr "最近一次成功探测的往返延迟（RFC 2681）。当链路正在故障但尚未声明离线时，此处保持最后一次良好测量值。"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:26
+msgid "Rsv: %d"
+msgstr "保留：%d"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:189
+msgid "Running NAT type test…"
+msgstr "正在运行 NAT 类型测试…"
+
+#: htdocs/luci-static/resources/hwdash/ports.js:128
+msgid "Rx: %d/%d | Tx: %d/%d"
+msgstr "收：%d/%d | 发：%d/%d"
+
+#: htdocs/luci-static/resources/view/status/hw_dash.js:149
+msgid "SHOW GRAPH"
+msgstr "显示图表"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:81
+msgid "STRICT · CG-NAT"
+msgstr "严格 · CG-NAT"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:96
+msgid "STRICT · SYMMETRIC"
+msgstr "严格 · 对称型"
+
+#: htdocs/luci-static/resources/hwdash/ports.js:44
+msgid "SWITCH UPLINK"
+msgstr "交换机上行"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:380
+msgid "Save"
+msgstr "保存"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:405
+msgid "Save failed — the router rejected the settings (%s). Your changes are still staged here."
+msgstr "保存失败 — 路由器拒绝了设置（%s）。您的更改仍暂存于此。"
+
+#: htdocs/luci-static/resources/hwdash/system.js:84
+msgid "Saved by pstore in /sys/fs/pstore and kept until deleted, so it marks a crash at that time rather than proving the latest boot crashed. Delete the dmesg-* files there once read to clear it."
+msgstr "由 pstore 保存在 /sys/fs/pstore 中，删除前一直保留。它标记的是当时的崩溃，而非证明最近一次启动崩溃。读取后请删除 dmesg-* 文件以清除。"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:377
+msgid "Saves a full hardware readout as JSON"
+msgstr "保存完整硬件信息为 JSON"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:399
+msgid "Saving…"
+msgstr "正在保存…"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:156
+msgid "Seen as"
+msgstr "对外显示为"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:205
+msgid "Segments (Valid/Dirty/Free)"
+msgstr "段（有效/脏/空闲）"
+
+#: htdocs/luci-static/resources/hwdash/graph.js:155
+msgid "Select to show or hide this series"
+msgstr "选择以显示或隐藏此数据系列"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:128
+msgid "Serial"
+msgstr "序列号"
+
+#: htdocs/luci-static/resources/hwdash/clients.js:41
+msgid "Signal"
+msgstr "信号"
+
+#: htdocs/luci-static/resources/hwdash/system.js:86
+msgid "SoC Family"
+msgstr "SoC 系列"
+
+#: htdocs/luci-static/resources/hwdash/system.js:88
+msgid "SoC ID"
+msgstr "SoC ID"
+
+#: htdocs/luci-static/resources/hwdash/system.js:89
+msgid "SoC Revision"
+msgstr "SoC 版本"
+
+#: htdocs/luci-static/resources/hwdash/system.js:90
+msgid "SoC Serial"
+msgstr "SoC 序列号"
+
+#: htdocs/luci-static/resources/hwdash/cpu.js:229
+msgid "Soft IRQ"
+msgstr "软中断"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:162
+msgid "Spare below threshold"
+msgstr "备用空间低于阈值"
+
+#: htdocs/luci-static/resources/hwdash/ports.js:176
+#: htdocs/luci-static/resources/hwdash/storage.js:434
+msgid "Speed:"
+msgstr "速度："
+
+#: htdocs/luci-static/resources/hwdash/storage.js:197
+msgid "SquashFS Root Image"
+msgstr "SquashFS 根镜像"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:236
+msgid "Static"
+msgstr "静态"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:49
+msgid "Static address"
+msgstr "静态地址"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:132
+msgid "Supported (%s granularity)"
+msgstr "支持（%s 粒度）"
+
+#: htdocs/luci-static/resources/hwdash/wifi.js:161
+msgid "Supported Channels:"
+msgstr "支持的信道："
+
+#: htdocs/luci-static/resources/hwdash/memory.js:67
+msgid "Swap"
+msgstr "交换分区"
+
+#: htdocs/luci-static/resources/hwdash/system.js:76
+msgid "Synced"
+msgstr "已同步"
+
+#: htdocs/luci-static/resources/hwdash/system.js:76
+msgid "Synced (stratum %d)"
+msgstr "已同步（stratum %d）"
+
+#: htdocs/luci-static/resources/hwdash/cpu.js:226
+msgid "System"
+msgstr "系统"
+
+#: htdocs/luci-static/resources/hwdash/system.js:129
+#: htdocs/luci-static/resources/view/status/hw_dash.js:194
+msgid "System Info"
+msgstr "系统信息"
+
+#: htdocs/luci-static/resources/hwdash/cpu.js:68
+msgid "System Status"
+msgstr "系统状态"
+
+#: htdocs/luci-static/resources/hwdash/cpu.js:132
+msgid "System Tasks"
+msgstr "系统任务"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:141
+msgid "TBW (Total Bytes Written)"
+msgstr "TBW（总写入量）"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:154
+msgid "TEST NAT TYPE"
+msgstr "测试 NAT 类型"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:33
+msgid "TEST-NET (Doc Only)"
+msgstr "TEST-NET（仅文档）"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:33
+msgid "TEST-NET Documentation Address Space (RFC 5737). Strictly reserved for utilization within technical documentation and example configurations."
+msgstr "TEST-NET 文档地址空间（RFC 5737）。严格保留用于技术文档和示例配置。"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:132
+#: htdocs/luci-static/resources/hwdash/storage.js:135
+msgid "TRIM Support"
+msgstr "TRIM 支持"
+
+#: htdocs/luci-static/resources/hwdash/clients.js:37
+msgid "TX / RX Data"
+msgstr "发送 / 接收数据"
+
+#: htdocs/luci-static/resources/hwdash/clients.js:36
+msgid "TX / RX Rate"
+msgstr "发送 / 接收速率"
+
+#: htdocs/luci-static/resources/hwdash/ping.js:148
+msgid "Target"
+msgstr "目标"
+
+#: htdocs/luci-static/resources/hwdash/cpu.js:114
+msgid "Tasks (Run/Total)"
+msgstr "任务（运行/总数）"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:31
+msgid "Temperature approaching limit"
+msgstr "温度接近极限"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:162
+msgid "Temperature threshold"
+msgstr "温度阈值"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:199
+msgid "The NAT type test is unavailable on this interface."
+msgstr "此接口上 NAT 类型测试不可用。"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:85
+msgid "The STUN server did not complete a binding request (RFC 8489, Section 3), so no behaviour could be determined."
+msgstr "STUN 服务器未完成绑定请求（RFC 8489 第 3 节），无法确定行为。"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:87
+msgid "The STUN server returned an incomplete result. The behaviour discovery procedure defined in RFC 5780 requires responses that this server did not supply."
+msgstr "STUN 服务器返回了不完整结果。RFC 5780 定义的行为发现程序需要此服务器未提供的响应。"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:27
+msgid "The assigned interface address deviates from the observed Internet egress address, indicating active translation by an upstream routing device."
+msgstr "分配的接口地址与观测到的互联网出口地址不同，表明上游路由设备正在执行地址转换。"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:40
+msgid "The classification of this network address cannot be definitively determined."
+msgstr "无法明确确定此网络地址的分类。"
+
+#: htdocs/luci-static/resources/hwdash/system.js:73
+msgid "The hardware watchdog reboots the router if the system stops responding for longer than the timeout."
+msgstr "硬件看门狗在系统超过超时时间无响应时重启路由器。"
+
+#: htdocs/luci-static/resources/hwdash/ping.js:288
+msgid "The host name could not be resolved; no ICMP packet was transmitted."
+msgstr "无法解析主机名；未发送 ICMP 数据包。"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:215
+msgid "The hosts probed by the Ping Latency card, grouped by address family. Untick IPv4 or IPv6 to pause that whole family; the individual choices underneath are kept for when it is switched back on."
+msgstr "Ping 延迟卡片探测的主机，按协议族分组。取消勾选 IPv4 或 IPv6 以暂停整个协议族；下方各项选择在重新启用时恢复。"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:68
+msgid "The interface did not report a status and may be down."
+msgstr "接口未报告状态，可能已离线。"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:39
+msgid "The interface is offline or unreachable. Internet egress address and NAT classification cannot be determined."
+msgstr "接口离线或不可达。无法确定互联网出口地址和 NAT 分类。"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:65
+msgid "The optional stuntman-client package is not installed, so no STUN probe can be performed."
+msgstr "未安装可选的 stuntman-client 包，无法执行 STUN 探测。"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:318
+msgid "The package index has not been downloaded since boot, so availability is not known yet. Install fetches it first."
+msgstr "自启动以来未下载包索引，因此可用性未知。安装时会先获取索引。"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:66
+msgid "The requested interface name is not valid."
+msgstr "请求的接口名称无效。"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:110
+msgid "The router clock is not synced to NTP; HTTPS, encrypted DNS and log times depend on it"
+msgstr "路由器时钟未同步到 NTP；HTTPS、加密 DNS 和日志时间依赖于此"
+
+#: htdocs/luci-static/resources/view/status/hw_dash.js:250
+msgid "The router is not responding. Showing data from %s."
+msgstr "路由器未响应。显示来自 %s 的数据。"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:43
+msgid "The router rejected the request."
+msgstr "路由器拒绝了请求。"
+
+#: htdocs/luci-static/resources/hwdash/power.js:60
+msgid "The sensor driver reports an alarm for this reading"
+msgstr "传感器驱动报告此读数告警"
+
+#: htdocs/luci-static/resources/hwdash/wifi.js:90
+msgid "Theoretical Max"
+msgstr "理论最大值"
+
+#: htdocs/luci-static/resources/hwdash/thermal.js:102
+#: htdocs/luci-static/resources/view/status/hw_dash.js:199
+msgid "Thermal Sensors"
+msgstr "温度传感器"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:67
+msgid "This interface is not tracked as a WAN link, so it is not eligible for testing."
+msgstr "此接口未被标记为 WAN 链路，因此不可测试。"
+
+#: htdocs/luci-static/resources/hwdash/wan.js:124
+msgid "This interface shares device %s with %s; the traffic is counted there."
+msgstr "此接口与 %s 共享设备 %s；流量在那里计算。"
+
+#: htdocs/luci-static/resources/hwdash/thermal.js:101
+msgid "Throttling"
+msgstr "降频"
+
+#: htdocs/luci-static/resources/hwdash/ports.js:48
+#: htdocs/luci-static/resources/hwdash/ports.js:121
+msgid "Throughput:"
+msgstr "吞吐量："
+
+#: htdocs/luci-static/resources/hwdash/storage.js:155
+msgid "Time Over Temperature"
+msgstr "超温时间"
+
+#: htdocs/luci-static/resources/hwdash/memory.js:52
+msgid "Total minus Available — how btop counts it. LuCI’s status page counts the page cache as used (Total minus Free), so its Used reads higher."
+msgstr "总量减去可用量 — btop 的计算方式。LuCI 状态页将页缓存计入已用（总量减去空闲），因此已用量更高。"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:26
+msgid "Total: %d Avail: %d Bad: %d"
+msgstr "总计：%d 可用：%d 坏块：%d"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:27
+msgid "Translated Public Address"
+msgstr "转换后的公共地址"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:130
+msgid "Transport"
+msgstr "传输"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:453
+msgid "Type:"
+msgstr "类型："
+
+#: htdocs/luci-static/resources/hwdash/storage.js:183
+msgid "UBI / NAND Flash"
+msgstr "UBI / NAND 闪存"
+
+#: htdocs/luci-static/resources/hwdash/ports.js:83
+msgid "USB Devices"
+msgstr "USB 设备"
+
+#: htdocs/luci-static/resources/hwdash/ports.js:153
+#: htdocs/luci-static/resources/hwdash/ports.js:157
+msgid "USB Host Controller"
+msgstr "USB 主控"
+
+#: htdocs/luci-static/resources/hwdash/ports.js:82
+msgid "USB Host Controllers"
+msgstr "USB 主控"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:64
+msgid "Uncorrectable flash errors"
+msgstr "不可纠正的闪存错误"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:40
+#: htdocs/luci-static/resources/hwdash/storage.js:450
+#: htdocs/luci-static/resources/hwdash/wan.js:61
+msgid "Unknown"
+msgstr "未知"
+
+#: htdocs/luci-static/resources/hwdash/isp.js:126
+msgid "Unknown ISP"
+msgstr "未知运营商"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:48
+msgid "Unmanaged"
+msgstr "未管理"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:151
+msgid "Unsafe Shutdowns"
+msgstr "非正常关机次数"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:76
+msgid "Unsaved changes — press Save to apply."
+msgstr "有未保存的更改 — 按保存以应用。"
+
+#: htdocs/luci-static/resources/hwdash/cpu.js:121
+msgid "Uptime"
+msgstr "运行时间"
+
+#: htdocs/luci-static/resources/hwdash/wan.js:101
+#: htdocs/luci-static/resources/hwdash/wan.js:140
+msgid "Uptime 24h"
+msgstr "24h 在线率"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:8
+msgid "Urgent"
+msgstr "紧急"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:360
+msgid "Usable Free"
+msgstr "可用剩余"
+
+#: htdocs/luci-static/resources/hwdash/memory.js:44
+#: htdocs/luci-static/resources/hwdash/storage.js:359
+msgid "Usable Total"
+msgstr "可用总量"
+
+#: htdocs/luci-static/resources/hwdash/memory.js:51
+msgid "Used"
+msgstr "已用"
+
+#: htdocs/luci-static/resources/hwdash/cpu.js:224
+msgid "User"
+msgstr "用户"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:204
+msgid "Utilization"
+msgstr "使用率"
+
+#: htdocs/luci-static/resources/hwdash/wan.js:167
+msgid "VLAN %s"
+msgstr "VLAN %s"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:51
+msgid "VTI over IPv6"
+msgstr "IPv6 上的 VTI"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:51
+msgid "VXLAN over IPv6"
+msgstr "IPv6 上的 VXLAN"
+
+#: htdocs/luci-static/resources/hwdash/system.js:65
+msgid "Virtualization"
+msgstr "虚拟化"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:96
+msgid "Visible Cards"
+msgstr "可见卡片"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:34
+msgid "Volumes"
+msgstr "卷"
+
+#: htdocs/luci-static/resources/hwdash/system.js:116
+msgid "Vulnerable"
+msgstr "有漏洞"
+
+#: htdocs/luci-static/resources/hwdash/wan.js:92
+msgid "WAN Link"
+msgstr "WAN 链路"
+
+#: htdocs/luci-static/resources/hwdash/wan.js:176
+#: htdocs/luci-static/resources/view/status/hw_dash.js:197
+msgid "WAN Uptime Status"
+msgstr "WAN 在线状态"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:100
+msgid "WAN Uptime Status Interfaces"
+msgstr "WAN 在线状态接口"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:235
+msgid "WAN Uptime Status Probing Targets"
+msgstr "WAN 在线状态探测目标"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:122
+msgid "WAN down"
+msgstr "WAN 离线"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:125
+msgid "WAN unstable"
+msgstr "WAN 不稳定"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:8
+#: htdocs/luci-static/resources/hwdash/storage.js:117
+msgid "Warning"
+msgstr "警告"
+
+#: htdocs/luci-static/resources/hwdash/system.js:72
+msgid "Watchdog"
+msgstr "看门狗"
+
+#: htdocs/luci-static/resources/hwdash/system.js:31
+msgid "Watchdog reset"
+msgstr "看门狗重置"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:139
+msgid "Wear (Percentage Used)"
+msgstr "磨损（已用百分比）"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:235
+msgid "What the background collector pings to decide whether each WAN is up."
+msgstr "后台收集器 ping 这些目标以判断每个 WAN 是否在线。"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:100
+msgid "Which WAN interfaces the uptime, NAT type and alert cards report on."
+msgstr "在线率、NAT 类型和告警卡片报告哪些 WAN 接口。"
+
+#: htdocs/luci-static/resources/hwdash/clients.js:76
+#: htdocs/luci-static/resources/view/status/hw_dash.js:198
+msgid "Wi-Fi Clients"
+msgstr "Wi-Fi 客户端"
+
+#: htdocs/luci-static/resources/hwdash/wifi.js:122
+#: htdocs/luci-static/resources/view/status/hw_dash.js:198
+msgid "Wi-Fi PHY & Spectrum"
+msgstr "Wi-Fi PHY 与频谱"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:50
+msgid "WireGuard VPN"
+msgstr "WireGuard VPN"
+
+#: htdocs/luci-static/resources/hwdash/memory.js:69
+msgid "ZRAM"
+msgstr "ZRAM"
+
+#: htdocs/luci-static/resources/hwdash/system.js:72
+msgid "active"
+msgstr "活动"
+
+#: htdocs/luci-static/resources/hwdash/ports.js:133
+msgid "autoneg %s · pause %s"
+msgstr "自协商 %s · 流控 %s"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:189
+msgid "eMMC / SD Health"
+msgstr "eMMC / SD 健康"
+
+#: htdocs/luci-static/resources/hwdash/storage.js:200
+msgid "f2fs Statistics"
+msgstr "f2fs 统计"
+
+#: htdocs/luci-static/resources/hwdash/memory.js:78
+msgid "full %.1f%%"
+msgstr "已满 %.1f%%"
+
+#: htdocs/luci-static/resources/hwdash/system.js:72
+msgid "inactive"
+msgstr "非活动"
+
+#: htdocs/luci-static/resources/hwdash/system.js:66
+msgid "limited — install lscpu for more"
+msgstr "有限 — 安装 lscpu 以获取更多信息"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:66
+msgid "mtd%d (%s): %d corrected since baseline, ECC strength %d"
+msgstr "mtd%d (%s)：自基线以来纠正 %d 次，ECC 强度 %d"
+
+#: htdocs/luci-static/resources/hwdash/alerts.js:64
+msgid "mtd%d (%s): %d uncorrectable since baseline"
+msgstr "mtd%d (%s)：自基线以来 %d 次不可纠正"
+
+#: htdocs/luci-static/resources/hwdash/clients.js:68
+msgid "not authorized"
+msgstr "未授权"
+
+#: htdocs/luci-static/resources/hwdash/graph.js:97
+msgid "now"
+msgstr "现在"
+
+#: htdocs/luci-static/resources/hwdash/wan.js:123
+msgid "shared"
+msgstr "共享"
+
+#: htdocs/luci-static/resources/hwdash/nat.js:139
+msgid "then"
+msgstr "然后"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:298
+msgid "this architecture"
+msgstr "此架构"
+
+#: htdocs/luci-static/resources/hwdash/system.js:82
+msgid "time unknown"
+msgstr "时间未知"
+
+#: htdocs/luci-static/resources/hwdash/graph.js:123
+#: htdocs/luci-static/resources/hwdash/ping.js:198
+msgid "timeout"
+msgstr "超时"
+
+#: htdocs/luci-static/resources/hwdash/clients.js:67
+msgid "tx failed %d"
+msgstr "发送失败 %d"
+
+#: htdocs/luci-static/resources/hwdash/layout.js:112
+#: htdocs/luci-static/resources/hwdash/layout.js:115
+msgid "⇕ Rearrange Cards"
+msgstr "⇕ 重新排列卡片"
+
+#: htdocs/luci-static/resources/view/status/hw_dash.js:219
+msgid "⚙ Settings"
+msgstr "⚙ 设置"
+
+#: htdocs/luci-static/resources/hwdash/layout.js:115
+msgid "✓ Done Arranging"
+msgstr "✓ 完成排列"
+
+#: htdocs/luci-static/resources/hwdash/settings.js:376
+msgid "⤓ Download diagnostics snapshot"
+msgstr "⤓ 下载诊断快照"
+

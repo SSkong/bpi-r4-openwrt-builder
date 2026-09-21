@@ -85,6 +85,14 @@ git clone -q --depth 1 https://github.com/sbwml/packages_utils_runc.git feeds/pa
 ./scripts/feeds install -a > /dev/null 2>&1 || true
 
 # ============================================================
+# luci-app-hw-dashboard 中文汉化
+# ============================================================
+# 上游仓库仅含 po/templates/hw-dashboard.pot 模板，无中文翻译。
+# 将仓库中预置的翻译文件拷入 po/zh-cn/，luci.mk 编译时自动编译为 .mo。
+mkdir -p package/custom/luci-app-hw-dashboard/po/zh-cn
+cp files/po/zh-cn/hw-dashboard.po package/custom/luci-app-hw-dashboard/po/zh-cn/ 2>/dev/null || true
+
+# ============================================================
 # 编译优化（可选）
 # ============================================================
 
