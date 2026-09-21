@@ -44,6 +44,21 @@ if [ -n "$DAE_VER" ] && [ ! -f "package/custom/luci-app-dae/dae/files/prebuilt/a
     || { echo "❌ dae 二进制下载失败"; rm -f /tmp/dae-arm64.tar.xz; }
 fi
 
+# dae ARCH_PACKAGES 匹配修复：
+#   dae Makefile 只匹配 aarch64_generic，但 BPI-R4 的 ARCH_PACKAGES 是 aarch64_cortex-a53，
+#   导致 DAE_PREBUILT 变量为空、install 段 test -f 失败。
+#   追加 aarch64_cortex-a53 分支指向同一预编译路径。
+sed -i 's/else ifeq ($(ARCH_PACKAGES),aarch64_generic)/else ifeq ($(ARCH_PACKAGES),aarch64_cortex-a53)\n  DAE_PREBUILT:=$(CURDIR)\/files\/prebuilt\/aarch64\/dae\nelse ifeq ($(ARCH_PACKAGES),aarch64_generic)/' \
+  package/custom/luci-app-dae/dae/Makefile 2>/dev/null || true
+
+# fancontrol 旧版子目录清理：
+#   commit 7655e6d 仓库含两个 openwrt-feed 目录：
+#   - openwrt-feed/（根目录，v3.1.3 完整版，files/ 齐全）
+#   - luci-app-fancontrol/openwrt-feed/（子目录，v2.3.1 旧版，files/ 仅 fancontrol.js）
+#   SCAN_DEPTH=5 扫到深度更深的旧版 Makefile，但 files/ 不完整导致 install 失败。
+#   删除旧版子目录让扫描只发现根目录的完整版。
+rm -rf package/custom/luci-app-fancontrol/luci-app-fancontrol/openwrt-feed
+
 # 修复 luci-theme-graphite / luci-app-graphite / Obsidian-Theme 的 luci.mk include 路径：
 #   这三个仓库原始 Makefile 用 `include ../../luci.mk`（假设在 feeds/luci/applications/ 深度），
 #   放到 package/custom/ 后路径不对，DUMP 静默失败，包不进 Kconfig。
@@ -92,6 +107,8 @@ git clone -q --depth 1 https://github.com/sbwml/packages_utils_runc.git feeds/pa
 # 注意：OpenWrt 25+ 中文语言代码为 zh_Hans（非旧版 zh-cn）。
 mkdir -p package/custom/luci-app-hw-dashboard/po/zh_Hans
 cp files/po/zh_Hans/hw-dashboard.po package/custom/luci-app-hw-dashboard/po/zh_Hans/ 2>/dev/null || true
+# touch Makefile 强制 scan.mk 重新扫描（否则 scan 缓存不包含新增的 i18n 包）
+touch package/custom/luci-app-hw-dashboard/Makefile
 
 # ============================================================
 # 编译优化（可选）
