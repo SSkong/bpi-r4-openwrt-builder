@@ -67,6 +67,24 @@ rm -f package/feeds/packages/open-app-filter
 rm -f package/feeds/luci/luci-app-dae
 
 # ============================================================
+# Docker feeds 替换（sbwml fork 版，适配 OpenWrt 25.12）
+# ============================================================
+# sbwml 版 docker/dockerd/containerd/runc 修复了 25.12 兼容性问题，
+# luci-app-dockerman 使用 openwrt-25.12 分支。
+# 替换的是 feeds 源码（非 package/custom/），不影响来源校验。
+rm -rf feeds/luci/applications/luci-app-dockerman
+git clone -q --depth 1 -b openwrt-25.12 https://github.com/sbwml/luci-app-dockerman.git feeds/luci/applications/luci-app-dockerman
+
+rm -rf feeds/packages/utils/{docker,dockerd,containerd,runc}
+git clone -q --depth 1 https://github.com/sbwml/packages_utils_docker.git feeds/packages/utils/docker
+git clone -q --depth 1 https://github.com/sbwml/packages_utils_dockerd.git feeds/packages/utils/dockerd
+git clone -q --depth 1 https://github.com/sbwml/packages_utils_containerd.git feeds/packages/utils/containerd
+git clone -q --depth 1 https://github.com/sbwml/packages_utils_runc.git feeds/packages/utils/runc
+
+# 重新建立 feeds 索引链接（替换源码后需重新 feeds install -a）
+./scripts/feeds install -a > /dev/null 2>&1 || true
+
+# ============================================================
 # 编译优化（可选）
 # ============================================================
 

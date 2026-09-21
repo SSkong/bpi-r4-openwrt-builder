@@ -78,7 +78,7 @@ luci-app-timecontrol
 luci-app-partexp
 luci-app-taskplan
 natmapt
-stuntman-server
+stuntman-client
 luci-app-natmapt
 dae
 luci-app-dae
