@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Language: zh_CN\n"
+"Language: zh_Hans\n"
 
 #: htdocs/luci-static/resources/hwdash/nat.js:30
 msgid "\"This Network\" Address Space (RFC 1122). Exclusively utilised for local broadcast communications or during initial dynamic address assignment (DHCP discovery)."
