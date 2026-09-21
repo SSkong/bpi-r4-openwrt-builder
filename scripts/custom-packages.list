@@ -51,7 +51,7 @@ luci-app-watchdog
 luci-app-mini-diskmanager
 luci-app-fancontrol
 easytier
-easytier-noweb
+# easytier-noweb 是 easytier 的互斥变体（提供相同二进制），二选一，未选中不校验
 luci-app-easytier
 mihomo
 luci-app-fchomo
