@@ -82,6 +82,8 @@ git clone -q --depth 1 https://github.com/sirpdboy/luci-app-watchdog.git package
 # --- 磁盘 / 风扇 / 硬件管理 ---
 git clone -q --depth 1 https://github.com/4IceG/luci-app-mini-diskmanager.git package/custom/luci-app-mini-diskmanager
 git clone -q --depth 1 https://github.com/bigmalloy/luci-app-fancontrol.git package/custom/luci-app-fancontrol
+# 切换到指定 commit（上游 HEAD 与该 commit 之间有破坏性变更）
+cd package/custom/luci-app-fancontrol && git fetch -q --depth 1 origin 7655e6d624e7d277cf5cb617584a638b08b672d7 && git checkout -q 7655e6d624e7d277cf5cb617584a638b08b672d7 && cd - >/dev/null
 
 # --- 组网 / 代理 ---
 git clone -q --depth 1 https://github.com/EasyTier/luci-app-easytier.git package/custom/luci-app-easytier
