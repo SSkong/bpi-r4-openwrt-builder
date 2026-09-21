@@ -3,15 +3,15 @@ AIGC:
   ContentProducer: '001191110102MAD55U9H0F10002'
   ContentPropagator: '001191110102MAD55U9H0F10002'
   Label: '1'
-  ProduceID: '2a3b9174-0369-4f09-ab05-af930bca1141'
-  PropagateID: '2a3b9174-0369-4f09-ab05-af930bca1141'
-  ReservedCode1: '6743e660-59c3-4192-9751-ba9583bcb6d9'
-  ReservedCode2: '6743e660-59c3-4192-9751-ba9583bcb6d9'
+  ProduceID: '4ff356c5-0f32-477e-8b3b-a255d60278d8'
+  PropagateID: '4ff356c5-0f32-477e-8b3b-a255d60278d8'
+  ReservedCode1: 'b762c143-405f-4892-962a-6f20c2197000'
+  ReservedCode2: 'b762c143-405f-4892-962a-6f20c2197000'
 ---
 
 # BPI-R4 OpenWrt 自动编译
 
-使用 GitHub Actions **定时自动编译** Banana Pi BPI-R4（标准版，MT7988A）的 ImmortalWrt 固件，内置 Passwall 科学上网插件、mihomo 与 35 个自定义仓库（约 50 个包：LuCI 应用 / QoS / 系统监控 / 8 款主题等）。
+使用 GitHub Actions **定时自动编译** Banana Pi BPI-R4（标准版，MT7988A）的 ImmortalWrt 固件，内置 Passwall 科学上网插件、mihomo、dae/honk eBPF 透明代理与 48 个自定义仓库（61 个包：LuCI 应用 / QoS / 系统监控 / 应用过滤 / NAT 打洞 / 10 款主题等），内核已启用 BTF 支持 eBPF 程序运行。
 
 ## 固件信息
 
@@ -19,8 +19,9 @@ AIGC:
 |---|---|
 | 硬件平台 | Banana Pi BPI-R4 标准版 (MT7988A / 4GB RAM / 32GB eMMC) |
 | 固件源码 | [chasey-dev/immortalwrt-mt798x-rebase](https://github.com/chasey-dev/immortalwrt-mt798x-rebase) (ImmortalWrt 25.12 + MTK 官方 Feeds，内核 6.12) |
-| 科学上网 | **Passwall** (Xray / sing-box / Hysteria，SSR / Shadowsocks 等全协议) |
-| 自定义插件 | 35 个仓库约 50 个包：QoS 限速（QosMate）、网盘挂载（OpenList2）、Mesh 组网（EasyTier/mihomo）、CDN 优选（CloudflareSpeedTest/CloudflareIP）、系统监控（CPU/温度/看门狗/磁盘/风扇）、网络唤醒、8 款 LuCI 主题等，完整清单见下方表格 |
+| 科学上网 | **Passwall** (Xray / sing-box / Hysteria，SSR / Shadowsocks 等全协议)、**dae/honk** (eBPF 透明代理) |
+| 自定义插件 | 48 个仓库 61 个包：QoS 限速、网盘挂载、Mesh 组网、eBPF 代理、CDN 优选、应用过滤、带宽监控、NAT 打洞、系统监控、时间控制、分区扩展、任务计划、文件管理、网络唤醒、10 款 LuCI 主题等，完整清单见下方表格 |
+| 内核特性 | 已启用 BTF（BPF Type Format），支持 dae/honk 等 eBPF 程序运行 |
 | 管理界面 | LuCI 中文 |
 | 默认地址 | `192.168.1.1`，账号 `root`，无密码 |
 | 更新频率 | 每周一北京时间 11:00 自动编译 |
