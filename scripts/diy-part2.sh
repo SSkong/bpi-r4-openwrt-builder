@@ -83,6 +83,19 @@ rm -f package/feeds/luci/luci-app-dae
 # sbwml/luci-app-mosdns 含更新的 mosdns v5.3.4（feeds 为 v5.3.3），删除 feeds 链接防顶替
 rm -f package/feeds/packages/mosdns
 
+# 移除 feeds 中与 helloworld 冲突的核心代理包源码（helloworld 自带这些包的更新版本）
+# 参考 sbwml/openwrt_helloworld README
+rm -rf feeds/packages/net/{xray-core,v2ray-core,v2ray-geodata,sing-box}
+# 删除 helloworld 中与 custom 冲突的 dae（保留 498777 fork 预编译版）
+rm -rf package/helloworld/dae package/helloworld/luci-app-dae
+# 更新 golang feeds 为 sbwml 23.x 版本（helloworld 的 Go 包需要较新 golang 构建框架；
+# 该包无 BUILD_BOOTSTRAP 选项，EXTERNAL_BOOTSTRAP_ROOT 为空时自动下载官方引导，
+# x86_64 CI 可直接用；ARM64 本机需 GOLANG_EXTERNAL_BOOTSTRAP_ROOT 指向外部 Go）
+rm -rf feeds/packages/lang/golang
+git clone -q --depth 1 -b 23.x https://github.com/sbwml/packages_lang_golang.git feeds/packages/lang/golang
+# 重新 feeds install 让替换与删除全部生效
+./scripts/feeds install -a > /dev/null 2>&1 || true
+
 # ============================================================
 # Docker feeds 替换（sbwml fork 版，适配 OpenWrt 25.12）
 # ============================================================

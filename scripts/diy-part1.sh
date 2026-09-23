@@ -7,18 +7,18 @@
 set -e
 
 # ============================================================
-# 一、科学上网软件源（feeds 方式注入）
-# 注意：Passwall 官方源已从 xiaorouji 转移到 Openwrt-Passwall 组织
+# 一、科学上网软件源（sbwml/openwrt_helloworld 防炸备份源）
+# 含 passwall / passwall2 / ssr-plus 及全部代理核心（xray/sing-box/hysteria 等）
+# 旧源 Openwrt-Passwall/openwrt-passwall(-packages) 已弃用
 # ============================================================
 
-# Passwall（默认启用，见 config/bpi-r4.config）
-# openwrt-passwall           提供 luci-app-passwall 界面
-# openwrt-passwall-packages  提供 xray-core / sing-box 等核心依赖
-# grep 防重保证脚本幂等（重复执行不会重复追加源）
-grep -qF 'openwrt-passwall-packages.git' feeds.conf.default || \
-  echo 'src-git passwall_packages https://github.com/Openwrt-Passwall/openwrt-passwall-packages.git;main' >> feeds.conf.default
-grep -qF 'Openwrt-Passwall/openwrt-passwall.git' feeds.conf.default || \
-  echo 'src-git passwall https://github.com/Openwrt-Passwall/openwrt-passwall.git;main' >> feeds.conf.default
+# 移除可能残留的旧 passwall feeds 配置（幂等）
+sed -i '/passwall_packages/d; /openwrt-passwall-packages/d; /Openwrt-Passwall\/openwrt-passwall\.git/d' feeds.conf.default
+
+# helloworld 全家桶（passwall + 核心包 + ssr-plus 等），clone 到 package/ 下由 SCAN_DEPTH 自动发现
+# 注意：golang feeds 替换在 diy-part2.sh（需等 feeds update 完成后才能操作 feeds/packages）
+rm -rf package/helloworld
+git clone -q --depth 1 https://github.com/sbwml/openwrt_helloworld.git package/helloworld
 
 # ============================================================
 # 二、自定义 LuCI 应用（编译前 git clone 到 package/custom/）
