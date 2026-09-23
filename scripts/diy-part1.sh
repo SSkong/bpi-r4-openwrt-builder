@@ -130,6 +130,10 @@ git clone -q --depth 1 https://github.com/498777/luci-app-dae.git package/custom
 # --- 文件管理 ---
 git clone -q --depth 1 https://github.com/whzhni1/luci-app-harbor-file-pro.git package/custom/luci-app-harbor-file-pro
 
+# --- DNS 分流 / AirPlay 音频转发 ---
+git clone -q --depth 1 https://github.com/sbwml/luci-app-mosdns.git package/custom/luci-app-mosdns
+git clone -q --depth 1 https://github.com/sbwml/luci-app-airconnect.git package/custom/luci-app-airconnect
+
 # 校验 clone 结果：必须能找到至少一个含 BuildPackage 的包 Makefile
 echo "===== 自定义包 Makefile 扫描结果 ====="
 find package/custom -maxdepth 3 -name Makefile -not -path '*/.git/*' \

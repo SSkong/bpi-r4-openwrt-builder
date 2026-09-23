@@ -13,10 +13,10 @@ set -e
 # ============================================================
 
 # 修改默认登录 IP（示例改为 192.168.100.1）
-# sed -i 's/192.168.1.1/192.168.100.1/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/192.168.10.1/g' package/base-files/files/bin/config_generate
 
 # 设置默认时区为东八区
-# sed -i "s|UTC|CST-8|g" package/base-files/files/bin/config_generate
+sed -i "s|UTC|CST-8|g" package/base-files/files/bin/config_generate
 
 # 设置默认主机名
 # sed -i "s/ImmortalWrt/BPI-R4/g" package/base-files/files/bin/config_generate
@@ -80,6 +80,8 @@ rm -f package/feeds/luci/luci-theme-footstrap
 rm -f package/feeds/packages/dae
 rm -f package/feeds/packages/open-app-filter
 rm -f package/feeds/luci/luci-app-dae
+# sbwml/luci-app-mosdns 含更新的 mosdns v5.3.4（feeds 为 v5.3.3），删除 feeds 链接防顶替
+rm -f package/feeds/packages/mosdns
 
 # ============================================================
 # Docker feeds 替换（sbwml fork 版，适配 OpenWrt 25.12）

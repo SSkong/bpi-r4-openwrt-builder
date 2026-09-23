@@ -83,3 +83,9 @@ luci-app-natmapt
 dae
 luci-app-dae
 luci-app-harbor-file-pro
+# 第四批：DNS 分流 / AirPlay 音频
+mosdns
+geo2txt
+luci-app-mosdns
+airconnect
+luci-app-airconnect
