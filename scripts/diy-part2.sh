@@ -88,11 +88,13 @@ rm -f package/feeds/packages/mosdns
 rm -rf feeds/packages/net/{xray-core,v2ray-core,v2ray-geodata,sing-box}
 # 删除 helloworld 中与 custom 冲突的 dae（保留 498777 fork 预编译版）
 rm -rf package/helloworld/dae package/helloworld/luci-app-dae
-# 更新 golang feeds 为 sbwml 23.x 版本（helloworld 的 Go 包需要较新 golang 构建框架；
-# 该包无 BUILD_BOOTSTRAP 选项，EXTERNAL_BOOTSTRAP_ROOT 为空时自动下载官方引导，
-# x86_64 CI 可直接用；ARM64 本机需 GOLANG_EXTERNAL_BOOTSTRAP_ROOT 指向外部 Go）
+# 更新 golang feeds 为 sbwml 版本（27.x = Go 1.27.1）：
+# - helloworld 及自定义包（OpenList 4.2.6 要求 go >= 1.25）需要较新工具链，
+#   23.x 的 Go 1.23.12 过旧；27.x 满足全部包的最低版本要求
+# - 该包无 BUILD_BOOTSTRAP 选项，EXTERNAL_BOOTSTRAP_ROOT 为空时自动下载
+#   go1.24.6 官方引导（x86_64 CI 可直接用）；ARM64 本机需指向外部 Go >= 1.24.6
 rm -rf feeds/packages/lang/golang
-git clone -q --depth 1 -b 23.x https://github.com/sbwml/packages_lang_golang.git feeds/packages/lang/golang
+git clone -q --depth 1 -b 27.x https://github.com/sbwml/packages_lang_golang.git feeds/packages/lang/golang
 # 重新 feeds install 让替换与删除全部生效
 ./scripts/feeds install -a > /dev/null 2>&1 || true
 
