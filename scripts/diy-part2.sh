@@ -128,6 +128,15 @@ cp files/po/zh_Hans/hw-dashboard.po package/custom/luci-app-hw-dashboard/po/zh_H
 touch package/custom/luci-app-hw-dashboard/Makefile
 
 # ============================================================
+# luci-app-ap-modem 翻译目录 zh-cn → zh_Hans
+# ============================================================
+# QiuSimons/OpenWrt-Add 仓库的 po 目录用旧版 zh-cn 命名，需改为 zh_Hans
+if [ -d "package/custom/luci-app-ap-modem/po/zh-cn" ]; then
+  mv package/custom/luci-app-ap-modem/po/zh-cn package/custom/luci-app-ap-modem/po/zh_Hans
+  touch package/custom/luci-app-ap-modem/Makefile
+fi
+
+# ============================================================
 # 编译优化（可选）
 # ============================================================
 

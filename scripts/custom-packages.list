@@ -89,3 +89,4 @@ geo2txt
 luci-app-mosdns
 airconnect
 luci-app-airconnect
+luci-app-ap-modem

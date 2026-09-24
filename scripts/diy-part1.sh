@@ -134,6 +134,11 @@ git clone -q --depth 1 https://github.com/whzhni1/luci-app-harbor-file-pro.git p
 git clone -q --depth 1 https://github.com/sbwml/luci-app-mosdns.git package/custom/luci-app-mosdns
 git clone -q --depth 1 https://github.com/sbwml/luci-app-airconnect.git package/custom/luci-app-airconnect
 
+# --- AP/Modem 快捷访问（QiuSimons/OpenWrt-Add 子目录，仓库含大量同名包故只取此目录）---
+git clone -q --depth 1 https://github.com/QiuSimons/OpenWrt-Add.git /tmp/openwrt-add && \
+  cp -a /tmp/openwrt-add/luci-app-ap-modem package/custom/luci-app-ap-modem && \
+  rm -rf /tmp/openwrt-add
+
 # 校验 clone 结果：必须能找到至少一个含 BuildPackage 的包 Makefile
 echo "===== 自定义包 Makefile 扫描结果 ====="
 find package/custom -maxdepth 3 -name Makefile -not -path '*/.git/*' \
