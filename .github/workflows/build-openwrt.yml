@@ -47,17 +47,14 @@ permissions:
 jobs:
 
   # ============================================================
-  # 第一阶段：编译工具链并缓存
-  # 拆分原因：单次全量编译可能超过 GitHub Actions 6 小时上限，
-  # 分阶段后每个 job 都有充足的时间余量。
-  # 工具链缓存以源码 commit 为 key，源码不变则秒级跳过。
+  # 单 Job 编译：工具链缓存命中时跳过工具链编译，直接编译固件
+  # 旧方案拆分两个 Job，每个都重复 clone+feeds 耗时但无产出，
+  # 合并后只需一次 clone+feeds，缓存命中时省掉整个工具链编译阶段。
   # ============================================================
-  toolchain:
-    name: 编译工具链
+  build:
+    name: 编译 BPI-R4 固件
     runs-on: ubuntu-latest
     timeout-minutes: 350
-    outputs:
-      source_sha: ${{ steps.src.outputs.sha }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -68,6 +65,7 @@ jobs:
         run: |
           sudo -E apt-get -qq update
           sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
+          sudo docker image prune --all --force >/dev/null 2>&1 || true
           sudo -E apt-get -qq install ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp ninja-build p7zip p7zip-full patch pkgconf python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
           sudo -E apt-get -qq autoremove --purge
           sudo -E apt-get -qq clean
@@ -104,10 +102,6 @@ jobs:
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
-      - name: 加载固件配置
-        run: |
-          cp -f $CONFIG_FILE openwrt/.config
-
       - name: 缓存工具链
         id: cache-toolchain
         if: ${{ !inputs.clean_cache }}
@@ -120,74 +114,20 @@ jobs:
             /workdir/openwrt/build_dir/tools-*
           key: toolchain-v1-${{ steps.src.outputs.sha }}
 
-      - name: 编译工具链
+      - name: 编译工具链（缓存未命中时）
         if: steps.cache-toolchain.outputs.cache-hit != 'true'
         run: |
           cd openwrt
+          cp -f $CONFIG_FILE .config
           make defconfig
           make tools/install toolchain/install -j$(nproc) || make tools/install toolchain/install -j1 V=s
           df -hT
-
-  # ============================================================
-  # 第二阶段：编译完整固件
-  # ============================================================
-  firmware:
-    name: 编译固件
-    needs: toolchain
-    runs-on: ubuntu-latest
-    timeout-minutes: 350
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: 初始化编译环境
-        env:
-          DEBIAN_FRONTEND: noninteractive
-        run: |
-          sudo -E apt-get -qq update
-          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
-          sudo -E apt-get -qq install ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp ninja-build p7zip p7zip-full patch pkgconf python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
-          sudo -E apt-get -qq autoremove --purge
-          sudo -E apt-get -qq clean
-          sudo timedatectl set-timezone "$TZ"
-          sudo mkdir -p /workdir
-          sudo chown $USER:$GROUPS /workdir
-          df -hT
-
-      - name: 克隆固件源码
-        working-directory: /workdir
-        run: |
-          git clone --depth 1 -b $REPO_BRANCH $REPO_URL openwrt
-          ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
-
-      - name: 注入自定义软件源 (diy-part1)
-        run: |
-          chmod +x $DIY_P1_SH
-          cd openwrt
-          $GITHUB_WORKSPACE/$DIY_P1_SH
-
-      - name: 更新并安装 feeds
-        run: |
-          cd openwrt
-          ./scripts/feeds update -a
-          ./scripts/feeds install -a
 
       - name: 加载固件配置与预置文件
         run: |
           [ -e files ] && cp -rf files openwrt/files && rm -f openwrt/files/.gitkeep
           cp -f $CONFIG_FILE openwrt/.config
           chmod +x $DIY_P2_SH
-
-      - name: 恢复工具链缓存
-        if: ${{ !inputs.clean_cache }}
-        uses: actions/cache@v4
-        with:
-          path: |
-            /workdir/openwrt/staging_dir/toolchain-*
-            /workdir/openwrt/staging_dir/tools-*
-            /workdir/openwrt/build_dir/toolchain-*
-            /workdir/openwrt/build_dir/tools-*
-          key: toolchain-v1-${{ needs.toolchain.outputs.source_sha }}
 
       - name: 缓存源码包下载目录
         id: cache-dl
@@ -272,7 +212,7 @@ jobs:
           touch release.txt
           echo "## BPI-R4 固件 (ImmortalWrt 25.12 + MTK Feeds)" >> release.txt
           echo "" >> release.txt
-          echo "**源码版本**: \`${{ needs.toolchain.outputs.source_sha }}\`" >> release.txt
+          echo "**源码版本**: \`${{ steps.src.outputs.sha }}\`" >> release.txt
           echo "**编译时间**: $(date +"%Y-%m-%d %H:%M") CST" >> release.txt
           echo "**内置插件**: Passwall (Xray/sing-box/Hysteria)、mihomo、dae/honk (eBPF 透明代理)、QosMate 限速、OpenList2 网盘、EasyTier 组网、Cloudflare 优选 IP、应用过滤 (OAF)、带宽监控、NAT 打洞 (STUN)、系统监控、时间控制、分区扩展、任务计划、文件管理、WOL 网络唤醒、10 款 LuCI 主题、内核 BTF 支持、中文 LuCI 等 60+ 自定义包" >> release.txt
           echo "" >> release.txt
