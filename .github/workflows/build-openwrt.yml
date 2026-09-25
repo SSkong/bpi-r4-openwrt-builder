@@ -268,6 +268,7 @@ jobs:
         if: steps.organize.outputs.status == 'success'
         run: |
           echo "release_tag=BPI-R4_$(date +"%Y.%m.%d-%H%M")" >> $GITHUB_OUTPUT
+          echo "status=success" >> $GITHUB_OUTPUT
           touch release.txt
           echo "## BPI-R4 固件 (ImmortalWrt 25.12 + MTK Feeds)" >> release.txt
           echo "" >> release.txt
@@ -283,7 +284,7 @@ jobs:
           echo "| \`*-emmc-preloader.bin\` + \`*-emmc-bl31-uboot.fip\` | eMMC 引导写入 |" >> release.txt
           echo "| \`*-snand-preloader.bin\` + \`*-snand-bl31-uboot.fip\` | SPI NAND 引导写入 |" >> release.txt
           echo "" >> release.txt
-          echo "> 默认 IP: 192.168.1.1，账号 root / 无密码" >> release.txt
+          echo "> 默认 IP: 192.168.10.1，账号 root / 无密码" >> release.txt
 
       - name: 发布固件到 Release
         uses: softprops/action-gh-release@v2
