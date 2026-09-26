@@ -113,17 +113,24 @@ git clone -q --depth 1 https://github.com/sbwml/packages_utils_runc.git feeds/pa
 
 # luci-app-hw-dashboard 中文汉化：
 #   上游仅含 po/templates 模板，将预置翻译文件拷入 po/zh_Hans/
-#   OpenWrt 25+ 中文语言代码为 zh_Hans（非旧版 zh-cn）
 mkdir -p package/custom/luci-app-hw-dashboard/po/zh_Hans
 cp files/po/zh_Hans/hw-dashboard.po package/custom/luci-app-hw-dashboard/po/zh_Hans/ 2>/dev/null || true
 # touch Makefile 强制 scan.mk 重新扫描（否则 scan 缓存不包含新增的 i18n 包）
 touch package/custom/luci-app-hw-dashboard/Makefile
 
-# luci-app-ap-modem 翻译目录 zh-cn → zh_Hans
-if [ -d "package/custom/luci-app-ap-modem/po/zh-cn" ]; then
-  mv package/custom/luci-app-ap-modem/po/zh-cn package/custom/luci-app-ap-modem/po/zh_Hans
-  touch package/custom/luci-app-ap-modem/Makefile
-fi
+# 通用翻译目录适配：OpenWrt 25.12 中文语言代码为 zh_Hans（非旧版 zh-cn）
+#   上游仓库多按旧规范建 po/zh-cn，编译出 .zh-cn.lmo 在 25.12 LuCI 中不生效。
+#   递归查找 package/custom/ 下所有 zh-cn 目录，统一重命名为 zh_Hans；
+#   若包本身已有 zh_Hans 目录（如 change-mac）则跳过，避免覆盖上游新版翻译。
+#   honk 等包在二级子目录（repo/app/po），故用 find 递归而非固定路径。
+find package/custom -type d -name zh-cn | while read -r d; do
+  if [ ! -d "${d%/zh-cn}/zh_Hans" ]; then
+    mv "$d" "${d%/zh-cn}/zh_Hans"
+    echo "  翻译目录已适配: ${d%/po/zh-cn} (zh-cn → zh_Hans)"
+    # touch 包 Makefile 强制 scan.mk 重新扫描 i18n 包定义
+    find "${d%/po/zh-cn}" -maxdepth 2 -name Makefile -exec touch {} + 2>/dev/null || true
+  fi
+done
 
 # ============================================================
 # 编译优化（可选，按需取消注释）
