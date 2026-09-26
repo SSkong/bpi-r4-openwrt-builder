@@ -3,10 +3,10 @@ AIGC:
   ContentProducer: '001191110102MAD55U9H0F10002'
   ContentPropagator: '001191110102MAD55U9H0F10002'
   Label: '1'
-  ProduceID: '20148e4f-5eec-48e2-a2cb-8916df1c0f74'
-  PropagateID: '20148e4f-5eec-48e2-a2cb-8916df1c0f74'
-  ReservedCode1: 'b69c65f1-5e3e-4666-81c4-00e68640ace8'
-  ReservedCode2: 'b69c65f1-5e3e-4666-81c4-00e68640ace8'
+  ProduceID: '0374c16e-6af0-4ab7-a896-fe4ac79128e0'
+  PropagateID: '0374c16e-6af0-4ab7-a896-fe4ac79128e0'
+  ReservedCode1: '04f49a04-a54a-4b8b-abea-6ab8ed099141'
+  ReservedCode2: '04f49a04-a54a-4b8b-abea-6ab8ed099141'
 ---
 
 # BPI-R4 OpenWrt 自动编译
@@ -51,7 +51,7 @@ AIGC:
 | eBPF 代理 | luci-app-dae / dae | dae eBPF 透明代理（预编译二进制） | [498777/luci-app-dae](https://github.com/498777/luci-app-dae) |
 | DNS 分流 | luci-app-oxidns | OxiDNS DNS 分流 | [hahaher123/luci-app-oxidns](https://github.com/hahaher123/luci-app-oxidns) |
 | DNS 分流 | mosdns / luci-app-mosdns | mosdns DNS 分流（v5.3.4） | [sbwml/luci-app-mosdns](https://github.com/sbwml/luci-app-mosdns) |
-| 去广告 | luci-app-adguardhome | AdGuard Home 去广告 | [terrytyc/luci-app-adguardhome](https://github.com/terrytyc/luci-app-adguardhome) |
+| 去广告 | luci-app-adguardhome | AdGuard Home 去广告（nftables 重定向，核心二进制运行时下载） | [w9315273/luci-app-adguardhome](https://github.com/w9315273/luci-app-adguardhome) |
 | 网络监控 | luci-app-netmonitor | 网络质量监控（延迟/丢包） | [LianXia233/luci-app-netmonitor](https://github.com/LianXia233/luci-app-netmonitor) |
 | 网络监控 | luci-app-cpu-status | CPU 状态监控（频率/温度/占用） | [gSpotx2f/luci-app-cpu-status](https://github.com/gSpotx2f/luci-app-cpu-status) |
 | 网络监控 | internet-detector / luci-app-internet-detector | 外网连通性检测 | [gSpotx2f/luci-app-internet-detector](https://github.com/gSpotx2f/luci-app-internet-detector) |
@@ -89,7 +89,7 @@ AIGC:
 | 主题 | luci-theme-fluent + luci-mod-fluentdashboard | Fluent 主题与仪表盘 | [LazuliKao/luci-theme-fluent](https://github.com/LazuliKao/luci-theme-fluent) |
 | 主题 | Obsidian-Theme | Obsidian 黑曜石主题 | [OnyxAxisOwO/Obsidian-Theme](https://github.com/OnyxAxisOwO/Obsidian-Theme) |
 
-> **上游 Makefile 适配修复**（diy-part2.sh 自动完成）：graphite / Obsidian-Theme 的 `include ../../luci.mk` 改为 `$(TOPDIR)/feeds/luci/luci.mk`；footstrap 删除 feeds 残留链接防止同名顶替；dae 下载预编译二进制并修复 ARCH_PACKAGES 匹配；fancontrol 删除旧版子目录；mosdns 删除 feeds 链接防顶替；golang feeds 降级为 26.x（Go 1.26.8）兼容 AdGuardHome；Docker feeds 替换为 sbwml fork 适配 25.12。
+> **上游 Makefile 适配修复**（diy-part2.sh 自动完成）：graphite / Obsidian-Theme 的 `include ../../luci.mk` 改为 `$(TOPDIR)/feeds/luci/luci.mk`；footstrap 删除 feeds 残留链接防止同名顶替；dae 下载预编译二进制并修复 ARCH_PACKAGES 匹配；fancontrol 删除旧版子目录；mosdns 删除 feeds 链接防顶替；golang feeds 降级为 26.x（Go 1.26.8）兼容性最广；Docker feeds 替换为 sbwml fork 适配 25.12。
 
 > 这些包在每次编译前由 diy-part1.sh 用 `git clone` 下载到源码树 `package/custom/`，OpenWrt 25.12 的包扫描深度为 5 层，整仓库放置即可被自动发现，无需手动移动子目录。
 

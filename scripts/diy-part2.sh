@@ -83,8 +83,9 @@ rm -rf package/helloworld/dae package/helloworld/luci-app-dae
 # ============================================================
 
 # golang feeds 替换为 sbwml 26.x（Go 1.26.8）：
-# - OpenList 4.2.6 要求 go >= 1.25，AdGuardHome 0.107.78 要求 go 1.26.5，1.26.8 均满足
-# - 27.x (Go 1.27.1) 下 GOTOOLCHAIN=local 导致 AdGuardHome 部分 internal 模块依赖无法解析
+# - OpenList 4.2.6 要求 go >= 1.25，Go 1.26.8 满足
+# - 27.x (Go 1.27.1) 下 GOTOOLCHAIN=local 部分包的 internal 模块依赖
+#   无法解析（实测 AdGuardHome 0.107.78 报 no required module），26.x 兼容性最广
 # - 该包无 BUILD_BOOTSTRAP，CI 上 EXTERNAL_BOOTSTRAP_ROOT 为空时自动下载官方引导；
 #   ARM64 本机需指向外部 Go >= 1.24.6
 rm -rf feeds/packages/lang/golang
@@ -105,17 +106,6 @@ git clone -q --depth 1 https://github.com/sbwml/packages_utils_runc.git feeds/pa
 
 # 重新 feeds install 让所有替换与删除生效
 ./scripts/feeds install -a > /dev/null 2>&1 || true
-
-# AdGuardHome go.mod 依赖修复：
-#   0.107.78 的 go.mod/go.sum 缺少多个间接依赖声明（josharian/native、
-#   insomniacslk/dhcp/internal/xsocket、google/go-cmp/cmp/internal/flags 等），
-#   Go 1.26 下 go build 报 "no required module provides package X"。
-#   在 Build/Prepare 阶段插入 go mod tidy 补全缺失的间接依赖。
-AGH_MK="feeds/packages/net/adguardhome/Makefile"
-if [ -f "$AGH_MK" ] && ! grep -q 'go mod tidy' "$AGH_MK"; then
-  sed -i '/gzip -dc.*FRONTEND_DEST.*TAR_OPTIONS/a\\tcd "$(PKG_BUILD_DIR)" \&\& GOENV=off GOTOOLCHAIN=local GOMODCACHE="$(GO_MOD_CACHE_DIR)" GOCACHE="$(GO_BUILD_CACHE_DIR)" go mod tidy -modcacherw' "$AGH_MK"
-  echo "✅ AdGuardHome Makefile 已补丁 go mod tidy"
-fi
 
 # ============================================================
 # 汉化与翻译目录修复
