@@ -136,7 +136,7 @@ jobs:
         if: steps.cache-toolchain.outputs.cache-hit != 'true'
         run: |
           cd openwrt
-          cp -f $CONFIG_FILE .config
+          cp -f $GITHUB_WORKSPACE/$CONFIG_FILE .config
           make defconfig
           make tools/install toolchain/install -j$(nproc) || make tools/install toolchain/install -j1 V=s
           df -hT
