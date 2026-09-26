@@ -109,19 +109,28 @@ jobs:
         with:
           path: |
             /workdir/openwrt/staging_dir/toolchain-*
-            /workdir/openwrt/staging_dir/tools-*
+            /workdir/openwrt/staging_dir/host
+            /workdir/openwrt/staging_dir/hostpkg
             /workdir/openwrt/build_dir/toolchain-*
-            /workdir/openwrt/build_dir/tools-*
-          key: toolchain-v1-${{ steps.src.outputs.sha }}
+            /workdir/openwrt/build_dir/host
+            /workdir/openwrt/build_dir/hostpkg
+          key: toolchain-v2-${{ steps.src.outputs.sha }}
 
       - name: 修复缓存时间戳（缓存命中时）
         if: steps.cache-toolchain.outputs.cache-hit == 'true'
         run: |
           cd openwrt
-          # actions/cache 恢复文件时 mtime 被重置为当前时间，
-          # 导致 make 误判工具链需要重编。将时间戳设旧让 make 跳过。
-          find staging_dir build_dir -exec touch -d "2020-01-01" {} + 2>/dev/null || true
-          echo "✅ 缓存时间戳已修复"
+          # actions/cache 恢复时文件 mtime 被重置为恢复时刻，且恢复集内
+          # 各文件 mtime 顺序不确定。OpenWrt 的 timestamp.pl 要求 stamp
+          # 文件必须是所有被扫描路径中最新的，否则判定需要重编。
+          #
+          # 修复策略：
+          #   1) 把源码目录 tools/ toolchain/ 的 mtime 设旧（2020），
+          #      确保它们不会比恢复的 stamp 新
+          #   2) 把所有 stamp 文件 touch 到当前时刻，确保它们是绝对最新的
+          find tools toolchain -exec touch -d "2020-01-01" {} + 2>/dev/null || true
+          find staging_dir build_dir -path '*/stamp/*' -type f -exec touch {} + 2>/dev/null || true
+          echo "✅ 缓存时间戳已修复（源码设旧 + stamp 设新）"
 
       - name: 编译工具链（缓存未命中时）
         if: steps.cache-toolchain.outputs.cache-hit != 'true'
