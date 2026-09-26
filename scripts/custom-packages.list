@@ -21,7 +21,7 @@ luci-app-dae
 # --- DNS 分流 ---
 luci-app-oxidns
 mosdns
-geo2text
+geo2txt
 luci-app-mosdns
 
 # --- 去广告 ---
@@ -102,3 +102,4 @@ luci-i18n-honk-zh-cn
 luci-i18n-oxidns-zh-cn
 luci-i18n-netmonitor-zh-cn
 luci-i18n-adguardhome-zh-cn
+luci-i18n-owq-wol-zh-cn
