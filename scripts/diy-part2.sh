@@ -106,6 +106,17 @@ git clone -q --depth 1 https://github.com/sbwml/packages_utils_runc.git feeds/pa
 # 重新 feeds install 让所有替换与删除生效
 ./scripts/feeds install -a > /dev/null 2>&1 || true
 
+# AdGuardHome go.mod 依赖修复：
+#   0.107.78 的 go.mod/go.sum 缺少多个间接依赖声明（josharian/native、
+#   insomniacslk/dhcp/internal/xsocket、google/go-cmp/cmp/internal/flags 等），
+#   Go 1.26 下 go build 报 "no required module provides package X"。
+#   在 Build/Prepare 阶段插入 go mod tidy 补全缺失的间接依赖。
+AGH_MK="feeds/packages/net/adguardhome/Makefile"
+if [ -f "$AGH_MK" ] && ! grep -q 'go mod tidy' "$AGH_MK"; then
+  sed -i '/gzip -dc.*FRONTEND_DEST.*TAR_OPTIONS/a\\tcd "$(PKG_BUILD_DIR)" \&\& GOENV=off GOTOOLCHAIN=local GOMODCACHE="$(GO_MOD_CACHE_DIR)" GOCACHE="$(GO_BUILD_CACHE_DIR)" go mod tidy -modcacherw' "$AGH_MK"
+  echo "✅ AdGuardHome Makefile 已补丁 go mod tidy"
+fi
+
 # ============================================================
 # 汉化与翻译目录修复
 # ============================================================
