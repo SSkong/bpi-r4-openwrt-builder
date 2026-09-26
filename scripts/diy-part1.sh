@@ -46,9 +46,8 @@ git clone -q --depth 1 -b main https://github.com/LianXia233/luci-app-netmonitor
 # TrafficCtl 流量控制（包在子目录）
 git clone -q --depth 1 -b main https://github.com/YusDyr/luci-app-trafficctl.git package/custom/luci-app-trafficctl
 
-# AdGuard Home LuCI 已移除：feeds 中 adguardhome 0.107.78 与 Go 1.27.1 不兼容，
-# 且与 mosdns + smartdns 功能重叠。如需恢复取消下面注释（需旧版 golang feeds）。
-# git clone -q --depth 1 -b main https://github.com/terrytyc/luci-app-adguardhome.git package/custom/luci-app-adguardhome
+# AdGuard Home 去广告（包在子目录，核心包 adguardhome 由 packages feeds 依赖自动带入）
+git clone -q --depth 1 -b main https://github.com/terrytyc/luci-app-adguardhome.git package/custom/luci-app-adguardhome
 
 # HW Dashboard 硬件信息仪表盘（根目录即包）
 git clone -q --depth 1 -b main https://github.com/AliLostInTheDark/luci-app-hw-dashboard.git package/custom/luci-app-hw-dashboard
