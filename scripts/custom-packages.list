@@ -98,8 +98,9 @@ luci-mod-fluentdashboard
 Obsidian-Theme
 
 # --- i18n 中文翻译包（同样来自 package/custom/，一并纳入校验） ---
-# 注意：OpenWrt 25.12 中文语言代码为 zh_Hans（diy-part2.sh 会把上游 po/zh-cn 统一改名）
-luci-i18n-honk-zh_Hans
-luci-i18n-oxidns-zh_Hans
-luci-i18n-netmonitor-zh_Hans
-luci-i18n-owq-wol-zh_Hans
+# 注意：po 目录名是 zh_Hans（diy-part2.sh 会把上游 po/zh-cn 改名），
+# 但 luci.mk 的 LUCI_LC_ALIAS.zh_Hans=zh-cn 会把编译产物包名映射为 zh-cn 后缀
+luci-i18n-honk-zh-cn
+luci-i18n-oxidns-zh-cn
+luci-i18n-netmonitor-zh-cn
+luci-i18n-owq-wol-zh-cn
