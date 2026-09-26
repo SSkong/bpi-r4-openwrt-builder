@@ -1,14 +1,3 @@
----
-AIGC:
-  ContentProducer: '001191110102MAD55U9H0F10002'
-  ContentPropagator: '001191110102MAD55U9H0F10002'
-  Label: '1'
-  ProduceID: '4ff356c5-0f32-477e-8b3b-a255d60278d8'
-  PropagateID: '4ff356c5-0f32-477e-8b3b-a255d60278d8'
-  ReservedCode1: 'b762c143-405f-4892-962a-6f20c2197000'
-  ReservedCode2: 'b762c143-405f-4892-962a-6f20c2197000'
----
-
 # BPI-R4 OpenWrt 自动编译
 
 使用 GitHub Actions **定时自动编译** Banana Pi BPI-R4（标准版，MT7988A）的 ImmortalWrt 固件，内置 Passwall 科学上网插件、mihomo、dae/honk eBPF 透明代理与 48 个自定义仓库（61 个包：LuCI 应用 / QoS / 系统监控 / 应用过滤 / NAT 打洞 / 10 款主题等），内核已启用 BTF 支持 eBPF 程序运行。
@@ -23,7 +12,7 @@ AIGC:
 | 自定义插件 | 48 个仓库 61 个包：QoS 限速、网盘挂载、Mesh 组网、eBPF 代理、CDN 优选、应用过滤、带宽监控、NAT 打洞、系统监控、时间控制、分区扩展、任务计划、文件管理、网络唤醒、10 款 LuCI 主题等，完整清单见下方表格 |
 | 内核特性 | 已启用 BTF（BPF Type Format），支持 dae/honk 等 eBPF 程序运行 |
 | 管理界面 | LuCI 中文 |
-| 默认地址 | `192.168.1.1`，账号 `root`，无密码 |
+| 默认地址 | `192.168.10.1`，账号 `root`，无密码 |
 | 更新频率 | 每周一北京时间 11:00 自动编译 |
 
 ## 仓库结构
