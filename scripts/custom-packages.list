@@ -4,43 +4,31 @@
 # 用途：编译前由 scripts/verify-custom-packages.sh 自动校验
 #   1) 包已被扫描发现（git clone 成功）
 #   2) 生效来源为 package/custom/（防止被 feeds 同名包顶替）
-#      —— 当 feeds 中存在同名包时，OpenWrt 规则使 package/custom/
-#         版本自动顶替 feeds 版；本校验防止上游机制变化导致静默降级
 #   3) 包已选入最终固件配置（.config）
 #
 # 添加新自定义包的标准三步：
 #   ① scripts/diy-part1.sh 增加一行 git clone（到 package/custom/）
 #   ② config/bpi-r4.config 增加 CONFIG_PACKAGE_<包名>=y
 #   ③ 本清单增加一行包名
-#
-# 如何查询 feeds 中是否有同名包（决定是否必须走第③步）：
-#   ./scripts/feeds search <包名>
-#   —— 建议所有 git clone 的包都加入本清单，校验永远有益无害
 # ============================================================
+
+# --- eBPF 透明代理 ---
 luci-app-honk
 honk
+dae
+luci-app-dae
+
+# --- DNS 分流 ---
 luci-app-oxidns
-luci-app-netmonitor
-luci-app-trafficctl
+mosdns
+geo2text
+luci-app-mosdns
+
+# --- 去广告 ---
 luci-app-adguardhome
-luci-app-hw-dashboard
-# 中文翻译包（同样来自 package/custom/，一并纳入校验）
-luci-i18n-honk-zh-cn
-luci-i18n-oxidns-zh-cn
-luci-i18n-netmonitor-zh-cn
-luci-i18n-adguardhome-zh-cn
-# Node.js（sbwml 预编译版，替换 packages feeds 官方源码编译版）
-node
-node-npm
-# 第二批自定义包
-qosmate
-luci-app-qosmate
-openlist2
-luci-app-openlist2
-alwaysonline
-luci-app-alwaysonline
-rgmac
-luci-app-change-mac
+
+# --- 网络监控 ---
+luci-app-netmonitor
 luci-app-cpu-status
 luci-app-internet-detector
 internet-detector
@@ -48,16 +36,56 @@ luci-app-log-viewer
 luci-app-temp-status
 watchdog
 luci-app-watchdog
-luci-app-mini-diskmanager
-luci-app-fancontrol
+
+# --- QoS / 流量控制 ---
+luci-app-trafficctl
+qosmate
+luci-app-qosmate
+
+# --- 带宽监控 / 应用过滤 ---
+luci-app-bandix
+bandix
+kmod-oaf
+appfilter
+luci-app-oaf
+
+# --- 组网 / 代理 / CDN ---
 easytier
-# easytier-noweb 是 easytier 的互斥变体（提供相同二进制），二选一，未选中不校验
 luci-app-easytier
 mihomo
 luci-app-fchomo
 luci-app-cloudflarespeedtest
 luci-app-cloudflare-ip
+
+# --- 网络工具 ---
+openlist2
+luci-app-openlist2
+alwaysonline
+luci-app-alwaysonline
+rgmac
+luci-app-change-mac
+natmapt
+stuntman-client
+luci-app-natmapt
 luci-app-owq-wol
+luci-app-ap-modem
+
+# --- 系统工具 ---
+luci-app-hw-dashboard
+luci-app-mini-diskmanager
+luci-app-fancontrol
+luci-app-timecontrol
+luci-app-partexp
+luci-app-taskplan
+luci-app-harbor-file-pro
+airconnect
+luci-app-airconnect
+
+# --- Node.js 运行时 ---
+node
+node-npm
+
+# --- LuCI 主题 ---
 luci-theme-graphite
 luci-app-graphite
 luci-theme-aurora
@@ -68,25 +96,9 @@ luci-theme-footstrap
 luci-theme-fluent
 luci-mod-fluentdashboard
 Obsidian-Theme
-# 第三批自定义包（11 个仓库）
-luci-app-bandix
-bandix
-kmod-oaf
-appfilter
-luci-app-oaf
-luci-app-timecontrol
-luci-app-partexp
-luci-app-taskplan
-natmapt
-stuntman-client
-luci-app-natmapt
-dae
-luci-app-dae
-luci-app-harbor-file-pro
-# 第四批：DNS 分流 / AirPlay 音频
-mosdns
-geo2txt
-luci-app-mosdns
-airconnect
-luci-app-airconnect
-luci-app-ap-modem
+
+# --- i18n 中文翻译包（同样来自 package/custom/，一并纳入校验） ---
+luci-i18n-honk-zh-cn
+luci-i18n-oxidns-zh-cn
+luci-i18n-netmonitor-zh-cn
+luci-i18n-adguardhome-zh-cn

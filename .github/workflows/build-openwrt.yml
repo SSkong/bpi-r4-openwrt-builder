@@ -214,7 +214,7 @@ jobs:
           echo "" >> release.txt
           echo "**源码版本**: \`${{ steps.src.outputs.sha }}\`" >> release.txt
           echo "**编译时间**: $(date +"%Y-%m-%d %H:%M") CST" >> release.txt
-          echo "**内置插件**: Passwall (Xray/sing-box/Hysteria)、mihomo、dae/honk (eBPF 透明代理)、QosMate 限速、OpenList2 网盘、EasyTier 组网、Cloudflare 优选 IP、应用过滤 (OAF)、带宽监控、NAT 打洞 (STUN)、系统监控、时间控制、分区扩展、任务计划、文件管理、WOL 网络唤醒、10 款 LuCI 主题、内核 BTF 支持、中文 LuCI 等 60+ 自定义包" >> release.txt
+          echo "**内置插件**: Passwall (Xray/sing-box/Hysteria)、mihomo、dae/honk (eBPF 透明代理)、mosdns/oxidns DNS 分流、AdGuard Home 去广告、QosMate 限速、OpenList2 网盘、EasyTier 组网、Cloudflare 优选 IP、应用过滤 (OAF)、带宽监控、NAT 打洞 (STUN)、系统监控、时间控制、分区扩展、任务计划、文件管理、AirPlay 音频转发、WOL 网络唤醒、7 款 LuCI 主题、内核 BTF 支持、中文 LuCI 等 66 个自定义包" >> release.txt
           echo "" >> release.txt
           echo "### 固件文件说明" >> release.txt
           echo "| 文件 | 用途 |" >> release.txt

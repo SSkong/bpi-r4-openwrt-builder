@@ -3,15 +3,15 @@ AIGC:
   ContentProducer: '001191110102MAD55U9H0F10002'
   ContentPropagator: '001191110102MAD55U9H0F10002'
   Label: '1'
-  ProduceID: '4ff356c5-0f32-477e-8b3b-a255d60278d8'
-  PropagateID: '4ff356c5-0f32-477e-8b3b-a255d60278d8'
-  ReservedCode1: 'b762c143-405f-4892-962a-6f20c2197000'
-  ReservedCode2: 'b762c143-405f-4892-962a-6f20c2197000'
+  ProduceID: '20148e4f-5eec-48e2-a2cb-8916df1c0f74'
+  PropagateID: '20148e4f-5eec-48e2-a2cb-8916df1c0f74'
+  ReservedCode1: 'b69c65f1-5e3e-4666-81c4-00e68640ace8'
+  ReservedCode2: 'b69c65f1-5e3e-4666-81c4-00e68640ace8'
 ---
 
 # BPI-R4 OpenWrt 自动编译
 
-使用 GitHub Actions **定时自动编译** Banana Pi BPI-R4（标准版，MT7988A）的 ImmortalWrt 固件，内置 Passwall 科学上网插件、mihomo、dae/honk eBPF 透明代理与 48 个自定义仓库（61 个包：LuCI 应用 / QoS / 系统监控 / 应用过滤 / NAT 打洞 / 10 款主题等），内核已启用 BTF 支持 eBPF 程序运行。
+使用 GitHub Actions **定时自动编译** Banana Pi BPI-R4（标准版，MT7988A）的 ImmortalWrt 固件，内置 Passwall 科学上网插件、mihomo、dae/honk eBPF 透明代理与 49 个自定义仓库（66 个包：eBPF 代理 / DNS 分流 / QoS 限速 / 网络监控 / 应用过滤 / NAT 打洞 / Mesh 组网 / CDN 优选 / 7 款 LuCI 主题等），内核已启用 BTF 支持 eBPF 程序运行。
 
 ## 固件信息
 
@@ -20,10 +20,10 @@ AIGC:
 | 硬件平台 | Banana Pi BPI-R4 标准版 (MT7988A / 4GB RAM / 32GB eMMC) |
 | 固件源码 | [chasey-dev/immortalwrt-mt798x-rebase](https://github.com/chasey-dev/immortalwrt-mt798x-rebase) (ImmortalWrt 25.12 + MTK 官方 Feeds，内核 6.12) |
 | 科学上网 | **Passwall** (Xray / sing-box / Hysteria，SSR / Shadowsocks 等全协议)、**dae/honk** (eBPF 透明代理) |
-| 自定义插件 | 48 个仓库 61 个包：QoS 限速、网盘挂载、Mesh 组网、eBPF 代理、CDN 优选、应用过滤、带宽监控、NAT 打洞、系统监控、时间控制、分区扩展、任务计划、文件管理、网络唤醒、10 款 LuCI 主题等，完整清单见下方表格 |
+| 自定义插件 | 49 个仓库 66 个包：eBPF 代理、DNS 分流、去广告、QoS 限速、网络监控、带宽监控、应用过滤、Mesh 组网、CDN 优选、NAT 打洞、系统工具、网络唤醒、7 款 LuCI 主题等，完整清单见下方表格 |
 | 内核特性 | 已启用 BTF（BPF Type Format），支持 dae/honk 等 eBPF 程序运行 |
 | 管理界面 | LuCI 中文 |
-| 默认地址 | `192.168.1.1`，账号 `root`，无密码 |
+| 默认地址 | `192.168.10.1`，账号 `root`，无密码 |
 | 更新频率 | 每周一北京时间 11:00 自动编译 |
 
 ## 仓库结构
@@ -32,55 +32,64 @@ AIGC:
 ├── .github/workflows/
 │   └── build-openwrt.yml    # 编译工作流（定时 + 手动触发）
 ├── scripts/
-│   ├── diy-part1.sh         # [feeds 阶段] 注入 Passwall 源 + git clone 自定义包到 package/custom/
-│   └── diy-part2.sh         # [编译前] 修改默认 IP / 时区 / 版本号等（示例已注释）
+│   ├── diy-part1.sh         # [feeds 阶段] 注入第三方源 + git clone 自定义包到 package/custom/
+│   ├── diy-part2.sh         # [编译前] 默认设置定制 + 兼容性修复 + feeds 源码替换
+│   ├── custom-packages.list # 自定义包校验清单（verify-custom-packages.sh 读取）
+│   └── verify-custom-packages.sh # 编译前三态校验（扫描 + 来源 + 选中）
 ├── config/
 │   └── bpi-r4.config        # 固件配置种子文件（加/减插件改这里）
 ├── files/                   # 预置配置目录（放入 etc/xxx 会合并进固件）
+│   └── po/zh_Hans/          # 预置中文翻译文件
 └── README.md
 ```
 
-### 第一批自定义包（6 个 LuCI 应用 + Node.js）
-
-| 插件 | 功能 | 来源仓库 |
-|---|---|---|
-| luci-app-honk | Honk 微博客（含后端） | [QiuSimons/luci-app-honk](https://github.com/QiuSimons/luci-app-honk) |
-| luci-app-oxidns | OxiDNS DNS 分流 | [hahaher123/luci-app-oxidns](https://github.com/hahaher123/luci-app-oxidns) |
-| luci-app-netmonitor | 网络质量监控（延迟/丢包） | [LianXia233/luci-app-netmonitor](https://github.com/LianXia233/luci-app-netmonitor) |
-| luci-app-trafficctl | 流量控制（限速/整形/断网） | [YusDyr/luci-app-trafficctl](https://github.com/YusDyr/luci-app-trafficctl) |
-| luci-app-adguardhome | AdGuard Home 去广告（**替换 luci feeds 自带旧版**，内置目录优先于 feeds） | [terrytyc/luci-app-adguardhome](https://github.com/terrytyc/luci-app-adguardhome) |
-| luci-app-hw-dashboard | 硬件信息仪表盘 | [AliLostInTheDark/luci-app-hw-dashboard](https://github.com/AliLostInTheDark/luci-app-hw-dashboard) |
-| node / node-npm | Node.js 运行时（sbwml 预编译版，**替换 packages feeds 官方源码编译版**，构建时下载预编译 apk，节省 30-60 分钟编译时间） | [sbwml/feeds_packages_lang_node](https://github.com/sbwml/feeds_packages_lang_node) |
-
-### 第二批自定义包（28 个仓库）
+## 自定义插件清单
 
 | 分类 | 包 | 功能 | 来源仓库 |
 |---|---|---|---|
+| eBPF 代理 | luci-app-honk / honk | Honk eBPF 透明代理引擎 | [498777/luci-app-honk](https://github.com/498777/luci-app-honk) |
+| eBPF 代理 | luci-app-dae / dae | dae eBPF 透明代理（预编译二进制） | [498777/luci-app-dae](https://github.com/498777/luci-app-dae) |
+| DNS 分流 | luci-app-oxidns | OxiDNS DNS 分流 | [hahaher123/luci-app-oxidns](https://github.com/hahaher123/luci-app-oxidns) |
+| DNS 分流 | mosdns / luci-app-mosdns | mosdns DNS 分流（v5.3.4） | [sbwml/luci-app-mosdns](https://github.com/sbwml/luci-app-mosdns) |
+| 去广告 | luci-app-adguardhome | AdGuard Home 去广告 | [terrytyc/luci-app-adguardhome](https://github.com/terrytyc/luci-app-adguardhome) |
+| 网络监控 | luci-app-netmonitor | 网络质量监控（延迟/丢包） | [LianXia233/luci-app-netmonitor](https://github.com/LianXia233/luci-app-netmonitor) |
+| 网络监控 | luci-app-cpu-status | CPU 状态监控（频率/温度/占用） | [gSpotx2f/luci-app-cpu-status](https://github.com/gSpotx2f/luci-app-cpu-status) |
+| 网络监控 | internet-detector / luci-app-internet-detector | 外网连通性检测 | [gSpotx2f/luci-app-internet-detector](https://github.com/gSpotx2f/luci-app-internet-detector) |
+| 网络监控 | luci-app-log-viewer | 系统日志增强查看 | [gSpotx2f/luci-app-log](https://github.com/gSpotx2f/luci-app-log) |
+| 网络监控 | luci-app-temp-status | 温度监控 | [gSpotx2f/luci-app-temp-status](https://github.com/gSpotx2f/luci-app-temp-status) |
+| 网络监控 | watchdog / luci-app-watchdog | 看门狗（进程/网络异常自动重启） | [sirpdboy/luci-app-watchdog](https://github.com/sirpdboy/luci-app-watchdog) |
+| QoS | luci-app-trafficctl | 流量控制（限速/整形/断网） | [YusDyr/luci-app-trafficctl](https://github.com/YusDyr/luci-app-trafficctl) |
 | QoS | qosmate / luci-app-qosmate | nftables 智能限速与 QoS 管理 | [hudra0/qosmate](https://github.com/hudra0/qosmate) · [hudra0/luci-app-qosmate](https://github.com/hudra0/luci-app-qosmate) |
-| 网络工具 | openlist2 / luci-app-openlist2 | OpenList 多网盘挂载（阿里/百度/夸克等） | [sbwml/luci-app-openlist2](https://github.com/sbwml/luci-app-openlist2) |
-| 网络工具 | alwaysonline / luci-app-alwaysonline | PPPoE 拨号保活，断线自动重连 | [muink/luci-app-alwaysonline](https://github.com/muink/luci-app-alwaysonline) · [muink/openwrt-alwaysonline](https://github.com/muink/openwrt-alwaysonline) |
-| 网络工具 | rgmac / luci-app-change-mac | MAC 地址查看与修改 | [muink/luci-app-change-mac](https://github.com/muink/luci-app-change-mac) · [muink/openwrt-rgmac](https://github.com/muink/openwrt-rgmac) |
-| 系统监控 | luci-app-cpu-status | CPU 状态监控（频率/温度/占用） | [gSpotx2f/luci-app-cpu-status](https://github.com/gSpotx2f/luci-app-cpu-status) |
-| 系统监控 | internet-detector / luci-app-internet-detector | 外网连通性检测（断网告警/自动恢复） | [gSpotx2f/luci-app-internet-detector](https://github.com/gSpotx2f/luci-app-internet-detector) |
-| 系统监控 | luci-app-log-viewer | 系统日志增强查看 | [gSpotx2f/luci-app-log](https://github.com/gSpotx2f/luci-app-log) |
-| 系统监控 | temp-status / luci-app-temp-status | 温度监控 | [gSpotx2f/luci-app-temp-status](https://github.com/gSpotx2f/luci-app-temp-status) |
-| 系统监控 | watchdog / luci-app-watchdog | 看门狗（进程/网络异常自动重启） | [sirpdboy/luci-app-watchdog](https://github.com/sirpdboy/luci-app-watchdog) |
-| 硬件管理 | luci-app-mini-diskmanager | 磁盘管理（挂载/格式化） | [4IceG/luci-app-mini-diskmanager](https://github.com/4IceG/luci-app-mini-diskmanager) |
-| 硬件管理 | luci-app-fancontrol | 风扇转速控制 | [bigmalloy/luci-app-fancontrol](https://github.com/bigmalloy/luci-app-fancontrol) |
+| 带宽/过滤 | bandix / luci-app-bandix | 带宽监控 | [timsaya/luci-app-bandix](https://github.com/timsaya/luci-app-bandix) · [timsaya/openwrt-bandix](https://github.com/timsaya/openwrt-bandix) |
+| 带宽/过滤 | kmod-oaf / appfilter / luci-app-oaf | 应用过滤（OpenAppFilter） | [destan19/OpenAppFilter](https://github.com/destan19/OpenAppFilter) |
 | 组网 | easytier / luci-app-easytier | 去中心化 Mesh 组网 | [EasyTier/luci-app-easytier](https://github.com/EasyTier/luci-app-easytier) |
-| 代理 | mihomo / luci-app-fchomo | mihomo（Clash Meta）内核与 LuCI 管理 | [fcshark-org/openwrt-fchomo](https://github.com/fcshark-org/openwrt-fchomo) |
+| 代理 | mihomo / luci-app-fchomo | mihomo（Clash Meta）内核与 LuCI | [fcshark-org/openwrt-fchomo](https://github.com/fcshark-org/openwrt-fchomo) |
 | CDN 优选 | luci-app-cloudflarespeedtest | Cloudflare CDN 节点优选测速 | [stevenjoezhang/luci-app-cloudflarespeedtest](https://github.com/stevenjoezhang/luci-app-cloudflarespeedtest) |
 | CDN 优选 | luci-app-cloudflare-ip | Cloudflare 优选 IP 自动更新 | [hello-yunshu/luci-app-cloudflare-ip](https://github.com/hello-yunshu/luci-app-cloudflare-ip) |
-| 网络唤醒 | luci-app-owq-wol | WOL 网络唤醒 | [isalikai/luci-app-owq-wol](https://github.com/isalikai/luci-app-owq-wol) |
-| 主题 | luci-theme-graphite / luci-app-graphite | Graphite 主题与配置器 | [Zakkaus/luci-theme-graphite](https://github.com/Zakkaus/luci-theme-graphite) · [Zakkaus/luci-app-graphite](https://github.com/Zakkaus/luci-app-graphite) |
-| 主题 | luci-theme-aurora / luci-app-aurora-config | Aurora 主题与配置器 | [eamonxg/luci-theme-aurora](https://github.com/eamonxg/luci-theme-aurora) · [eamonxg/luci-app-aurora-config](https://github.com/eamonxg/luci-app-aurora-config) |
+| 网络工具 | openlist2 / luci-app-openlist2 | OpenList 多网盘挂载 | [sbwml/luci-app-openlist2](https://github.com/sbwml/luci-app-openlist2) |
+| 网络工具 | alwaysonline / luci-app-alwaysonline | PPPoE 拨号保活 | [muink/luci-app-alwaysonline](https://github.com/muink/luci-app-alwaysonline) · [muink/openwrt-alwaysonline](https://github.com/muink/openwrt-alwaysonline) |
+| 网络工具 | rgmac / luci-app-change-mac | MAC 地址查看与修改 | [muink/luci-app-change-mac](https://github.com/muink/luci-app-change-mac) · [muink/openwrt-rgmac](https://github.com/muink/openwrt-rgmac) |
+| 网络工具 | natmapt / stuntman-client / luci-app-natmapt | NAT 映射 / STUN 打洞 | [muink/luci-app-natmapt](https://github.com/muink/luci-app-natmapt) · [muink/openwrt-natmapt](https://github.com/muink/openwrt-natmapt) · [muink/openwrt-stuntman](https://github.com/muink/openwrt-stuntman) |
+| 网络工具 | luci-app-owq-wol | WOL 网络唤醒 | [isalikai/luci-app-owq-wol](https://github.com/isalikai/luci-app-owq-wol) |
+| 网络工具 | luci-app-ap-modem | AP/Modem 快捷访问 | [QiuSimons/OpenWrt-Add](https://github.com/QiuSimons/OpenWrt-Add) |
+| 系统工具 | luci-app-hw-dashboard | 硬件信息仪表盘 | [AliLostInTheDark/luci-app-hw-dashboard](https://github.com/AliLostInTheDark/luci-app-hw-dashboard) |
+| 系统工具 | luci-app-mini-diskmanager | 磁盘管理（挂载/格式化） | [4IceG/luci-app-mini-diskmanager](https://github.com/4IceG/luci-app-mini-diskmanager) |
+| 系统工具 | luci-app-fancontrol | 风扇转速控制 | [bigmalloy/luci-app-fancontrol](https://github.com/bigmalloy/luci-app-fancontrol) |
+| 系统工具 | luci-app-timecontrol | 时间控制 | [sirpdboy/luci-app-timecontrol](https://github.com/sirpdboy/luci-app-timecontrol) |
+| 系统工具 | luci-app-partexp | 分区扩展 | [sirpdboy/luci-app-partexp](https://github.com/sirpdboy/luci-app-partexp) |
+| 系统工具 | luci-app-taskplan | 任务计划 | [sirpdboy/luci-app-taskplan](https://github.com/sirpdboy/luci-app-taskplan) |
+| 系统工具 | luci-app-harbor-file-pro | 文件管理 | [whzhni1/luci-app-harbor-file-pro](https://github.com/whzhni1/luci-app-harbor-file-pro) |
+| 系统工具 | airconnect / luci-app-airconnect | AirPlay 音频转发 | [sbwml/luci-app-airconnect](https://github.com/sbwml/luci-app-airconnect) |
+| 运行时 | node / node-npm | Node.js（sbwml 预编译版，替换官方源码编译版） | [sbwml/feeds_packages_lang_node](https://github.com/sbwml/feeds_packages_lang_node) |
+| 主题 | luci-theme-graphite + luci-app-graphite | Graphite 主题与配置器 | [Zakkaus/luci-theme-graphite](https://github.com/Zakkaus/luci-theme-graphite) · [Zakkaus/luci-app-graphite](https://github.com/Zakkaus/luci-app-graphite) |
+| 主题 | luci-theme-aurora + luci-app-aurora-config | Aurora 主题与配置器 | [eamonxg/luci-theme-aurora](https://github.com/eamonxg/luci-theme-aurora) · [eamonxg/luci-app-aurora-config](https://github.com/eamonxg/luci-app-aurora-config) |
 | 主题 | luci-theme-liquid | Liquid 主题 | [zzsj0928/luci-theme-liquid](https://github.com/zzsj0928/luci-theme-liquid) |
 | 主题 | luci-theme-shadcn | Shadcn 主题 | [eamonxg/luci-theme-shadcn](https://github.com/eamonxg/luci-theme-shadcn) |
-| 主题 | luci-theme-footstrap | Footstrap 主题（**替换 luci feeds 自带同名包**） | [VizzleTF/luci-theme-footstrap](https://github.com/VizzleTF/luci-theme-footstrap) |
-| 主题 | luci-theme-fluent / luci-mod-fluentdashboard | Fluent 主题与 Fluent 仪表盘 | [LazuliKao/luci-theme-fluent](https://github.com/LazuliKao/luci-theme-fluent) |
+| 主题 | luci-theme-footstrap | Footstrap 主题（替换 luci feeds 同名包） | [VizzleTF/luci-theme-footstrap](https://github.com/VizzleTF/luci-theme-footstrap) |
+| 主题 | luci-theme-fluent + luci-mod-fluentdashboard | Fluent 主题与仪表盘 | [LazuliKao/luci-theme-fluent](https://github.com/LazuliKao/luci-theme-fluent) |
 | 主题 | Obsidian-Theme | Obsidian 黑曜石主题 | [OnyxAxisOwO/Obsidian-Theme](https://github.com/OnyxAxisOwO/Obsidian-Theme) |
 
-> **上游 Makefile 适配修复**（diy-part2.sh 自动完成）：graphite / Obsidian-Theme 的 `include ../../luci.mk` 相对路径改为 `$(TOPDIR)/feeds/luci/luci.mk`；footstrap 删除 feeds 残留链接防止同名顶替；cloudflare-ip 依赖链补入 tar / jq / ca-certificates / xz-utils（新版 feeds 将 xz 拆为 xz-utils + xz，缺前置会导致 tar 与 cloudflare-ip 被 defconfig 静默丢弃）。
+> **上游 Makefile 适配修复**（diy-part2.sh 自动完成）：graphite / Obsidian-Theme 的 `include ../../luci.mk` 改为 `$(TOPDIR)/feeds/luci/luci.mk`；footstrap 删除 feeds 残留链接防止同名顶替；dae 下载预编译二进制并修复 ARCH_PACKAGES 匹配；fancontrol 删除旧版子目录；mosdns 删除 feeds 链接防顶替；golang feeds 降级为 26.x（Go 1.26.8）兼容 AdGuardHome；Docker feeds 替换为 sbwml fork 适配 25.12。
 
 > 这些包在每次编译前由 diy-part1.sh 用 `git clone` 下载到源码树 `package/custom/`，OpenWrt 25.12 的包扫描深度为 5 层，整仓库放置即可被自动发现，无需手动移动子目录。
 
@@ -156,8 +165,8 @@ dd if=emmc-bl31-uboot.fip of=/dev/mmcblk0 bs=512 seek=2048
 ```bash
 # 美化主题（源码自带）
 CONFIG_PACKAGE_luci-theme-argon=y
-# 去广告
-CONFIG_PACKAGE_luci-app-adguardhome=y
+# 限速
+CONFIG_PACKAGE_luci-app-qosmate=y
 ```
 
 **修改默认设置**：编辑 [`scripts/diy-part2.sh`](scripts/diy-part2.sh)，按注释取消相应 sed 命令（改管理 IP / 时区 / 主机名）。
@@ -170,7 +179,7 @@ CONFIG_PACKAGE_luci-app-adguardhome=y
 
 ## 编译流水线说明
 
-- 采用**两阶段编译**（工具链 → 固件），确保单次任务不超过 GitHub Actions 6 小时上限
+- 采用**单 Job 编译**，工具链缓存命中时跳过工具链编译阶段直接编译固件
 - 工具链与源码包以缓存复用，源码不变时工具链阶段秒级跳过
 - 手动触发时可选「忽略缓存强制全量重编」与「失败时 SSH 调试」
 - 每次成功编译自动发布 Release，仅保留最近 4 个版本
@@ -182,6 +191,6 @@ CONFIG_PACKAGE_luci-app-adguardhome=y
 ## 致谢
 
 - [ImmortalWrt](https://github.com/immortalwrt/immortalwrt) & [chasey-dev/immortalwrt-mt798x-rebase](https://github.com/chasey-dev/immortalwrt-mt798x-rebase)
-- [Passwall](https://github.com/Openwrt-Passwall/openwrt-passwall) (Openwrt-Passwall Organization)
+- [sbwml/openwrt_helloworld](https://github.com/sbwml/openwrt_helloworld)（Passwall 科学上网源）
 - [P3TERX/Actions-OpenWrt](https://github.com/P3TERX/Actions-OpenWrt)（工作流架构参考）
 - [MediaTek MTK OpenWrt Feeds](https://github.com/mediatek/mtk-openwrt-feeds)
