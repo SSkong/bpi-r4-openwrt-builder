@@ -119,16 +119,23 @@ cp files/po/zh_Hans/hw-dashboard.po package/custom/luci-app-hw-dashboard/po/zh_H
 touch package/custom/luci-app-hw-dashboard/Makefile
 
 # 通用翻译目录适配：OpenWrt 25.12 中文语言代码为 zh_Hans（非旧版 zh-cn）
-#   上游仓库多按旧规范建 po/zh-cn，编译出 .zh-cn.lmo 在 25.12 LuCI 中不生效。
-#   递归查找 package/custom/ 下所有 zh-cn 目录，统一重命名为 zh_Hans；
-#   若包本身已有 zh_Hans 目录（如 change-mac）则跳过，避免覆盖上游新版翻译。
-#   honk 等包在二级子目录（repo/app/po），故用 find 递归而非固定路径。
+#   上游仓库多按旧规范建 po/zh-cn，luci.mk 的 LUCI_LANG 只认 zh_Hans，
+#   po/zh-cn 不会被扫描生成 i18n 包。递归查找统一重命名为 zh_Hans：
+#   - 包本身已有 zh_Hans 目录（如 change-mac）→ 跳过，避免覆盖上游新版翻译
+#   - Makefile 硬编码引用 po/zh-cn 的包（如 w9315273 adguardhome 自行
+#     po2lmo 直接生成 .zh-cn.lmo，不走 luci.mk 流程）→ 跳过，改名会破坏路径
+#   - honk 等包在二级子目录（repo/app/po），故用 find 递归而非固定路径
 find package/custom -type d -name zh-cn | while read -r d; do
+  pkgroot="${d%/po/zh-cn}"
+  if grep -q -- 'po/zh-cn' "$pkgroot/Makefile" 2>/dev/null; then
+    echo "  跳过翻译改名（Makefile 硬编码 po/zh-cn）: $pkgroot"
+    continue
+  fi
   if [ ! -d "${d%/zh-cn}/zh_Hans" ]; then
     mv "$d" "${d%/zh-cn}/zh_Hans"
-    echo "  翻译目录已适配: ${d%/po/zh-cn} (zh-cn → zh_Hans)"
+    echo "  翻译目录已适配: $pkgroot (zh-cn → zh_Hans)"
     # touch 包 Makefile 强制 scan.mk 重新扫描 i18n 包定义
-    find "${d%/po/zh-cn}" -maxdepth 2 -name Makefile -exec touch {} + 2>/dev/null || true
+    find "$pkgroot" -maxdepth 2 -name Makefile -exec touch {} + 2>/dev/null || true
   fi
 done
 
