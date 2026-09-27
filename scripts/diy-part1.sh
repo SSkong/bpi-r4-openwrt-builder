@@ -48,9 +48,11 @@ git clone -q --depth 1 https://github.com/terrytyc/luci-app-adguardhome.git pack
 
 # --- AI 模型网关 ---
 # Model Gateway（wanvfx）：上游是 iStoreOS 应用、无 OpenWrt 源码编译路径，
-# 采用预编译集成（Makefile 从官方 Release 下载 ipk 提取二进制与 LuCI 文件）
+# 采用预编译集成（Makefile 从官方 Release 下载 ipk 提取二进制与 LuCI 文件，
+# 中文翻译 .lmo 一并从仓库分发）
 mkdir -p package/custom/luci-app-model-gateway
 cp "$GITHUB_WORKSPACE/scripts/packages/luci-app-model-gateway/Makefile" package/custom/luci-app-model-gateway/Makefile
+cp "$GITHUB_WORKSPACE/scripts/packages/luci-app-model-gateway/model-gateway.zh-cn.lmo" package/custom/luci-app-model-gateway/model-gateway.zh-cn.lmo
 
 # --- 网络监控 ---
 # NetMonitor 网络质量监控（延迟/丢包）

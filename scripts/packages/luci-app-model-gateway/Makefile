@@ -57,6 +57,14 @@ define Package/luci-app-model-gateway/install
 	$(INSTALL_DIR) $(1)/etc $(1)/usr
 	cp -a $(PKG_BUILD_DIR)/etc/. $(1)/etc/
 	cp -a $(PKG_BUILD_DIR)/usr/. $(1)/usr/
+	# 中文翻译：上游 .po 位于非标准路径（usr/lib/lua/luci/i18n/zh-cn/），
+	# LuCI 不加载该位置的 .po。本包预编译 .lmo 随仓库分发（平台无关数据文件，
+	# 由 feeds/luci/modules/luci-base/src/po2lmo 转换生成），避免构建顺序依赖。
+	# 上游更新翻译时重新生成：po2lmo <上游po> model-gateway.zh-cn.lmo
+	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/i18n
+	$(INSTALL_DATA) $(CURDIR)/model-gateway.zh-cn.lmo \
+		$(1)/usr/lib/lua/luci/i18n/model-gateway.zh-cn.lmo
+	rm -rf $(1)/usr/lib/lua/luci/i18n/zh-cn
 	# iStore 专属文件（opkg meta / istorec）保留无碍；如需精简可在此删除
 endef
 
