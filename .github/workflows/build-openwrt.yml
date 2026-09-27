@@ -174,6 +174,9 @@ jobs:
           }
           check_config CONFIG_TARGET_mediatek_filogic_DEVICE_bananapi_bpi-r4
           check_config CONFIG_PACKAGE_luci-app-passwall
+          check_config CONFIG_PACKAGE_luci-app-adguardhome
+          check_config CONFIG_PACKAGE_adguardhome
+          check_config CONFIG_PACKAGE_luci-i18n-adguardhome-zh-cn
           grep -q "^CONFIG_PACKAGE_xray-core=y" .config \
             && echo "✅ Passwall (Xray) 配置校验通过" \
             || echo "::warning::Xray 内核未选中，请检查 passwall feeds 是否更新"

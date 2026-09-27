@@ -84,8 +84,9 @@ rm -rf package/helloworld/dae package/helloworld/luci-app-dae
 
 # golang feeds 替换为 sbwml 26.x（Go 1.26.8）：
 # - OpenList 4.2.6 要求 go >= 1.25，Go 1.26.8 满足
-# - 27.x (Go 1.27.1) 下 GOTOOLCHAIN=local 部分包的 internal 模块依赖
-#   无法解析（实测 AdGuardHome 0.107.78 报 no required module），26.x 兼容性最广
+# - 历史排查：AdGuardHome 0.107.78 曾报 "no required module provides package X"，
+#   当时误判为 go.mod 不完整，实为 dl 缓存 go-mod-cache 模块文件损坏所致，
+#   已随 dl 缓存升级 v2 修复；26.x 因 OpenList 要求与整体兼容性继续保留
 # - 该包无 BUILD_BOOTSTRAP，CI 上 EXTERNAL_BOOTSTRAP_ROOT 为空时自动下载官方引导；
 #   ARM64 本机需指向外部 Go >= 1.24.6
 rm -rf feeds/packages/lang/golang
@@ -122,8 +123,8 @@ touch package/custom/luci-app-hw-dashboard/Makefile
 #   上游仓库多按旧规范建 po/zh-cn，luci.mk 的 LUCI_LANG 只认 zh_Hans，
 #   po/zh-cn 不会被扫描生成 i18n 包。递归查找统一重命名为 zh_Hans：
 #   - 包本身已有 zh_Hans 目录（如 change-mac）→ 跳过，避免覆盖上游新版翻译
-#   - Makefile 硬编码引用 po/zh-cn 的包（如 w9315273 adguardhome 自行
-#     po2lmo 直接生成 .zh-cn.lmo，不走 luci.mk 流程）→ 跳过，改名会破坏路径
+#   - Makefile 硬编码引用 po/zh-cn 的包（自行 po2lmo 生成 .zh-cn.lmo，
+#     不走 luci.mk 流程）→ 跳过，改名会破坏路径
 #   - honk 等包在二级子目录（repo/app/po），故用 find 递归而非固定路径
 find package/custom -type d -name zh-cn | while read -r d; do
   pkgroot="${d%/po/zh-cn}"

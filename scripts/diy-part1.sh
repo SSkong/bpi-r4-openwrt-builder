@@ -42,10 +42,9 @@ git clone -q --depth 1 -b main https://github.com/hahaher123/luci-app-oxidns.git
 git clone -q --depth 1 https://github.com/sbwml/luci-app-mosdns.git package/custom/luci-app-mosdns
 
 # --- 去广告 ---
-# AdGuard Home LuCI（w9315273 版，根目录即包）
-# 核心二进制不参与编译，首次使用时由脚本从 GitHub 下载官方预编译版，
-# 彻底规避 feeds adguardhome 源码编译的 go.mod 依赖问题
-git clone -q --depth 1 https://github.com/w9315273/luci-app-adguardhome.git package/custom/luci-app-adguardhome
+# AdGuard Home LuCI（terrytyc 版，luci-app-adguardhome/ 子目录即包）
+# 核心二进制依赖 feeds 的 adguardhome 包（Go 源码编译 0.107.78，golang 26.x）
+git clone -q --depth 1 https://github.com/terrytyc/luci-app-adguardhome.git package/custom/luci-app-adguardhome
 
 # --- 网络监控 ---
 # NetMonitor 网络质量监控（延迟/丢包）
