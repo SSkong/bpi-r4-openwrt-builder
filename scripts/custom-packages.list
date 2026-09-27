@@ -26,6 +26,7 @@ luci-app-mosdns
 
 # --- 去广告 ---
 luci-app-adguardhome
+luci-app-model-gateway
 
 # --- 网络监控 ---
 luci-app-netmonitor
@@ -50,6 +51,8 @@ appfilter
 luci-app-oaf
 
 # --- 组网 / 代理 / CDN ---
+luci-app-zerotier
+luci-i18n-zerotier-zh-cn
 easytier
 luci-app-easytier
 mihomo

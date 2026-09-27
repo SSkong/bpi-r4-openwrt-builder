@@ -46,6 +46,12 @@ git clone -q --depth 1 https://github.com/sbwml/luci-app-mosdns.git package/cust
 # 核心二进制依赖 feeds 的 adguardhome 包（Go 源码编译 0.107.78，golang 26.x）
 git clone -q --depth 1 https://github.com/terrytyc/luci-app-adguardhome.git package/custom/luci-app-adguardhome
 
+# --- AI 模型网关 ---
+# Model Gateway（wanvfx）：上游是 iStoreOS 应用、无 OpenWrt 源码编译路径，
+# 采用预编译集成（Makefile 从官方 Release 下载 ipk 提取二进制与 LuCI 文件）
+mkdir -p package/custom/luci-app-model-gateway
+cp "$GITHUB_WORKSPACE/scripts/packages/luci-app-model-gateway/Makefile" package/custom/luci-app-model-gateway/Makefile
+
 # --- 网络监控 ---
 # NetMonitor 网络质量监控（延迟/丢包）
 git clone -q --depth 1 -b main https://github.com/LianXia233/luci-app-netmonitor.git package/custom/luci-app-netmonitor
@@ -73,6 +79,8 @@ git clone -q --depth 1 https://github.com/timsaya/openwrt-bandix.git package/cus
 git clone -q --depth 1 https://github.com/destan19/OpenAppFilter.git package/custom/OpenAppFilter
 
 # --- 组网 / 代理 / CDN ---
+# ZeroTier 虚拟局域网（rabbitrogi fork，依赖 feeds zerotier 核心包）
+git clone -q --depth 1 https://github.com/rabbitrogi/luci-app-zerotier.git package/custom/luci-app-zerotier
 # EasyTier 去中心化 Mesh 组网
 git clone -q --depth 1 https://github.com/EasyTier/luci-app-easytier.git package/custom/luci-app-easytier
 # mihomo（Clash Meta）内核与 LuCI 管理
