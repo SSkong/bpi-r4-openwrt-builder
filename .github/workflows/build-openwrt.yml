@@ -167,9 +167,10 @@ jobs:
           path: /workdir/openwrt/tmp/go-build
           # Xray/sing-box/AdGuardHome/mosdns 等大 Go 包的增量编译缓存
           # （OpenWrt 的 GO_BUILD_CACHE_DIR=tmp/go-build，按内容 hash 命中，
-          # 缓存后单次编译可省 20-40 分钟 Go 编译时间；golang feeds 固定 26.x）
-          key: go-build-v1-${{ github.run_number }}
-          restore-keys: go-build-v1-
+          # 缓存后单次编译可省 20-40 分钟 Go 编译时间；golang feeds 27.x）
+          # v2: golang 26.x→27.x 升级，旧缓存与新 Go 版本不匹配，强制重建
+          key: go-build-v2-${{ github.run_number }}
+          restore-keys: go-build-v2-
 
       - name: 应用编译前定制 (diy-part2)
         run: |

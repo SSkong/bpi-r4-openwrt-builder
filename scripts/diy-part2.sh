@@ -91,19 +91,20 @@ rm -f package/feeds/helloworld/momo 2>/dev/null || true
 # feeds 源码替换
 # ============================================================
 
-# golang feeds 替换为 sbwml 26.x（Go 1.26.8）：
-# - OpenList 4.2.6 要求 go >= 1.25，Go 1.26.8 满足
+# golang feeds 替换为 sbwml 27.x（Go 1.27.1）：
+# - xray-core 26.9.9（passwall-packages feeds 每日同步的最新版）要求 go >= 1.27
+# - OpenList 4.2.6 要求 go >= 1.25，Go 1.27.1 满足
 # - 历史排查结论（2026-09-28 定位真凶）：AdGuardHome 0.107.78 报
 #   "no required module provides package X"（x/sys、go-cmp/internal/flags 等）
 #   的真正根因是 workflow 下载步骤的假文件清理规则（P3TERX 模板的
 #   find dl -size -1024c）误删了 go-mod-cache 中 <1KB 的模块元数据/小源文件
-#   ——go.mod 本身无问题，无需 tidy patch；run 18 无缓存编译成功后
-#   已将清理规则改为剪枝 go-mod-cache（见 build-openwrt.yml），根治。
-# - 若 CI 再报同类错误：先用 clean_cache=true 触发一次无缓存编译重建缓存
+#   ——go.mod 本身无问题，无需 tidy patch；27.x 的"AdGuardHome 不兼容"
+#   同为缓存误判（run 18 无缓存实验证实），26.x→27.x 切换安全。
+# - 若 CI 再报 go.mod requires go >= 1.2x：升级 golang 分支到对应版本
 # - 该包无 BUILD_BOOTSTRAP，CI 上 EXTERNAL_BOOTSTRAP_ROOT 为空时自动下载官方引导；
-#   ARM64 本机需指向外部 Go >= 1.24.6
+#   ARM64 本机需指向外部 Go（版本须 >= 该分支 bootstrap 要求）
 rm -rf feeds/packages/lang/golang
-git clone -q --depth 1 -b 26.x https://github.com/sbwml/packages_lang_golang.git feeds/packages/lang/golang
+git clone -q --depth 1 -b 27.x https://github.com/sbwml/packages_lang_golang.git feeds/packages/lang/golang
 
 # Docker feeds 替换为 sbwml fork 版（适配 OpenWrt 25.12）：
 # - 修复 docker/dockerd/containerd/runc 25.12 兼容性问题
