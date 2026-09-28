@@ -59,6 +59,14 @@ mihomo
 luci-app-fchomo
 luci-app-cloudflarespeedtest
 luci-app-cloudflare-ip
+luci-app-nikki
+nikki
+luci-app-momo
+momo
+luci-app-kixdns
+kixdns
+kixdns-stats
+luci-app-substore
 
 # --- 网络工具 ---
 openlist2
@@ -108,3 +116,4 @@ luci-i18n-oxidns-zh-cn
 luci-i18n-netmonitor-zh-cn
 luci-i18n-owq-wol-zh-cn
 luci-i18n-adguardhome-zh-cn
+luci-i18n-zerotier-zh-cn

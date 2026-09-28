@@ -7,17 +7,18 @@
 set -e
 
 # ============================================================
-# 一、科学上网软件源（sbwml/openwrt_helloworld）
-# 含 passwall / passwall2 / ssr-plus 及全部代理核心（xray/sing-box/hysteria 等）
+# 一、科学上网软件源（上游 Openwrt-Passwall + fw876/helloworld）
+# passwall-packages: 代理核心（xray/sing-box/hysteria/shadowsocks-rust 等）
+# passwall:          luci-app-passwall / luci-app-passwall2
+# helloworld:        luci-app-ssr-plus + 额外核心（分支 dev）
+# 三源同名包由 feeds install 按声明顺序去重，先声明者优先
 # ============================================================
 
-# 移除可能残留的旧 passwall feeds 配置（幂等）
-sed -i '/passwall_packages/d; /openwrt-passwall-packages/d; /Openwrt-Passwall\/openwrt-passwall\.git/d' feeds.conf.default
-
-# helloworld 全家桶 clone 到 package/ 下，由 SCAN_DEPTH 自动发现
-# golang feeds 替换在 diy-part2.sh（需等 feeds update 完成后操作 feeds/packages）
-rm -rf package/helloworld
-git clone -q --depth 1 https://github.com/sbwml/openwrt_helloworld.git package/helloworld
+# 注入 feeds（幂等：先删旧条目再追加）
+sed -i '/passwall_packages/d; /openwrt-passwall-packages/d; /src-git passwall /d; /Openwrt-Passwall\/openwrt-passwall\.git/d; /src-git helloworld/d; /fw876\/helloworld/d; /sbwml\/openwrt_helloworld/d' feeds.conf.default
+echo 'src-git passwall_packages https://github.com/Openwrt-Passwall/openwrt-passwall-packages.git;main' >> feeds.conf.default
+echo 'src-git passwall https://github.com/Openwrt-Passwall/openwrt-passwall.git;main' >> feeds.conf.default
+echo 'src-git helloworld https://github.com/fw876/helloworld.git;dev' >> feeds.conf.default
 
 # ============================================================
 # 二、自定义 LuCI 应用与工具包（49 个仓库）
@@ -85,6 +86,16 @@ git clone -q --depth 1 https://github.com/destan19/OpenAppFilter.git package/cus
 git clone -q --depth 1 https://github.com/rabbitrogi/luci-app-zerotier.git package/custom/luci-app-zerotier
 # EasyTier 去中心化 Mesh 组网
 git clone -q --depth 1 https://github.com/EasyTier/luci-app-easytier.git package/custom/luci-app-easytier
+# nikki（原 OpenClash 替代，mihomo 内核）+ momo（mosdns 管理）
+# 从 helloworld feeds 分离为独立 clone，custom 版覆盖 feeds 同名包
+git clone -q --depth 1 https://github.com/nikkinikki-org/OpenWrt-nikki.git package/custom/OpenWrt-nikki
+git clone -q --depth 1 https://github.com/nikkinikki-org/OpenWrt-momo.git package/custom/OpenWrt-momo
+# KixDNS DNS 分流解析器
+# 注意仓库含 kixdns + kixdns-stats + luci-app-kixdns 三个包
+git clone -q --depth 1 https://github.com/JohnsonRan/luci-app-kixdns.git package/custom/luci-app-kixdns
+# SubStore 订阅管理
+# 注意：根目录即包（Makefile 在根），依赖 luci-lua-runtime + luci-compat
+git clone -q --depth 1 https://github.com/Arthur97172/luci-app-substore.git package/custom/luci-app-substore
 # mihomo（Clash Meta）内核与 LuCI 管理
 git clone -q --depth 1 https://github.com/fcshark-org/openwrt-fchomo.git package/custom/openwrt-fchomo
 # Cloudflare CDN 节点优选测速
@@ -120,8 +131,8 @@ git clone -q --depth 1 https://github.com/4IceG/luci-app-mini-diskmanager.git pa
 # 风扇转速控制（锁定 commit 7655e6d，上游 HEAD 有破坏性变更）
 git clone -q --depth 1 https://github.com/bigmalloy/luci-app-fancontrol.git package/custom/luci-app-fancontrol
 cd package/custom/luci-app-fancontrol && git fetch -q --depth 1 origin 7655e6d624e7d277cf5cb617584a638b08b672d7 && git checkout -q 7655e6d624e7d277cf5cb617584a638b08b672d7 && cd - >/dev/null
-# 时间控制
-git clone -q --depth 1 https://github.com/sirpdboy/luci-app-timecontrol.git package/custom/luci-app-timecontrol
+# 时间控制（gaobin89 fork，分支 js）
+git clone -q --depth 1 -b js https://github.com/gaobin89/luci-app-timecontrol.git package/custom/luci-app-timecontrol
 # 分区扩展
 git clone -q --depth 1 https://github.com/sirpdboy/luci-app-partexp.git package/custom/luci-app-partexp
 # 任务计划

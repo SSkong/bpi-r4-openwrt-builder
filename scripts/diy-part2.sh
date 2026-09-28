@@ -73,10 +73,17 @@ rm -f package/feeds/luci/luci-app-dae
 # sbwml/luci-app-mosdns 含更新的 mosdns v5.3.4（feeds 为 v5.3.3）
 rm -f package/feeds/packages/mosdns
 
-# 移除 feeds 中与 helloworld 冲突的核心代理包源码（helloworld 自带更新版本）
+# 移除 feeds/packages 中与 passwall_packages/helloworld feeds 重叠的核心代理包
+# （feeds/packages 声明在自定义 feeds 之前会优先占位，导致旧版被选中）
+# 必须同时删除源码目录和 feeds 链接，否则 feeds install -a 不会为其他 feed 补建链接
 rm -rf feeds/packages/net/{xray-core,v2ray-core,v2ray-geodata,sing-box}
-# 删除 helloworld 中与 custom 冲突的 dae（保留 498777 fork 预编译版）
-rm -rf package/helloworld/dae package/helloworld/luci-app-dae
+rm -f package/feeds/packages/xray-core package/feeds/packages/v2ray-core package/feeds/packages/v2ray-geodata package/feeds/packages/sing-box
+# helloworld feeds 也提供 mosdns/mihomo，与 custom 版冲突时需删 feeds 链接
+rm -f package/feeds/helloworld/mosdns
+rm -f package/feeds/helloworld/mihomo
+# helloworld feeds 也提供 nikki/momo，custom clone 版优先
+rm -f package/feeds/helloworld/nikki 2>/dev/null || true
+rm -f package/feeds/helloworld/momo 2>/dev/null || true
 
 # ============================================================
 # feeds 源码替换
@@ -110,6 +117,9 @@ git clone -q --depth 1 https://github.com/sbwml/packages_utils_containerd.git fe
 git clone -q --depth 1 https://github.com/sbwml/packages_utils_runc.git feeds/packages/utils/runc
 
 # 重新 feeds install 让所有替换与删除生效
+# 必须先 feeds update -i -a 刷新索引（rm 源码后旧索引仍指向已删路径，
+# feeds install 会静默失败不建链接），再 feeds install -a 重建链接
+./scripts/feeds update -i -a > /dev/null 2>&1 || true
 ./scripts/feeds install -a > /dev/null 2>&1 || true
 
 # ============================================================
