@@ -21,147 +21,48 @@ echo 'src-git passwall https://github.com/Openwrt-Passwall/openwrt-passwall.git;
 echo 'src-git helloworld https://github.com/fw876/helloworld.git;dev' >> feeds.conf.default
 
 # ============================================================
-# 二、自定义 LuCI 应用与工具包（49 个仓库）
+# 二、自定义 LuCI 应用与工具包（从 SSkong/openwrt-packages monorepo 拉取）
 #
-# OpenWrt 25.12 包扫描深度为 5 层（include/scan.mk SCAN_DEPTH=5），
-# 整仓库 clone 到 package/custom/ 下即可被自动发现，无需移动子目录。
+# 所有第三方包聚合在 SSkong/openwrt-packages 仓库中（Git submodule 镜像），
+# monorepo 每周自动同步上游更新，编译时只需 clone 一次即可获取全部包。
+# 仓库地址: https://github.com/SSkong/openwrt-packages
+# 包含: 55 个 submodule + luci-app-ap-modem（从 OpenWrt-Add 提取）
+#       + luci-app-model-gateway（预编译 Makefile + .lmo，非 git 仓库）
 # ============================================================
 
 rm -rf package/custom
 mkdir -p package/custom
 
-# --- eBPF 透明代理 ---
-# Honk eBPF 透明代理引擎（498777 fork，luci-app-honk + honk 后端双包）
-git clone -q --depth 1 https://github.com/498777/luci-app-honk.git package/custom/luci-app-honk
-# dae eBPF 透明代理（预编译二进制由 diy-part2.sh 下载）
-git clone -q --depth 1 https://github.com/498777/luci-app-dae.git package/custom/luci-app-dae
+# 单次 clone 获取全部第三方包（含子模块，--depth 1 浅克隆）
+# monorepo: https://github.com/SSkong/openwrt-packages（55 submodules + 本地文件）
+git clone -q --depth 1 --recurse-submodules \
+  https://github.com/SSkong/openwrt-packages.git /tmp/openwrt-packages
 
-# --- DNS 分流 ---
-# OxiDNS DNS 分流（根目录即包）
-git clone -q --depth 1 -b main https://github.com/hahaher123/luci-app-oxidns.git package/custom/luci-app-oxidns
-# mosdns DNS 分流（sbwml 版，含 mosdns v5.3.4）
-git clone -q --depth 1 https://github.com/sbwml/luci-app-mosdns.git package/custom/luci-app-mosdns
+# 复制所有包目录到 package/custom/，排除 .git 目录减小体积
+for d in /tmp/openwrt-packages/*/; do
+  name=$(basename "$d")
+  [ "$name" = ".github" ] && continue
+  mkdir -p "package/custom/$name"
+  cp -a "$d". "package/custom/$name/"
+  rm -rf "package/custom/$name/.git"
+done
 
-# --- 去广告 ---
-# AdGuard Home LuCI（terrytyc 版，luci-app-adguardhome/ 子目录即包）
-# 核心二进制依赖 feeds 的 adguardhome 包（Go 源码编译 0.107.78，golang 26.x）
-git clone -q --depth 1 https://github.com/terrytyc/luci-app-adguardhome.git package/custom/luci-app-adguardhome
+# fancontrol 锁定 commit 7655e6d（上游 HEAD 有破坏性变更，同步工作流也锁定此 commit）
+FANCTRL_SHA="7655e6d624e7d277cf5cb617584a638b08b672d7"
+if ! grep -q "$FANCTRL_SHA" package/custom/luci-app-fancontrol/.git/HEAD 2>/dev/null; then
+  rm -rf package/custom/luci-app-fancontrol
+  git clone -q --depth 1 https://github.com/bigmalloy/luci-app-fancontrol.git /tmp/fancontrol
+  cd /tmp/fancontrol
+  git fetch -q --depth 1 origin "$FANCTRL_SHA"
+  git checkout -q "$FANCTRL_SHA"
+  cd - >/dev/null
+  cp -a /tmp/fancontrol package/custom/luci-app-fancontrol
+  rm -rf package/custom/luci-app-fancontrol/.git /tmp/fancontrol
+fi
 
-# --- AI 模型网关 ---
-# Model Gateway（wanvfx）：上游是 iStoreOS 应用、无 OpenWrt 源码编译路径，
-# 采用预编译集成（Makefile 从官方 Release 下载 ipk 提取二进制与 LuCI 文件，
-# 中文翻译 .lmo 一并从仓库分发）
-mkdir -p package/custom/luci-app-model-gateway
-cp "$GITHUB_WORKSPACE/scripts/packages/luci-app-model-gateway/Makefile" package/custom/luci-app-model-gateway/Makefile
-cp "$GITHUB_WORKSPACE/scripts/packages/luci-app-model-gateway/model-gateway.zh-cn.lmo" package/custom/luci-app-model-gateway/model-gateway.zh-cn.lmo
+# 清理临时目录
+rm -rf /tmp/openwrt-packages
 
-# --- 网络监控 ---
-# NetMonitor 网络质量监控（延迟/丢包）
-git clone -q --depth 1 -b main https://github.com/LianXia233/luci-app-netmonitor.git package/custom/luci-app-netmonitor
-# CPU 状态监控（频率/温度/占用）
-git clone -q --depth 1 https://github.com/gSpotx2f/luci-app-cpu-status.git package/custom/luci-app-cpu-status
-# 外网连通性检测（断网告警/自动恢复）
-git clone -q --depth 1 https://github.com/gSpotx2f/luci-app-internet-detector.git package/custom/luci-app-internet-detector
-# 系统日志增强查看
-git clone -q --depth 1 https://github.com/gSpotx2f/luci-app-log.git package/custom/luci-app-log
-# 温度监控
-git clone -q --depth 1 https://github.com/gSpotx2f/luci-app-temp-status.git package/custom/luci-app-temp-status
-# 看门狗（进程/网络异常自动重启）
-git clone -q --depth 1 https://github.com/sirpdboy/luci-app-watchdog.git package/custom/luci-app-watchdog
-
-# --- QoS / 流量控制 ---
-# TrafficCtl 流量控制（限速/整形/断网）
-git clone -q --depth 1 -b main https://github.com/YusDyr/luci-app-trafficctl.git package/custom/luci-app-trafficctl
-# QosMate nftables 智能限速与 QoS 管理
-git clone -q --depth 1 https://github.com/hudra0/qosmate.git package/custom/qosmate
-git clone -q --depth 1 https://github.com/hudra0/luci-app-qosmate.git package/custom/luci-app-qosmate
-# 带宽监控
-git clone -q --depth 1 https://github.com/timsaya/luci-app-bandix.git package/custom/luci-app-bandix
-git clone -q --depth 1 https://github.com/timsaya/openwrt-bandix.git package/custom/openwrt-bandix
-# 应用过滤（OpenAppFilter 含 kmod-oaf + appfilter + luci-app-oaf 三包）
-git clone -q --depth 1 https://github.com/destan19/OpenAppFilter.git package/custom/OpenAppFilter
-
-# --- 组网 / 代理 / CDN ---
-# ZeroTier 虚拟局域网（rabbitrogi fork，依赖 feeds zerotier 核心包）
-git clone -q --depth 1 https://github.com/rabbitrogi/luci-app-zerotier.git package/custom/luci-app-zerotier
-# EasyTier 去中心化 Mesh 组网
-git clone -q --depth 1 https://github.com/EasyTier/luci-app-easytier.git package/custom/luci-app-easytier
-# nikki（原 OpenClash 替代，mihomo 内核）+ momo（mosdns 管理）
-# 从 helloworld feeds 分离为独立 clone，custom 版覆盖 feeds 同名包
-git clone -q --depth 1 https://github.com/nikkinikki-org/OpenWrt-nikki.git package/custom/OpenWrt-nikki
-git clone -q --depth 1 https://github.com/nikkinikki-org/OpenWrt-momo.git package/custom/OpenWrt-momo
-# KixDNS DNS 分流解析器
-# 注意仓库含 kixdns + kixdns-stats + luci-app-kixdns 三个包
-git clone -q --depth 1 https://github.com/JohnsonRan/luci-app-kixdns.git package/custom/luci-app-kixdns
-# SubStore 订阅管理
-# 注意：根目录即包（Makefile 在根），依赖 luci-lua-runtime + luci-compat
-git clone -q --depth 1 https://github.com/Arthur97172/luci-app-substore.git package/custom/luci-app-substore
-# HomeProxy Pro（szwjp fork，sing-box 1.14，PKG_NAME=luci-app-homeproxy 同名顶替 feeds 官方版）
-# po 已是 zh_Hans；依赖 sing-box 由 passwall_packages feeds 提供
-git clone -q --depth 1 https://github.com/szwjp/luci-app-homeproxy-pro.git package/custom/luci-app-homeproxy-pro
-# mihomo（Clash Meta）内核与 LuCI 管理
-git clone -q --depth 1 https://github.com/fcshark-org/openwrt-fchomo.git package/custom/openwrt-fchomo
-# Cloudflare CDN 节点优选测速
-git clone -q --depth 1 https://github.com/stevenjoezhang/luci-app-cloudflarespeedtest.git package/custom/luci-app-cloudflarespeedtest
-# Cloudflare 优选 IP 自动更新
-git clone -q --depth 1 https://github.com/hello-yunshu/luci-app-cloudflare-ip.git package/custom/luci-app-cloudflare-ip
-
-# --- 网络工具 ---
-# OpenList 多网盘挂载（阿里/百度/夸克等）
-git clone -q --depth 1 https://github.com/sbwml/luci-app-openlist2.git package/custom/luci-app-openlist2
-# PPPoE 拨号保活，断线自动重连
-git clone -q --depth 1 https://github.com/muink/luci-app-alwaysonline.git package/custom/luci-app-alwaysonline
-git clone -q --depth 1 https://github.com/muink/openwrt-alwaysonline.git package/custom/openwrt-alwaysonline
-# MAC 地址查看与修改
-git clone -q --depth 1 https://github.com/muink/luci-app-change-mac.git package/custom/luci-app-change-mac
-git clone -q --depth 1 https://github.com/muink/openwrt-rgmac.git package/custom/openwrt-rgmac
-# NAT 映射 / STUN 打洞
-git clone -q --depth 1 https://github.com/muink/luci-app-natmapt.git package/custom/luci-app-natmapt
-git clone -q --depth 1 https://github.com/muink/openwrt-natmapt.git package/custom/openwrt-natmapt
-git clone -q --depth 1 https://github.com/muink/openwrt-stuntman.git package/custom/openwrt-stuntman
-# WOL 网络唤醒
-git clone -q --depth 1 https://github.com/isalikai/luci-app-owq-wol.git package/custom/luci-app-owq-wol
-# AP/Modem 快捷访问（QiuSimons/OpenWrt-Add 子目录，仓库含大量同名包故只取此目录）
-git clone -q --depth 1 https://github.com/QiuSimons/OpenWrt-Add.git /tmp/openwrt-add && \
-  cp -a /tmp/openwrt-add/luci-app-ap-modem package/custom/luci-app-ap-modem && \
-  rm -rf /tmp/openwrt-add
-
-# --- 系统工具 ---
-# HW Dashboard 硬件信息仪表盘
-git clone -q --depth 1 -b main https://github.com/AliLostInTheDark/luci-app-hw-dashboard.git package/custom/luci-app-hw-dashboard
-# 磁盘管理（挂载/格式化）
-git clone -q --depth 1 https://github.com/4IceG/luci-app-mini-diskmanager.git package/custom/luci-app-mini-diskmanager
-# 风扇转速控制（锁定 commit 7655e6d，上游 HEAD 有破坏性变更）
-git clone -q --depth 1 https://github.com/bigmalloy/luci-app-fancontrol.git package/custom/luci-app-fancontrol
-cd package/custom/luci-app-fancontrol && git fetch -q --depth 1 origin 7655e6d624e7d277cf5cb617584a638b08b672d7 && git checkout -q 7655e6d624e7d277cf5cb617584a638b08b672d7 && cd - >/dev/null
-# 时间控制（gaobin89 fork，分支 js）
-git clone -q --depth 1 -b js https://github.com/gaobin89/luci-app-timecontrol.git package/custom/luci-app-timecontrol
-# 分区扩展
-git clone -q --depth 1 https://github.com/sirpdboy/luci-app-partexp.git package/custom/luci-app-partexp
-# 任务计划
-git clone -q --depth 1 https://github.com/sirpdboy/luci-app-taskplan.git package/custom/luci-app-taskplan
-# 文件管理
-git clone -q --depth 1 https://github.com/whzhni1/luci-app-harbor-file-pro.git package/custom/luci-app-harbor-file-pro
-# AirPlay 音频转发
-git clone -q --depth 1 https://github.com/sbwml/luci-app-airconnect.git package/custom/luci-app-airconnect
-
-# --- Node.js 运行时 ---
-# sbwml 预编译版，同名顶替 packages feeds 官方源码编译版，节省 30-60 分钟
-# 注意分支 packages-25.12 与固件源码版本对应，勿随意改动
-git clone -q --depth 1 -b packages-25.12 https://github.com/sbwml/feeds_packages_lang_node.git package/custom/node
-
-# --- LuCI 主题（7 款） ---
-git clone -q --depth 1 https://github.com/Zakkaus/luci-theme-graphite.git package/custom/luci-theme-graphite
-git clone -q --depth 1 https://github.com/Zakkaus/luci-app-graphite.git package/custom/luci-app-graphite
-git clone -q --depth 1 https://github.com/eamonxg/luci-theme-aurora.git package/custom/luci-theme-aurora
-git clone -q --depth 1 https://github.com/eamonxg/luci-app-aurora-config.git package/custom/luci-app-aurora-config
-git clone -q --depth 1 https://github.com/zzsj0928/luci-theme-liquid.git package/custom/luci-theme-liquid
-git clone -q --depth 1 https://github.com/eamonxg/luci-theme-shadcn.git package/custom/luci-theme-shadcn
-git clone -q --depth 1 https://github.com/VizzleTF/luci-theme-footstrap.git package/custom/luci-theme-footstrap
-git clone -q --depth 1 https://github.com/LazuliKao/luci-theme-fluent.git package/custom/luci-theme-fluent
-git clone -q --depth 1 https://github.com/OnyxAxisOwO/Obsidian-Theme.git package/custom/Obsidian-Theme
-
-# 校验 clone 结果：必须能找到至少一个含 BuildPackage 的包 Makefile
 echo "===== 自定义包 Makefile 扫描结果 ====="
 find package/custom -maxdepth 3 -name Makefile -not -path '*/.git/*' \
   -exec grep -l 'call BuildPackage\|Build/DefaultTargets\|KernelPackage' {} + \
