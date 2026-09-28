@@ -163,4 +163,8 @@ done
 # 启用 ccache 加速重编（会增大缓存体积）
 # sed -i '/CONFIG_CCACHE/d' .config && echo 'CONFIG_CCACHE=y' >> .config
 
+# 注意：monorepo 临时目录 /tmp/openwrt-packages 不在此处清理——
+# feeds update/install 和 defconfig 都需要读取 src-link 指向的本地路径。
+# 清理在 workflow 的 defconfig 步骤之后执行。
+
 echo "✅ diy-part2: 编译前定制完成"
