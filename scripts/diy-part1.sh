@@ -96,6 +96,9 @@ git clone -q --depth 1 https://github.com/JohnsonRan/luci-app-kixdns.git package
 # SubStore 订阅管理
 # 注意：根目录即包（Makefile 在根），依赖 luci-lua-runtime + luci-compat
 git clone -q --depth 1 https://github.com/Arthur97172/luci-app-substore.git package/custom/luci-app-substore
+# HomeProxy Pro（szwjp fork，sing-box 1.14，PKG_NAME=luci-app-homeproxy 同名顶替 feeds 官方版）
+# po 已是 zh_Hans；依赖 sing-box 由 passwall_packages feeds 提供
+git clone -q --depth 1 https://github.com/szwjp/luci-app-homeproxy-pro.git package/custom/luci-app-homeproxy-pro
 # mihomo（Clash Meta）内核与 LuCI 管理
 git clone -q --depth 1 https://github.com/fcshark-org/openwrt-fchomo.git package/custom/openwrt-fchomo
 # Cloudflare CDN 节点优选测速

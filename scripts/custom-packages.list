@@ -67,6 +67,8 @@ luci-app-kixdns
 kixdns
 kixdns-stats
 luci-app-substore
+luci-app-homeproxy
+luci-i18n-homeproxy-pro-zh-cn
 
 # --- 网络工具 ---
 openlist2

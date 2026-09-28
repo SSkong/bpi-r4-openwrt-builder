@@ -70,6 +70,8 @@ rm -f package/feeds/luci/luci-theme-footstrap
 rm -f package/feeds/packages/dae
 rm -f package/feeds/packages/open-app-filter
 rm -f package/feeds/luci/luci-app-dae
+# feeds 官方 luci-app-homeproxy 被 custom pro 版顶替，删残留链接
+rm -f package/feeds/luci/luci-app-homeproxy
 # sbwml/luci-app-mosdns 含更新的 mosdns v5.3.4（feeds 为 v5.3.3）
 rm -f package/feeds/packages/mosdns
 
