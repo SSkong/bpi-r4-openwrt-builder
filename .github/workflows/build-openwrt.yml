@@ -159,6 +159,18 @@ jobs:
           key: dl-v2-${{ github.run_number }}
           restore-keys: dl-v2-
 
+      - name: 缓存 Go 构建缓存
+        id: cache-gobuild
+        if: ${{ !inputs.clean_cache }}
+        uses: actions/cache@v4
+        with:
+          path: /workdir/openwrt/tmp/go-build
+          # Xray/sing-box/AdGuardHome/mosdns 等大 Go 包的增量编译缓存
+          # （OpenWrt 的 GO_BUILD_CACHE_DIR=tmp/go-build，按内容 hash 命中，
+          # 缓存后单次编译可省 20-40 分钟 Go 编译时间；golang feeds 固定 26.x）
+          key: go-build-v1-${{ github.run_number }}
+          restore-keys: go-build-v1-
+
       - name: 应用编译前定制 (diy-part2)
         run: |
           cd openwrt
@@ -193,8 +205,14 @@ jobs:
         run: |
           cd openwrt
           make download -j$(nproc)
-          find dl -size -1024c -exec ls -l {} \;
-          find dl -size -1024c -exec rm -f {} \;
+          # 串行补漏：并行下载的竞态遗漏在此统一校验补齐
+          make download -j1
+          # 清理下载失败残留的假文件（<1KB，如 404 HTML 页）。
+          # P0 修复（2026-09-28）：排除 go-mod-cache —— Go 模块的 .mod/.info
+          # 元数据与小源文件常小于 1KB，曾被此规则误删导致 go-mod-cache
+          # 反复"损坏"（AdGuardHome 报 no required module 的真正元凶）。
+          # 目录条目本身 inode 也 <1KB，加 -type f 只处理普通文件。
+          find dl -name go-mod-cache -prune -o -type f -size -1024c -print -exec rm -f {} \;
 
       - name: 编译固件
         id: compile
@@ -226,6 +244,9 @@ jobs:
         with:
           name: OpenWrt_BPI-R4_firmware
           path: ${{ env.FIRMWARE }}
+          # 固件已同时发布到 Release（永久保留 4 版），artifact 仅作中转
+          # 快照，缩短保留期节省仓库配额（默认 90 天）
+          retention-days: 7
 
       - name: 生成 Release 信息
         id: tag
@@ -238,7 +259,9 @@ jobs:
           echo "" >> release.txt
           echo "**源码版本**: \`${{ steps.src.outputs.sha }}\`" >> release.txt
           echo "**编译时间**: $(date +"%Y-%m-%d %H:%M") CST" >> release.txt
-          echo "**内置插件**: Passwall (Xray/sing-box/Hysteria)、mihomo、dae/honk (eBPF 透明代理)、mosdns/oxidns DNS 分流、AdGuard Home 去广告、QosMate 限速、OpenList2 网盘、EasyTier 组网、Cloudflare 优选 IP、应用过滤 (OAF)、带宽监控、NAT 打洞 (STUN)、系统监控、时间控制、分区扩展、任务计划、文件管理、AirPlay 音频转发、WOL 网络唤醒、7 款 LuCI 主题、内核 BTF 支持、中文 LuCI 等 66 个自定义包" >> release.txt
+          # P4 维护性：插件数量自动统计（替代硬编码清单，加包免更此处）
+          PKG_COUNT=$(grep -vcE '^[[:space:]]*(#|$)' $GITHUB_WORKSPACE/scripts/custom-packages.list)
+          echo "**内置插件**: 共 ${PKG_COUNT} 个自定义插件（完整清单见仓库 README）—— Passwall (Xray/sing-box/Hysteria)、AdGuard Home、dae/honk eBPF 透明代理、mosdns DNS 分流、ZeroTier、EasyTier、AI 模型网关、QosMate、OpenList2 等" >> release.txt
           echo "" >> release.txt
           echo "### 固件文件说明" >> release.txt
           echo "| 文件 | 用途 |" >> release.txt
