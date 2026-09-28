@@ -3,10 +3,10 @@ AIGC:
   ContentProducer: '001191110102MAD55U9H0F10002'
   ContentPropagator: '001191110102MAD55U9H0F10002'
   Label: '1'
-  ProduceID: '0374c16e-6af0-4ab7-a896-fe4ac79128e0'
-  PropagateID: '0374c16e-6af0-4ab7-a896-fe4ac79128e0'
-  ReservedCode1: '04f49a04-a54a-4b8b-abea-6ab8ed099141'
-  ReservedCode2: '04f49a04-a54a-4b8b-abea-6ab8ed099141'
+  ProduceID: '80dc9c51-85d1-4572-9db2-e72fcbe07ce5'
+  PropagateID: '80dc9c51-85d1-4572-9db2-e72fcbe07ce5'
+  ReservedCode1: '0c08f2cf-dac0-43db-b5ab-9a2e8dc94f56'
+  ReservedCode2: '0c08f2cf-dac0-43db-b5ab-9a2e8dc94f56'
 ---
 
 # BPI-R4 OpenWrt 自动编译
@@ -51,7 +51,8 @@ AIGC:
 | eBPF 代理 | luci-app-dae / dae | dae eBPF 透明代理（预编译二进制） | [498777/luci-app-dae](https://github.com/498777/luci-app-dae) |
 | DNS 分流 | luci-app-oxidns | OxiDNS DNS 分流 | [hahaher123/luci-app-oxidns](https://github.com/hahaher123/luci-app-oxidns) |
 | DNS 分流 | mosdns / luci-app-mosdns | mosdns DNS 分流（v5.3.4） | [sbwml/luci-app-mosdns](https://github.com/sbwml/luci-app-mosdns) |
-| 去广告 | luci-app-adguardhome | AdGuard Home 去广告（nftables 重定向，核心二进制运行时下载） | [w9315273/luci-app-adguardhome](https://github.com/w9315273/luci-app-adguardhome) |
+| 去广告 | adguardhome / luci-app-adguardhome | AdGuard Home 去广告（核心 Go 源码编译 0.107.78） | [terrytyc/luci-app-adguardhome](https://github.com/terrytyc/luci-app-adguardhome) |
+| AI 网关 | luci-app-model-gateway | AI 模型网关（OpenAI 兼容，多平台额度聚合；预编译 ipk 提取集成，含中文翻译） | [wanvfx/luci-app-model-gateway](https://github.com/wanvfx/luci-app-model-gateway) |
 | 网络监控 | luci-app-netmonitor | 网络质量监控（延迟/丢包） | [LianXia233/luci-app-netmonitor](https://github.com/LianXia233/luci-app-netmonitor) |
 | 网络监控 | luci-app-cpu-status | CPU 状态监控（频率/温度/占用） | [gSpotx2f/luci-app-cpu-status](https://github.com/gSpotx2f/luci-app-cpu-status) |
 | 网络监控 | internet-detector / luci-app-internet-detector | 外网连通性检测 | [gSpotx2f/luci-app-internet-detector](https://github.com/gSpotx2f/luci-app-internet-detector) |
@@ -62,6 +63,7 @@ AIGC:
 | QoS | qosmate / luci-app-qosmate | nftables 智能限速与 QoS 管理 | [hudra0/qosmate](https://github.com/hudra0/qosmate) · [hudra0/luci-app-qosmate](https://github.com/hudra0/luci-app-qosmate) |
 | 带宽/过滤 | bandix / luci-app-bandix | 带宽监控 | [timsaya/luci-app-bandix](https://github.com/timsaya/luci-app-bandix) · [timsaya/openwrt-bandix](https://github.com/timsaya/openwrt-bandix) |
 | 带宽/过滤 | kmod-oaf / appfilter / luci-app-oaf | 应用过滤（OpenAppFilter） | [destan19/OpenAppFilter](https://github.com/destan19/OpenAppFilter) |
+| 组网 | zerotier / luci-app-zerotier | ZeroTier 虚拟局域网（Auto NAT） | [rabbitrogi/luci-app-zerotier](https://github.com/rabbitrogi/luci-app-zerotier) |
 | 组网 | easytier / luci-app-easytier | 去中心化 Mesh 组网 | [EasyTier/luci-app-easytier](https://github.com/EasyTier/luci-app-easytier) |
 | 代理 | mihomo / luci-app-fchomo | mihomo（Clash Meta）内核与 LuCI | [fcshark-org/openwrt-fchomo](https://github.com/fcshark-org/openwrt-fchomo) |
 | CDN 优选 | luci-app-cloudflarespeedtest | Cloudflare CDN 节点优选测速 | [stevenjoezhang/luci-app-cloudflarespeedtest](https://github.com/stevenjoezhang/luci-app-cloudflarespeedtest) |
