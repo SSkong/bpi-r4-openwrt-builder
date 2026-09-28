@@ -196,9 +196,6 @@ jobs:
           # 自定义包校验（扫描 + 来源防顶替 + 选中），清单: scripts/custom-packages.list
           bash $GITHUB_WORKSPACE/scripts/verify-custom-packages.sh $GITHUB_WORKSPACE/scripts/custom-packages.list
 
-      - name: 清理 monorepo 临时目录
-        run: rm -rf /tmp/openwrt-packages
-
       - name: 上传最终 .config (快照)
         uses: actions/upload-artifact@v4
         with:
