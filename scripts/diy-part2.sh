@@ -84,9 +84,13 @@ rm -rf package/helloworld/dae package/helloworld/luci-app-dae
 
 # golang feeds 替换为 sbwml 26.x（Go 1.26.8）：
 # - OpenList 4.2.6 要求 go >= 1.25，Go 1.26.8 满足
-# - 历史排查：AdGuardHome 0.107.78 曾报 "no required module provides package X"，
-#   当时误判为 go.mod 不完整，实为 dl 缓存 go-mod-cache 模块文件损坏所致，
-#   已随 dl 缓存升级 v2 修复；26.x 因 OpenList 要求与整体兼容性继续保留
+# - 历史排查结论（2026-09-28 run 18 无缓存实验证实）：
+#   AdGuardHome 0.107.78 报 "no required module provides package X"
+#   （x/sys、go-cmp/cmp/internal/flags 等），根因是 dl/go-mod-cache 中
+#   模块文件不完整（下载/缓存固化损坏），go.mod 本身无问题，无需 tidy patch。
+#   v2 缓存亦曾复现（run 17 恢复 v2 后首次编 AdGuardHome 失败），
+#   最终以 clean_cache=true 无缓存全量重编（run 18）重建完整缓存解决。
+#   若 CI 再报同类错误：先用 clean_cache=true 触发一次无缓存编译重建缓存。
 # - 该包无 BUILD_BOOTSTRAP，CI 上 EXTERNAL_BOOTSTRAP_ROOT 为空时自动下载官方引导；
 #   ARM64 本机需指向外部 Go >= 1.24.6
 rm -rf feeds/packages/lang/golang
