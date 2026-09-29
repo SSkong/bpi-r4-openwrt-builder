@@ -70,8 +70,13 @@ rm -f package/feeds/luci/luci-theme-footstrap
 rm -f package/feeds/packages/dae
 rm -f package/feeds/packages/open-app-filter
 rm -f package/feeds/luci/luci-app-dae
-# feeds 官方 luci-app-homeproxy 被 custom pro 版顶替，删残留链接
+# feeds 官方 luci-app-homeproxy 被 custom pro 版顶替：
+# 删 feeds 源码目录（防止 feeds install 重建链接后官方 i18n 被 defconfig 自动选中，
+# 导致 luci-i18n-homeproxy-zh-cn 与 pro 版 luci-i18n-homeproxy-pro-zh-cn 共存——
+# 两者安装同一个 homeproxy.zh-cn.lmo 引发 rootfs 文件冲突）
+rm -rf feeds/luci/applications/luci-app-homeproxy
 rm -f package/feeds/luci/luci-app-homeproxy
+rm -f package/feeds/luci/luci-i18n-homeproxy-zh-cn
 # sbwml/luci-app-mosdns 含更新的 mosdns v5.3.4（feeds 为 v5.3.3）
 rm -f package/feeds/packages/mosdns
 
