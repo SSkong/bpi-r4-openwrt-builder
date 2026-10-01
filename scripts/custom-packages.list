@@ -68,7 +68,12 @@ kixdns
 kixdns-stats
 luci-app-substore
 luci-app-homeproxy
-luci-i18n-homeproxy-pro-zh-cn
+luci-i18n-homeproxy-zh-cn
+sing-box
+
+# Tachyon（sing-box + zapret 混合编排，上游 CONFLICTS 已打补丁移除 passwall 冲突）
+tachyon
+luci-app-tachyon
 
 # --- 网络工具 ---
 openlist2
@@ -119,3 +124,4 @@ luci-i18n-netmonitor-zh-cn
 luci-i18n-owq-wol-zh-cn
 luci-i18n-adguardhome-zh-cn
 luci-i18n-zerotier-zh-cn
+luci-i18n-tachyon-zh-cn
