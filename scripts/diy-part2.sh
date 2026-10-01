@@ -203,11 +203,8 @@ done
 # 启用 ccache 加速重编（会增大缓存体积）
 # sed -i '/CONFIG_CCACHE/d' .config && echo 'CONFIG_CCACHE=y' >> .config
 
-# 注意：monorepo 临时目录 /tmp/openwrt-packages 必须全程保留、不可清理！
-# feeds.conf.default 的 src-link 就是符号链接（ln -s）：
-#   feeds/passwall_packages -> /tmp/openwrt-packages/openwrt-passwall-packages
-# 删除 monorepo 会导致 feeds 断链，make world 扫描不到 xray-core/sing-box 等，
-# 报 "has a dependency on X, which does not exist"（run 22 实证）。
-# runner 为一次性环境，/tmp 残留无影响。
+# 注意：三个代理 feeds（passwall_packages/passwall/helloworld）已改为 src-git，
+# feeds update 时直接从上游 clone 到 feeds/ 目录，无 /tmp/openwrt-packages 依赖，
+# 本脚本的 feeds 源码目录清理（rm -rf feeds/...）与 feeds install 重建逻辑不受影响。
 
 echo "✅ diy-part2: 编译前定制完成"
