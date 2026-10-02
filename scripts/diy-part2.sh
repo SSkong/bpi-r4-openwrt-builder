@@ -50,6 +50,17 @@ sed -i 's/else ifeq ($(ARCH_PACKAGES),aarch64_generic)/else ifeq ($(ARCH_PACKAGE
 #   commit 7655e6d 仓库含两个 openwrt-feed 目录，深层的旧版 files/ 不完整会导致 install 失败
 rm -rf package/custom/luci-app-fancontrol/luci-app-fancontrol/openwrt-feed
 
+# node 版本固定（sbwml/feeds_packages_lang_node）：
+#   Makefile 的 PKG_VERSION 动态 curl GitHub API 取最新 tag，但 sbwml/node_workflow
+#   最新 release 可能尚未构建全架构（如 v24.21.0 仅有 riscv64），导致 aarch64 下载 404、
+#   Build/Compile 子 shell 静默失败、install 步骤找不到二进制。
+#   固定到有完整 aarch64_cortex-a53 资产的版本；上游补全后再解除。
+NODE_MAKEFILE="package/custom/node/Makefile"
+if [ -f "$NODE_MAKEFILE" ]; then
+  sed -i 's|PKG_VERSION:=.*|PKG_VERSION:=22.23.2|' "$NODE_MAKEFILE"
+  echo "  node 版本固定为 22.23.2（sbwml/node_workflow v22.23.2 有完整 aarch64 资产）"
+fi
+
 # 修复 luci.mk include 路径：
 #   graphite / Obsidian-Theme 原始 Makefile 用相对路径 include ../../luci.mk，
 #   放到 package/custom/ 后路径不对，修正为绝对路径
