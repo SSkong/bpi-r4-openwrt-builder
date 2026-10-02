@@ -81,7 +81,8 @@ luci-app-cloudflare-ip|https://github.com/hello-yunshu/luci-app-cloudflare-ip.gi
 openwrt-fchomo|https://github.com/fcshark-org/openwrt-fchomo.git|
 luci-app-cloudflarespeedtest|https://github.com/stevenjoezhang/luci-app-cloudflarespeedtest.git|
 luci-app-homeproxy|https://github.com/XiaoHaiSly/luci-app-homeproxy.git|main
-tachyon|https://github.com/Dushnilin/tachyon.git|main
+# tachyon 已移除（恢复时取消注释）——上游 CONFLICTS 与 passwall 冲突
+# tachyon|https://github.com/Dushnilin/tachyon.git|main
 # --- 网络工具 ---
 luci-app-openlist2|https://github.com/sbwml/luci-app-openlist2.git|main
 node|https://github.com/sbwml/feeds_packages_lang_node.git|packages-25.12

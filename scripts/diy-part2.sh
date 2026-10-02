@@ -73,22 +73,21 @@ done
 #   删除 feeds 残留链接让 custom 版胜出
 rm -f package/feeds/luci/luci-theme-footstrap
 
-# tachyon 集成补丁（Dushnilin/tachyon，submodule 跟踪 main 每日同步）：
+# tachyon 集成补丁（已禁用，恢复时取消注释）：
 #   ① CONFLICTS 去掉 luci-app-passwall/passwall2 —— 上游声明双流量编排器冲突，
 #      本固件为全家桶设计（多编排器共存、运行时只启用一个），打补丁允许共存
 #   ② 版本号默认 1.4.5 —— 上游 Makefile 未传 TACHYON_VERSION 时回落 0.0.0；
-#      CI 浅克隆 submodule 无 tags，无法 git describe，故内联默认值，
-#      submodule 升级大版本时需同步更新此值
+#      CI 浅克隆 submodule 无 tags，无法 git describe，故内联默认值
 #   ③ LUCI_LANGUAGES 增加 zh_Hans —— 上游仅 en/ru，luci.mk 只构建声明过的语言
-TACHYON_DIR="package/custom/tachyon"
-sed -i 's|^\tCONFLICTS:=https-dns-proxy nextdns luci-app-passwall luci-app-passwall2$|\tCONFLICTS:=https-dns-proxy nextdns|' \
-  "$TACHYON_DIR/tachyon/Makefile"
-sed -i 's|$(or $(TACHYON_PACKAGE_VERSION),$(TACHYON_VERSION))|$(or $(TACHYON_PACKAGE_VERSION),$(TACHYON_VERSION),1.4.5)|' \
-  "$TACHYON_DIR/tachyon/Makefile" "$TACHYON_DIR/luci-app-tachyon/Makefile"
-sed -i 's|^LUCI_LANGUAGES:=en ru$|LUCI_LANGUAGES:=en ru zh_Hans|' "$TACHYON_DIR/luci-app-tachyon/Makefile"
-grep -q 'luci-app-passwall' "$TACHYON_DIR/tachyon/Makefile" \
-  && { echo "::error::tachyon CONFLICTS 补丁未生效"; exit 1; } || true
-grep -m1 'TACHYON_SOURCE_VERSION' "$TACHYON_DIR/tachyon/Makefile"
+# TACHYON_DIR="package/custom/tachyon"
+# sed -i 's|^\tCONFLICTS:=https-dns-proxy nextdns luci-app-passwall luci-app-passwall2$|\tCONFLICTS:=https-dns-proxy nextdns|' \
+#   "$TACHYON_DIR/tachyon/Makefile"
+# sed -i 's|$(or $(TACHYON_PACKAGE_VERSION),$(TACHYON_VERSION))|$(or $(TACHYON_PACKAGE_VERSION),$(TACHYON_VERSION),1.4.5)|' \
+#   "$TACHYON_DIR/tachyon/Makefile" "$TACHYON_DIR/luci-app-tachyon/Makefile"
+# sed -i 's|^LUCI_LANGUAGES:=en ru$|LUCI_LANGUAGES:=en ru zh_Hans|' "$TACHYON_DIR/luci-app-tachyon/Makefile"
+# grep -q 'luci-app-passwall' "$TACHYON_DIR/tachyon/Makefile" \
+#   && { echo "::error::tachyon CONFLICTS 补丁未生效"; exit 1; } || true
+# grep -m1 'TACHYON_SOURCE_VERSION' "$TACHYON_DIR/tachyon/Makefile"
 
 # ============================================================
 # feeds 同名包冲突清理（防止 feeds 版顶替 custom 版）
@@ -174,17 +173,17 @@ cp files/po/zh_Hans/hw-dashboard.po package/custom/luci-app-hw-dashboard/po/zh_H
 # touch Makefile 强制 scan.mk 重新扫描（否则 scan 缓存不包含新增的 i18n 包）
 touch package/custom/luci-app-hw-dashboard/Makefile
 
-# tachyon 中文汉化（完整翻译 2119 条，上游仅 en/ru）：
+# tachyon 中文汉化（已禁用，恢复时取消注释）：
 #   submodule 只读，翻译文件由编译仓库 files/po/zh_Hans/ 在此注入；
 #   po 需在 make defconfig 前就位，i18n 包才能被扫描生成
-if [ -f files/po/zh_Hans/tachyon.po ]; then
-  mkdir -p package/custom/tachyon/luci-app-tachyon/po/zh_Hans
-  cp files/po/zh_Hans/tachyon.po package/custom/tachyon/luci-app-tachyon/po/zh_Hans/
-  echo "  tachyon 中文翻译已注入 ($(grep -c '^msgid ' files/po/zh_Hans/tachyon.po) 条)"
-else
-  echo "::warning::files/po/zh_Hans/tachyon.po 不存在，luci-i18n-tachyon-zh-cn 不会被构建"
-fi
-touch package/custom/tachyon/luci-app-tachyon/Makefile
+# if [ -f files/po/zh_Hans/tachyon.po ]; then
+#   mkdir -p package/custom/tachyon/luci-app-tachyon/po/zh_Hans
+#   cp files/po/zh_Hans/tachyon.po package/custom/tachyon/luci-app-tachyon/po/zh_Hans/
+#   echo "  tachyon 中文翻译已注入 ($(grep -c '^msgid ' files/po/zh_Hans/tachyon.po) 条)"
+# else
+#   echo "::warning::files/po/zh_Hans/tachyon.po 不存在，luci-i18n-tachyon-zh-cn 不会被构建"
+# fi
+# touch package/custom/tachyon/luci-app-tachyon/Makefile
 
 # 通用翻译目录适配：OpenWrt 25.12 中文语言代码为 zh_Hans（非旧版 zh-cn）
 #   上游仓库多按旧规范建 po/zh-cn，luci.mk 的 LUCI_LANG 只认 zh_Hans，
