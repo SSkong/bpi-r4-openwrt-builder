@@ -110,10 +110,11 @@ rm -f package/feeds/luci/luci-i18n-homeproxy-zh-cn
 rm -rf feeds/passwall_packages/sing-box
 rm -f package/feeds/passwall_packages/sing-box
 
-# homeproxy DNS 自定义端口支持：
+# homeproxy DNS 自定义端口支持（暂未启用，恢复时将下方的 if false 改为 if true）：
 #   后端 generate_client.uc 的 parse_dnsserver() 已支持端口解析（parseURL 提取 port），
 #   但前端 validateDnsServerAddress 不接受 IP:port / [IPv6]:port 格式，导致用户无法填端口。
 #   补丁在 catch 块后增加 IP:port 分支校验，并更新 4 个 DNS 选项提示文案。
+if false; then
 HP_CLIENT_JS="package/custom/luci-app-homeproxy/luci-app-homeproxy/htdocs/luci-static/resources/view/homeproxy/client.js"
 if [ -f "$HP_CLIENT_JS" ] && ! grep -q 'IP:port and \[IPv6\]:port' "$HP_CLIENT_JS"; then
   python3 -c "
@@ -167,6 +168,7 @@ print('  homeproxy DNS 自定义端口补丁已应用')
 "
 else
   echo \"  homeproxy DNS 端口补丁已存在或 client.js 不存在，跳过\"
+fi
 fi
 # sbwml/luci-app-mosdns 含更新的 mosdns v5.3.4（feeds 为 v5.3.3）
 rm -f package/feeds/packages/mosdns
