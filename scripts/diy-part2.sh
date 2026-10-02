@@ -109,6 +109,65 @@ rm -f package/feeds/luci/luci-i18n-homeproxy-zh-cn
 # 自动解析到 custom 版，满足 homeproxy 的 sing-box (>=1.14.0) 依赖）
 rm -rf feeds/passwall_packages/sing-box
 rm -f package/feeds/passwall_packages/sing-box
+
+# homeproxy DNS 自定义端口支持：
+#   后端 generate_client.uc 的 parse_dnsserver() 已支持端口解析（parseURL 提取 port），
+#   但前端 validateDnsServerAddress 不接受 IP:port / [IPv6]:port 格式，导致用户无法填端口。
+#   补丁在 catch 块后增加 IP:port 分支校验，并更新 4 个 DNS 选项提示文案。
+HP_CLIENT_JS="package/custom/luci-app-homeproxy/luci-app-homeproxy/htdocs/luci-static/resources/view/homeproxy/client.js"
+if [ -f "$HP_CLIENT_JS" ] && ! grep -q 'IP:port and \[IPv6\]:port' "$HP_CLIENT_JS"; then
+  python3 -c "
+import re
+with open('$HP_CLIENT_JS', 'r', encoding='utf-8') as f:
+    src = f.read()
+
+# 1) 在 validateDnsServerAddress 的 catch 块后插入 IP:port 校验分支
+old = '''\t} catch(e) {}
+
+\tif (!stubValidator.apply(allowIPv6 ? 'ipaddr' : 'ip4addr', value))'''
+new = '''\t} catch(e) {}
+
+\t/* Support IP:port and [IPv6]:port formats (port is optional) */
+\tlet m = value.match(/^(\\\\[[^\\\\]]+\\\\]|[^:]+):(\\\\d+)\$/);
+\tif (m) {
+\t\tlet host = m[1];
+\t\tlet port = +m[2];
+\t\tif (port < 1 || port > 65535)
+\t\t\treturn _('Expecting: %s').format(_('valid port (1-65535)'));
+\t\tlet v6 = host.match(/^\\\\[(.+)\\\\]\$/)?.[1];
+\t\tif (v6) {
+\t\t\tif (allowIPv6 && stubValidator.apply('ip6addr', v6))
+\t\t\t\treturn true;
+\t\t} else if (stubValidator.apply('ip4addr', host)) {
+\t\t\treturn true;
+\t\t}
+\t}
+
+\tif (!stubValidator.apply(allowIPv6 ? 'ipaddr' : 'ip4addr', value))'''
+assert old in src, 'validateDnsServerAddress anchor not found'
+src = src.replace(old, new, 1)
+
+# 2) 更新 4 个 DNS 选项的提示文案，说明支持端口
+src = src.replace(
+    \"TCP protocol will be used if not specified.'));\",
+    \"TCP protocol will be used if not specified. Port can be appended as IP:port or host:port.'));\", 1)
+src = src.replace(
+    \"The dns server for resolving China domains. Support UDP, TCP, DoH, DoQ, DoT.'));\",
+    \"The dns server for resolving China domains. Support UDP, TCP, DoH, DoQ, DoT. Port can be appended as IP:port or host:port.'));\", 1)
+src = src.replace(
+    \"according to the strategy below. Support UDP, TCP, DoH, DoQ, DoT.'));\",
+    \"according to the strategy below. Support UDP, TCP, DoH, DoQ, DoT. Port can be appended as IP:port or host:port.'));\", 1)
+src = src.replace(
+    \"Additional DNS servers used together with the China DNS server above.'));\",
+    \"Additional DNS servers used together with the China DNS server above. Port can be appended as IP:port or host:port.'));\", 1)
+
+with open('$HP_CLIENT_JS', 'w', encoding='utf-8') as f:
+    f.write(src)
+print('  homeproxy DNS 自定义端口补丁已应用')
+"
+else
+  echo \"  homeproxy DNS 端口补丁已存在或 client.js 不存在，跳过\"
+fi
 # sbwml/luci-app-mosdns 含更新的 mosdns v5.3.4（feeds 为 v5.3.3）
 rm -f package/feeds/packages/mosdns
 
