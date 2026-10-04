@@ -44,6 +44,10 @@ env:
 permissions:
   contents: write
 
+concurrency:
+  group: build-bpi-r4
+  cancel-in-progress: true
+
 jobs:
 
   # ============================================================
@@ -215,8 +219,8 @@ jobs:
       # 缓存保存与清理（拆分 restore/save 策略）
       #
       # 编译成功后：
-      #   1. 清理旧缓存（删除非本次 run_id 的 dl/go-build + 非当前 SHA 的 toolchain）
-      #   2. 保存本次缓存（dl → go-build → toolchain）
+      #   1. 清理旧缓存（删除非本次 run_id 的 go-build + 非当前 SHA 的 toolchain）
+      #   2. 保存本次缓存（go-build → toolchain）
       # 确保任何时刻每种缓存只保留 1 个条目，不超过 10GB 限额
       # ============================================================
 
@@ -244,7 +248,7 @@ jobs:
               # 保留当前 SHA 的工具链缓存
               if key.startswith('toolchain-v3-') and sha in key:
                   continue
-              # 其余全部删除（旧 dl、旧 go-build、旧 SHA toolchain、v1/v2 残留）
+              # 其余全部删除（旧 go-build、旧 SHA toolchain、v1/v2 残留）
               print(cid)
           " | while read cid; do
               gh cache delete "$cid" --repo "$GITHUB_REPOSITORY" \

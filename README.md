@@ -11,7 +11,7 @@ AIGC:
 
 # BPI-R4 OpenWrt 自动编译
 
-使用 GitHub Actions **定时自动编译** Banana Pi BPI-R4（标准版，MT7988A）的 ImmortalWrt 固件，内置 Passwall 科学上网插件、mihomo、dae/honk eBPF 透明代理与 49 个自定义仓库（66 个包：eBPF 代理 / DNS 分流 / QoS 限速 / 网络监控 / 应用过滤 / NAT 打洞 / Mesh 组网 / CDN 优选 / 7 款 LuCI 主题等），内核已启用 BTF 支持 eBPF 程序运行。
+使用 GitHub Actions **定时自动编译** Banana Pi BPI-R4（标准版，MT7988A）的 ImmortalWrt 固件，内置 Passwall 科学上网插件、mihomo、dae/honk eBPF 透明代理与 57 个自定义仓库（85 个包：eBPF 代理 / DNS 分流 / QoS 限速 / 网络监控 / 应用过滤 / NAT 打洞 / Mesh 组网 / CDN 优选 / 7 款 LuCI 主题等），内核已启用 BTF 支持 eBPF 程序运行。
 
 ## 固件信息
 
@@ -20,7 +20,7 @@ AIGC:
 | 硬件平台 | Banana Pi BPI-R4 标准版 (MT7988A / 4GB RAM / 32GB eMMC) |
 | 固件源码 | [chasey-dev/immortalwrt-mt798x-rebase](https://github.com/chasey-dev/immortalwrt-mt798x-rebase) (ImmortalWrt 25.12 + MTK 官方 Feeds，内核 6.12) |
 | 科学上网 | **Passwall** (Xray / sing-box / Hysteria，SSR / Shadowsocks 等全协议)、**dae/honk** (eBPF 透明代理) |
-| 自定义插件 | 49 个仓库 66 个包：eBPF 代理、DNS 分流、去广告、QoS 限速、网络监控、带宽监控、应用过滤、Mesh 组网、CDN 优选、NAT 打洞、系统工具、网络唤醒、7 款 LuCI 主题等，完整清单见下方表格 |
+| 自定义插件 | 57 个仓库 85 个包：eBPF 代理、DNS 分流、去广告、QoS 限速、网络监控、带宽监控、应用过滤、Mesh 组网、CDN 优选、NAT 打洞、系统工具、网络唤醒、7 款 LuCI 主题等，完整清单见下方表格 |
 | 内核特性 | 已启用 BTF（BPF Type Format），支持 dae/honk 等 eBPF 程序运行 |
 | 管理界面 | LuCI 中文 |
 | 默认地址 | `192.168.10.1`，账号 `root`，无密码 |
@@ -91,7 +91,7 @@ AIGC:
 | 主题 | luci-theme-fluent + luci-mod-fluentdashboard | Fluent 主题与仪表盘 | [LazuliKao/luci-theme-fluent](https://github.com/LazuliKao/luci-theme-fluent) |
 | 主题 | Obsidian-Theme | Obsidian 黑曜石主题 | [OnyxAxisOwO/Obsidian-Theme](https://github.com/OnyxAxisOwO/Obsidian-Theme) |
 
-> **上游 Makefile 适配修复**（diy-part2.sh 自动完成）：graphite / Obsidian-Theme 的 `include ../../luci.mk` 改为 `$(TOPDIR)/feeds/luci/luci.mk`；footstrap 删除 feeds 残留链接防止同名顶替；dae 下载预编译二进制并修复 ARCH_PACKAGES 匹配；fancontrol 删除旧版子目录；mosdns 删除 feeds 链接防顶替；golang feeds 降级为 26.x（Go 1.26.8）兼容性最广；Docker feeds 替换为 sbwml fork 适配 25.12。
+> **上游 Makefile 适配修复**（diy-part2.sh 自动完成）：graphite / Obsidian-Theme 的 `include ../../luci.mk` 改为 `$(TOPDIR)/feeds/luci/luci.mk`；footstrap 删除 feeds 残留链接防止同名顶替；dae 下载预编译二进制并修复 ARCH_PACKAGES 匹配；fancontrol 删除旧版子目录；mosdns 删除 feeds 链接防顶替；golang feeds 替换为 sbwml 27.x（Go 1.27.1）满足 xray-core 依赖要求；Docker feeds 替换为 sbwml fork 适配 25.12。
 
 > 这些包在每次编译前由 diy-part1.sh 用 `git clone` 下载到源码树 `package/custom/`，OpenWrt 25.12 的包扫描深度为 5 层，整仓库放置即可被自动发现，无需手动移动子目录。
 
@@ -182,7 +182,8 @@ CONFIG_PACKAGE_luci-app-qosmate=y
 ## 编译流水线说明
 
 - 采用**单 Job 编译**，工具链缓存命中时跳过工具链编译阶段直接编译固件
-- 工具链与源码包以缓存复用，源码不变时工具链阶段秒级跳过
+- 工具链缓存按源码 SHA 命中，Go 构建缓存每次覆盖（仅保留最新一份），dl 目录不缓存
+- 缓存拆分 restore/save，编译后先清理旧缓存再保存新缓存，确保不超过 10GB 限额
 - 手动触发时可选「忽略缓存强制全量重编」与「失败时 SSH 调试」
 - 每次成功编译自动发布 Release，仅保留最近 4 个版本
 
@@ -193,6 +194,7 @@ CONFIG_PACKAGE_luci-app-qosmate=y
 ## 致谢
 
 - [ImmortalWrt](https://github.com/immortalwrt/immortalwrt) & [chasey-dev/immortalwrt-mt798x-rebase](https://github.com/chasey-dev/immortalwrt-mt798x-rebase)
-- [sbwml/openwrt_helloworld](https://github.com/sbwml/openwrt_helloworld)（Passwall 科学上网源）
+- [Openwrt-Passwall](https://github.com/Openwrt-Passwall/openwrt-passwall)（Passwall 科学上网源）
+- [fw876/helloworld](https://github.com/fw876/helloworld)（SSR-Plus 备用源）
 - [P3TERX/Actions-OpenWrt](https://github.com/P3TERX/Actions-OpenWrt)（工作流架构参考）
 - [MediaTek MTK OpenWrt Feeds](https://github.com/mediatek/mtk-openwrt-feeds)
