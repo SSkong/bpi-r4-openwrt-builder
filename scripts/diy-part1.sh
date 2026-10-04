@@ -102,6 +102,7 @@ luci-app-taskplan|https://github.com/sirpdboy/luci-app-taskplan.git|main
 luci-app-harbor-file-pro|https://github.com/whzhni1/luci-app-harbor-file-pro.git|main
 luci-app-airconnect|https://github.com/sbwml/luci-app-airconnect.git|main
 luci-app-mini-diskmanager|https://github.com/4IceG/luci-app-mini-diskmanager.git|
+luci-app-online-upgrade|https://github.com/Arthur97172/luci-app-online-upgrade.git|main
 # --- LuCI 主题 ---
 luci-theme-graphite|https://github.com/Zakkaus/luci-theme-graphite.git|
 luci-app-graphite|https://github.com/Zakkaus/luci-app-graphite.git|
