@@ -102,10 +102,10 @@ jobs:
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
-      - name: 缓存工具链
+      - name: 恢复工具链缓存
         id: cache-toolchain
         if: ${{ !inputs.clean_cache }}
-        uses: actions/cache@v4
+        uses: actions/cache/restore@v4
         with:
           path: |
             /workdir/openwrt/staging_dir/toolchain-*
@@ -114,7 +114,8 @@ jobs:
             /workdir/openwrt/build_dir/toolchain-*
             /workdir/openwrt/build_dir/host
             /workdir/openwrt/build_dir/hostpkg
-          key: toolchain-v2-${{ steps.src.outputs.sha }}
+          key: toolchain-v3-${{ steps.src.outputs.sha }}
+          restore-keys: toolchain-v3-
 
       - name: 修复缓存时间戳（缓存命中时）
         if: steps.cache-toolchain.outputs.cache-hit == 'true'
@@ -147,30 +148,27 @@ jobs:
           cp -f $CONFIG_FILE openwrt/.config
           chmod +x $DIY_P2_SH
 
-      - name: 缓存源码包下载目录
+      - name: 恢复 dl 缓存
         id: cache-dl
         if: ${{ !inputs.clean_cache }}
-        uses: actions/cache@v4
+        uses: actions/cache/restore@v4
         with:
           path: /workdir/openwrt/dl
-          # v2: v1 缓存的 go-mod-cache 中 x/sys@v0.26.0 等模块文件不完整
-          # （早期下载中断被固化），Go 判定模块已存在不再补齐，
-          # 编译报大面积 undefined。升级 key 强制全部重新下载
-          key: dl-v2-${{ github.run_number }}
-          restore-keys: dl-v2-
+          # 固定前缀 + run_id：每次运行创建新缓存条目，
+          # 旧条目由编译后的清理步骤删除，确保 10GB 限额内只保留最新缓存
+          key: dl-v3-${{ github.run_id }}
+          restore-keys: dl-v3-
 
-      - name: 缓存 Go 构建缓存
+      - name: 恢复 Go 构建缓存
         id: cache-gobuild
         if: ${{ !inputs.clean_cache }}
-        uses: actions/cache@v4
+        uses: actions/cache/restore@v4
         with:
           path: /workdir/openwrt/tmp/go-build
           # Xray/sing-box/AdGuardHome/mosdns 等大 Go 包的增量编译缓存
-          # （OpenWrt 的 GO_BUILD_CACHE_DIR=tmp/go-build，按内容 hash 命中，
-          # 缓存后单次编译可省 20-40 分钟 Go 编译时间；golang feeds 27.x）
-          # v2: golang 26.x→27.x 升级，旧缓存与新 Go 版本不匹配，强制重建
-          key: go-build-v2-${{ github.run_number }}
-          restore-keys: go-build-v2-
+          # 缓存后单次编译可省 20-40 分钟 Go 编译时间
+          key: go-build-v3-${{ github.run_id }}
+          restore-keys: go-build-v3-
 
       - name: 应用编译前定制 (diy-part2)
         run: |
@@ -223,6 +221,76 @@ jobs:
           make -j$(nproc) || make -j1 || make -j1 V=s
           echo "status=success" >> $GITHUB_OUTPUT
           df -hT
+
+      # ============================================================
+      # 缓存保存与清理（拆分 restore/save 策略）
+      #
+      # 编译成功后：
+      #   1. 清理旧缓存（删除非本次 run_id 的 dl/go-build + 非当前 SHA 的 toolchain）
+      #   2. 保存本次缓存（dl → go-build → toolchain）
+      # 确保任何时刻每种缓存只保留 1 个条目，不超过 10GB 限额
+      # ============================================================
+
+      - name: 清理旧缓存（只保留本次运行）
+        if: ${{ !inputs.clean_cache && steps.compile.outputs.status == 'success' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_ID: ${{ github.run_id }}
+          SRC_SHA: ${{ steps.src.outputs.sha }}
+        run: |
+          echo "=== 清理旧缓存（保留 run_id=$RUN_ID + SHA=$SRC_SHA）==="
+          # 获取所有缓存条目，逐条判断是否保留
+          gh cache list --repo "$GITHUB_REPOSITORY" --json id,key -L 100 \
+            | python3 -c \
+          "import sys, json, os
+          data = json.load(sys.stdin)
+          run_id = os.environ['RUN_ID']
+          sha = os.environ['SRC_SHA']
+          for c in data:
+              key = c.get('key', '')
+              cid = c.get('id', '')
+              # 保留本次运行创建的缓存
+              if run_id in key:
+                  continue
+              # 保留当前 SHA 的工具链缓存
+              if key.startswith('toolchain-v3-') and sha in key:
+                  continue
+              # 其余全部删除（旧 dl、旧 go-build、旧 SHA toolchain、v1/v2 残留）
+              print(cid)
+          " | while read cid; do
+              gh cache delete "$cid" --repo "$GITHUB_REPOSITORY" \
+                && echo "  已删除 id=$cid" \
+                || echo "  删除失败 id=$cid"
+            done
+          echo "=== 清理完成，当前缓存列表 ==="
+          gh cache list --repo "$GITHUB_REPOSITORY" -L 20
+
+      - name: 保存 dl 缓存
+        if: ${{ !inputs.clean_cache && steps.compile.outputs.status == 'success' }}
+        uses: actions/cache/save@v4
+        with:
+          path: /workdir/openwrt/dl
+          key: dl-v3-${{ github.run_id }}
+
+      - name: 保存 Go 构建缓存
+        if: ${{ !inputs.clean_cache && steps.compile.outputs.status == 'success' }}
+        uses: actions/cache/save@v4
+        with:
+          path: /workdir/openwrt/tmp/go-build
+          key: go-build-v3-${{ github.run_id }}
+
+      - name: 保存工具链缓存
+        if: ${{ !inputs.clean_cache && steps.cache-toolchain.outputs.cache-hit != 'true' && steps.compile.outputs.status == 'success' }}
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            /workdir/openwrt/staging_dir/toolchain-*
+            /workdir/openwrt/staging_dir/host
+            /workdir/openwrt/staging_dir/hostpkg
+            /workdir/openwrt/build_dir/toolchain-*
+            /workdir/openwrt/build_dir/host
+            /workdir/openwrt/build_dir/hostpkg
+          key: toolchain-v3-${{ steps.src.outputs.sha }}
 
       - name: SSH 调试会话 (仅失败且手动开启时)
         if: failure() && github.event_name == 'workflow_dispatch' && inputs.debug_ssh
