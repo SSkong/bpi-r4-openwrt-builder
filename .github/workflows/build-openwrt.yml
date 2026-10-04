@@ -148,17 +148,6 @@ jobs:
           cp -f $CONFIG_FILE openwrt/.config
           chmod +x $DIY_P2_SH
 
-      - name: 恢复 dl 缓存
-        id: cache-dl
-        if: ${{ !inputs.clean_cache }}
-        uses: actions/cache/restore@v4
-        with:
-          path: /workdir/openwrt/dl
-          # 固定前缀 + run_id：每次运行创建新缓存条目，
-          # 旧条目由编译后的清理步骤删除，确保 10GB 限额内只保留最新缓存
-          key: dl-v3-${{ github.run_id }}
-          restore-keys: dl-v3-
-
       - name: 恢复 Go 构建缓存
         id: cache-gobuild
         if: ${{ !inputs.clean_cache }}
@@ -264,13 +253,6 @@ jobs:
             done
           echo "=== 清理完成，当前缓存列表 ==="
           gh cache list --repo "$GITHUB_REPOSITORY" -L 20
-
-      - name: 保存 dl 缓存
-        if: ${{ !inputs.clean_cache && steps.compile.outputs.status == 'success' }}
-        uses: actions/cache/save@v4
-        with:
-          path: /workdir/openwrt/dl
-          key: dl-v3-${{ github.run_id }}
 
       - name: 保存 Go 构建缓存
         if: ${{ !inputs.clean_cache && steps.compile.outputs.status == 'success' }}
