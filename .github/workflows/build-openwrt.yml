@@ -71,6 +71,14 @@ jobs:
           sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
           sudo docker image prune --all --force >/dev/null 2>&1 || true
           sudo -E apt-get -qq install ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp ninja-build p7zip p7zip-full patch pkgconf python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
+          # 安装 LLVM 工具链（含 llvm-strip/clang），dae/daed 的 eBPF (bpf2go) 编译需要
+          # OpenWrt bpf.mk 的 find-llvm-tool 找不到 llvm-strip 时回退为字面量
+          # "llvm-strip-not-found"，导致 go generate 失败、eBPF 代码未生成
+          sudo -E apt-get -qq install llvm clang
+          # 创建无版本号软链接，确保 bpf.mk 的 command -v llvm-strip 能命中
+          for t in llvm-strip clang llc llvm-dis opt; do
+            sudo ln -sf "$(command -v $t || command -v $t-18 || command -v $t-17 || command -v $t-16 || command -v $t-15 || command -v $t-14)" "/usr/local/bin/$t" 2>/dev/null || true
+          done
           sudo -E apt-get -qq autoremove --purge
           sudo -E apt-get -qq clean
           sudo timedatectl set-timezone "$TZ"
