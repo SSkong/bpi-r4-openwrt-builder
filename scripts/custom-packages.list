@@ -70,6 +70,8 @@ luci-app-substore
 luci-app-homeproxy
 luci-i18n-homeproxy-zh-cn
 sing-box
+singbox-manager
+luci-app-singbox-manager
 
 # Tachyon 已移除（恢复时取消注释）
 # tachyon
