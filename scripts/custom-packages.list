@@ -16,7 +16,8 @@
 luci-app-honk
 honk
 dae
-luci-app-dae
+daed
+luci-app-daede
 
 # --- DNS 分流 ---
 luci-app-oxidns

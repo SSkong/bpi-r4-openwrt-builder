@@ -49,7 +49,7 @@ mkdir -p package/custom
 CLONE_LIST="
 # --- eBPF 透明代理 ---
 luci-app-honk|https://github.com/498777/luci-app-honk.git|main
-luci-app-dae|https://github.com/498777/luci-app-dae.git|main
+openwrt-daede|https://github.com/kenzok8/openwrt-daede.git|main
 # --- DNS 分流 ---
 luci-app-oxidns|https://github.com/hahaher123/luci-app-oxidns.git|main
 luci-app-mosdns|https://github.com/sbwml/luci-app-mosdns.git|v5

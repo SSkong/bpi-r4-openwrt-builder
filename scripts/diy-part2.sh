@@ -26,25 +26,11 @@ sed -i "s|UTC|CST-8|g" package/base-files/files/bin/config_generate
 # 上游包兼容性修复
 # ============================================================
 
-# dae 预编译二进制下载：
-#   498777/luci-app-dae 不含预编译二进制，需从 daeuniverse/dae release 下载 aarch64 静态二进制
-DAE_VER=$(grep 'DAE_RELEASE:=' package/custom/luci-app-dae/dae/Makefile 2>/dev/null | sed "s/.*:=//; s/ //g")
-if [ -n "$DAE_VER" ] && [ ! -f "package/custom/luci-app-dae/dae/files/prebuilt/aarch64/dae" ]; then
-  echo "📥 下载 dae 预编译二进制 ($DAE_VER aarch64)..."
-  mkdir -p package/custom/luci-app-dae/dae/files/prebuilt/aarch64
-  wget -q "https://github.com/daeuniverse/dae/releases/download/${DAE_VER}/dae-linux-arm64.tar.xz" -O /tmp/dae-arm64.tar.xz \
-    && tar -xf /tmp/dae-arm64.tar.xz -C /tmp/ --strip-components=1 \
-    && mv /tmp/usr/bin/dae package/custom/luci-app-dae/dae/files/prebuilt/aarch64/dae \
-    && rm -f /tmp/dae-arm64.tar.xz && rm -rf /tmp/usr \
-    && echo "✅ dae 二进制就位" \
-    || { echo "❌ dae 二进制下载失败"; rm -f /tmp/dae-arm64.tar.xz; }
-fi
-
-# dae ARCH_PACKAGES 匹配修复：
-#   Makefile 只匹配 aarch64_generic，但 BPI-R4 的 ARCH_PACKAGES 是 aarch64_cortex-a53
-#   追加 cortex-a53 分支指向同一预编译路径
-sed -i 's/else ifeq ($(ARCH_PACKAGES),aarch64_generic)/else ifeq ($(ARCH_PACKAGES),aarch64_cortex-a53)\n  DAE_PREBUILT:=$(CURDIR)\/files\/prebuilt\/aarch64\/dae\nelse ifeq ($(ARCH_PACKAGES),aarch64_generic)/' \
-  package/custom/luci-app-dae/dae/Makefile 2>/dev/null || true
+# dae/daed 预编译二进制下载与 ARCH_PACKAGES 补丁（已移除）：
+#   旧源 498777/luci-app-dae 用预编译二进制，需下载 + ARCH_PACKAGES 匹配补丁；
+#   新源 kenzok8/openwrt-daede 改为 Go + eBPF 源码编译，无需上述处理。
+#   dae 依赖 bpf-headers（OpenWrt 25.12 工具链自带）、golang/host（sbwml 27.x）；
+#   固件已启用 CONFIG_KERNEL_DEBUG_INFO_BTF=y，dae 默认用内核 BTF，无需 vmlinux-btf。
 
 # fancontrol 旧版子目录清理：
 #   commit 7655e6d 仓库含两个 openwrt-feed 目录，深层的旧版 files/ 不完整会导致 install 失败
@@ -93,10 +79,10 @@ rm -f package/feeds/luci/luci-theme-footstrap
 # feeds 同名包冲突清理（防止 feeds 版顶替 custom 版）
 # ============================================================
 
-# ImmortalWrt 25.12 feeds 已内置 dae / open-app-filter / luci-app-dae，删除 feeds 链接
+# ImmortalWrt 25.12 feeds 已内置 dae / open-app-filter，删除 feeds 链接让 custom 版胜出
+# （feeds 无 luci-app-daede，但 dae 核心与 custom 版同名需删除避免旧版被选中）
 rm -f package/feeds/packages/dae
 rm -f package/feeds/packages/open-app-filter
-rm -f package/feeds/luci/luci-app-dae
 # feeds 官方 luci-app-homeproxy 被 custom XiaoHaiSly fork 顶替（2026-10-01 换源）：
 # 新源 PKG_NAME 与官方同名（luci-app-homeproxy，非旧 pro 版），
 # 必须删 feeds 源码目录——否则 feeds install 重建链接后官方版被 defconfig 选中，
