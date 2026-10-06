@@ -234,6 +234,17 @@ cp files/po/zh_Hans/hw-dashboard.po package/custom/luci-app-hw-dashboard/po/zh_H
 # touch Makefile 强制 scan.mk 重新扫描（否则 scan 缓存不包含新增的 i18n 包）
 touch package/custom/luci-app-hw-dashboard/Makefile
 
+# luci-app-singbox-manager 中文汉化：
+#   上游仓库（openwrt-singbox/luci-app-singbox-manager）无 po 目录，
+#   注入预置翻译文件后 luci.mk 自动构建 luci-i18n-singbox-manager-zh-cn
+#   basename = singbox-manager（PKG_NAME 去掉 luci-app- 前缀）
+SBM_PO_DIR="package/custom/openwrt-singbox/luci-app-singbox-manager/po/zh_Hans"
+mkdir -p "$SBM_PO_DIR"
+cp files/po/zh_Hans/singbox-manager.po "$SBM_PO_DIR/" 2>/dev/null \
+  && echo "  singbox-manager 中文翻译已注入 ($(grep -c '^msgid ' files/po/zh_Hans/singbox-manager.po) 条)" \
+  || echo "::warning::files/po/zh_Hans/singbox-manager.po 不存在，luci-i18n-singbox-manager-zh-cn 不会被构建"
+touch package/custom/openwrt-singbox/luci-app-singbox-manager/Makefile
+
 # tachyon 中文汉化（已禁用，恢复时取消注释）：
 #   submodule 只读，翻译文件由编译仓库 files/po/zh_Hans/ 在此注入；
 #   po 需在 make defconfig 前就位，i18n 包才能被扫描生成

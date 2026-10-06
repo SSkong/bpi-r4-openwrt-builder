@@ -1,0 +1,1154 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: zh_Hans\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: network.js:337
+msgid "%s already has an override"
+msgstr "%s 已有覆盖设置"
+
+#: dns.js:362
+msgid "(first enabled server)"
+msgstr "（首个启用的服务器）"
+
+#: nodes.js:493
+msgid "(none)"
+msgstr "（无）"
+
+#: dns.js:208
+msgid "(unset)"
+msgstr "（未设）"
+
+#: nodes.js:330
+msgid "A URL is saved as a refreshable subscription. Pasted node links are imported once."
+msgstr "URL 保存为可刷新的订阅；粘贴的节点链接仅导入一次。"
+
+#: routing.js:211
+msgid "A rule matches traffic by source AND rule set (when both are set). Provide at least one. Rules apply in ID order; unmatched traffic uses the final outbound."
+msgstr "规则按来源和规则集匹配流量（两者同时设置时取交集）。至少提供一个。规则按 ID 顺序生效；未匹配的流量使用终结出站。"
+
+#: nodes.js:343
+msgid "A subscription or config link is required"
+msgstr "需要订阅或配置链接"
+
+#: dns.js:479
+msgid "Active DNS inbound"
+msgstr "当前 DNS 入站"
+
+#: nodes.js:175
+msgid "Active group"
+msgstr "当前生效的组"
+
+#: dns.js:511, dns.js:521, nodes.js:837
+msgid "Add"
+msgstr "添加"
+
+#: dns.js:276
+msgid "Add DNS Rule"
+msgstr "添加 DNS 规则"
+
+#: dns.js:168
+msgid "Add DNS Server"
+msgstr "添加 DNS 服务器"
+
+#: nodes.js:658
+msgid "Add Node"
+msgstr "添加节点"
+
+#: routing.js:168
+msgid "Add Route Rule"
+msgstr "添加路由规则"
+
+#: routing.js:257
+msgid "Add Rule Set"
+msgstr "添加规则集"
+
+#: network.js:371
+msgid "Add device"
+msgstr "添加设备"
+
+#: dns.js:199, dns.js:394
+msgid "Address"
+msgstr "地址"
+
+#: nodes.js:566
+msgid "All"
+msgstr "全部"
+
+#: nodes.js:481
+msgid "Allow insecure TLS"
+msgstr "允许不安全的 TLS"
+
+#: network.js:418
+msgid "Auto redirect"
+msgstr "自动重定向"
+
+#: network.js:417
+msgid "Auto route"
+msgstr "自动路由"
+
+#: network.js:395
+msgid "Block forwarded LAN traffic when routing is down."
+msgstr "路由不可用时阻止转发的 LAN 流量。"
+
+#: network.js:226
+msgid "Bypass"
+msgstr "绕过"
+
+#: network.js:393
+msgid "Bypass subnets"
+msgstr "绕过子网"
+
+#: dashboard.js:336
+msgid "CPU"
+msgstr "CPU"
+
+#: dns.js:215, dns.js:255, dns.js:317
+msgid "Cancel"
+msgstr "取消"
+
+#: dns.js:368
+msgid "Capture: off"
+msgstr "捕获：关闭"
+
+#: dns.js:368
+msgid "Capture: on (tproxy)"
+msgstr "捕获：开启（tproxy）"
+
+#: dashboard.js:301
+msgid "Check Health"
+msgstr "健康检查"
+
+#: dashboard.js:168
+msgid "Collecting data…"
+msgstr "正在收集数据…"
+
+#: dashboard.js:292
+msgid "Configuration has errors"
+msgstr "配置存在错误"
+
+#: dashboard.js:292
+msgid "Configuration is valid"
+msgstr "配置有效"
+
+#: nodes.js:467
+msgid "Congestion control"
+msgstr "拥塞控制"
+
+#: dashboard.js:334
+msgid "Connections"
+msgstr "连接数"
+
+#: network.js:416
+msgid "Create the %s interface and route through it."
+msgstr "创建 %s 接口并通过它路由。"
+
+#: menu.d/luci-app-singbox-manager.json
+msgid "DNS"
+msgstr "DNS"
+
+#: dns.js:366
+msgid "DNS Resolution"
+msgstr "DNS 解析"
+
+#: dns.js:517
+msgid "DNS Rules (per source)"
+msgstr "DNS 规则（按来源）"
+
+#: dns.js:507
+msgid "DNS Servers"
+msgstr "DNS 服务器"
+
+#: network.js:394
+msgid "DNS capture"
+msgstr "DNS 捕获"
+
+#: network.js:400
+msgid "DNS port: %s"
+msgstr "DNS 端口：%s"
+
+#: dns.js:349
+msgid "DNS rule deleted"
+msgstr "DNS 规则已删除"
+
+#: dns.js:327
+msgid "DNS rule saved"
+msgstr "DNS 规则已保存"
+
+#: dns.js:264
+msgid "DNS server deleted"
+msgstr "DNS 服务器已删除"
+
+#: dns.js:225
+msgid "DNS server saved"
+msgstr "DNS 服务器已保存"
+
+#: dns.js:415
+msgid "DNS test failed"
+msgstr "DNS 测试失败"
+
+#: dns.js:413
+msgid "DNS test passed in %d ms"
+msgstr "DNS 测试通过（%d ms）"
+
+#: dashboard.js:333
+msgid "Daemon"
+msgstr "守护进程"
+
+#: menu.d/luci-app-singbox-manager.json
+msgid "Dashboard"
+msgstr "仪表盘"
+
+#: network.js:224
+msgid "Default"
+msgstr "默认"
+
+#: network.js:391
+msgid "Default mode"
+msgstr "默认模式"
+
+#: dns.js:372
+msgid "Default resolver"
+msgstr "默认解析器"
+
+#: dns.js:380
+msgid "Default resolver updated"
+msgstr "默认解析器已更新"
+
+#: dns.js:268, dns.js:353, dns.js:426
+msgid "Delete"
+msgstr "删除"
+
+#: dns.js:337
+msgid "Delete DNS Rule"
+msgstr "删除 DNS 规则"
+
+#: dns.js:253
+msgid "Delete DNS Server"
+msgstr "删除 DNS 服务器"
+
+#: dns.js:239
+msgid "Delete DNS server \"%s\"?"
+msgstr "删除 DNS 服务器 \"%s\" ？"
+
+#: nodes.js:687
+msgid "Delete Node"
+msgstr "删除节点"
+
+#: routing.js:234
+msgid "Delete Route Rule"
+msgstr "删除路由规则"
+
+#: routing.js:331
+msgid "Delete Rule Set"
+msgstr "删除规则集"
+
+#: nodes.js:275
+msgid "Delete Subscription"
+msgstr "删除订阅"
+
+#: dns.js:261, dns.js:346, nodes.js:287
+msgid "Delete failed"
+msgstr "删除失败"
+
+#: dns.js:338
+msgid "Delete this DNS rule?"
+msgstr "删除此 DNS 规则？"
+
+#: nodes.js:688
+msgid "Delete this manual node?"
+msgstr "删除此手动节点？"
+
+#: routing.js:235
+msgid "Delete this route rule?"
+msgstr "删除此路由规则？"
+
+#: routing.js:332
+msgid "Delete this rule set? Rules that only matched it are removed too."
+msgstr "删除此规则集？仅匹配它的规则也将一并删除。"
+
+#: nodes.js:276
+msgid "Delete this subscription and all nodes imported from it?"
+msgstr "删除此订阅及从中导入的所有节点？"
+
+#: nodes.js:314
+msgid "Derived from the link"
+msgstr "从链接派生"
+
+#: network.js:393
+msgid "Destination subnets that always egress directly."
+msgstr "始终直连出口的目标子网。"
+
+#: dns.js:206, dns.js:395
+msgid "Detour"
+msgstr "中转"
+
+#: dns.js:205
+msgid "Detour chooses how the resolver's own queries exit: direct, through the proxy, or unset (follow routing)."
+msgstr "中转决定解析器自身查询的出口：直连、经代理，或不设（遵循路由）。"
+
+#: dashboard.js:266, dashboard.js:402
+msgid "Download"
+msgstr "下载"
+
+#: network.js:374
+msgid "Each device follows the default mode unless overridden. Match by MAC (robust) and/or IP. Enable UDP to send a device's UDP directly while its TCP stays proxied — useful for gaming consoles, where proxied UDP breaks NAT type and adds latency."
+msgstr "每个设备默认遵循默认模式，可单独覆盖。按 MAC（更稳定）和/或 IP 匹配。启用 UDP 可让设备的 UDP 直连而 TCP 仍走代理——适合游戏主机，因为代理 UDP 会破坏 NAT 类型并增加延迟。"
+
+#: dns.js:422, dns.js:457, nodes.js:394
+msgid "Edit"
+msgstr "编辑"
+
+#: dns.js:276
+msgid "Edit DNS Rule"
+msgstr "编辑 DNS 规则"
+
+#: dns.js:168
+msgid "Edit DNS Server"
+msgstr "编辑 DNS 服务器"
+
+#: nodes.js:658
+msgid "Edit Node"
+msgstr "编辑节点"
+
+#: routing.js:168
+msgid "Edit Route Rule"
+msgstr "编辑路由规则"
+
+#: routing.js:257
+msgid "Edit Rule Set"
+msgstr "编辑规则集"
+
+#: nodes.js:220
+msgid "Edit Subscription"
+msgstr "编辑订阅"
+
+#: network.js:416
+msgid "Enable"
+msgstr "启用"
+
+#: dns.js:176, dns.js:284, dns.js:396
+msgid "Enabled"
+msgstr "已启用"
+
+#: nodes.js:465
+msgid "Encryption"
+msgstr "加密"
+
+#: nodes.js:766
+msgid "Fetch a test URL through this node"
+msgstr "通过此节点获取测试 URL"
+
+#: routing.js:376
+msgid "Final"
+msgstr "终结"
+
+#: routing.js:383
+msgid "Final outbound updated"
+msgstr "终结出站已更新"
+
+#: nodes.js:466
+msgid "Flow"
+msgstr "流控"
+
+#: nodes.js:238, nodes.js:317, nodes.js:370
+msgid "Format"
+msgstr "格式"
+
+#: dashboard.js:244, network.js:355
+msgid "Group"
+msgstr "分组"
+
+#: network.js:262
+msgid "Group (optional)"
+msgstr "分组（可选）"
+
+#: dashboard.js:247, nodes.js:371, nodes.js:800
+msgid "Health"
+msgstr "健康"
+
+#: dashboard.js:299
+msgid "Health check complete"
+msgstr "健康检查完成"
+
+#: dashboard.js:299
+msgid "Health check failed"
+msgstr "健康检查失败"
+
+#: network.js:394
+msgid "Hijack LAN DNS queries into sing-box."
+msgstr "将 LAN DNS 查询劫持到 sing-box。"
+
+#: dns.js:178, dns.js:286, nodes.js:635
+msgid "ID"
+msgstr "ID"
+
+#: network.js:352
+msgid "IPv4"
+msgstr "IPv4"
+
+#: network.js:419
+msgid "IPv4 address"
+msgstr "IPv4 地址"
+
+#: network.js:353
+msgid "IPv6"
+msgstr "IPv6"
+
+#: network.js:260
+msgid "IPv6 (optional)"
+msgstr "IPv6（可选）"
+
+#: network.js:420
+msgid "IPv6 address"
+msgstr "IPv6 地址"
+
+#: nodes.js:360, nodes.js:431
+msgid "Import"
+msgstr "导入"
+
+#: nodes.js:300
+msgid "Import Subscription"
+msgstr "导入订阅"
+
+#: nodes.js:353, nodes.js:357
+msgid "Import failed"
+msgstr "导入失败"
+
+#: nodes.js:348, nodes.js:401
+msgid "Imported %d nodes"
+msgstr "已导入 %d 个节点"
+
+#: network.js:417
+msgid "Install routes for traffic handled by TUN."
+msgstr "为 TUN 处理的流量安装路由。"
+
+#: network.js:392
+msgid "Interfaces whose traffic is intercepted."
+msgstr "流量被拦截的接口。"
+
+#: dns.js:251
+msgid "It is the default resolver; the default will be cleared."
+msgstr "它是默认解析器；默认值将被清除。"
+
+#: network.js:395
+msgid "Kill switch"
+msgstr "熔断开关"
+
+#: dns.js:93, routing.js:100
+msgid "LAN devices — click to add"
+msgstr "LAN 设备——点击添加"
+
+#: network.js:325
+msgid "LAN devices — click to add an override"
+msgstr "LAN 设备——点击添加覆盖"
+
+#: network.js:392
+msgid "LAN interfaces"
+msgstr "LAN 接口"
+
+#: nodes.js:375, nodes.js:802
+msgid "Last check"
+msgstr "上次检查"
+
+#: nodes.js:374
+msgid "Last error"
+msgstr "上次错误"
+
+#: nodes.js:373
+msgid "Last update"
+msgstr "上次更新"
+
+#: nodes.js:372, nodes.js:801
+msgid "Latency"
+msgstr "延迟"
+
+#: nodes.js:149
+msgid "Load balance"
+msgstr "负载均衡"
+
+#: dashboard.js:393
+msgid "Logs"
+msgstr "日志"
+
+#: network.js:351
+msgid "MAC"
+msgstr "MAC"
+
+#: dashboard.js:219
+msgid "Management mode — proxy held down, LAN untouched"
+msgstr "管理模式——代理暂停，LAN 不受影响"
+
+#: dashboard.js:218
+msgid "Manager daemon is not running"
+msgstr "管理器守护进程未运行"
+
+#: dashboard.js:220
+msgid "Manager disabled"
+msgstr "管理器已禁用"
+
+#: dashboard.js:220
+msgid "Manager enabled"
+msgstr "管理器已启用"
+
+#: nodes.js:146, nodes.js:556, nodes.js:567
+msgid "Manual"
+msgstr "手动"
+
+#: dashboard.js:335
+msgid "Memory"
+msgstr "内存"
+
+#: nodes.js:462
+msgid "Method"
+msgstr "方法"
+
+#: dashboard.js:245, network.js:354, routing.js:359
+msgid "Mode"
+msgstr "模式"
+
+#: dashboard.js:227
+msgid "Mode set to %s"
+msgstr "模式已设为 %s"
+
+#: dns.js:184, dns.js:292, network.js:257
+msgid "Name"
+msgstr "名称"
+
+#: nodes.js:311
+msgid "Name (optional)"
+msgstr "名称（可选）"
+
+#: menu.d/luci-app-singbox-manager.json
+msgid "Network"
+msgstr "网络"
+
+#: dns.js:405, dns.js:452, nodes.js:741
+msgid "No"
+msgstr "否"
+
+#: dns.js:248
+msgid "No DNS rules use it."
+msgstr "没有 DNS 规则使用它。"
+
+#: dns.js:464
+msgid "No DNS rules — all queries use the default resolver"
+msgstr "无 DNS 规则——所有查询使用默认解析器"
+
+#: dns.js:429
+msgid "No DNS servers"
+msgstr "无 DNS 服务器"
+
+#: dashboard.js:379
+msgid "No log output yet"
+msgstr "暂无日志输出"
+
+#: nodes.js:806
+msgid "No nodes — import a subscription or add one manually"
+msgstr "无节点——导入订阅或手动添加"
+
+#: routing.js:428
+msgid "No route rules — all traffic uses the final outbound"
+msgstr "无路由规则——所有流量使用终结出站"
+
+#: routing.js:471
+msgid "No rule sets"
+msgstr "无规则集"
+
+#: nodes.js:417
+msgid "No subscriptions"
+msgstr "无订阅"
+
+#: nodes.js:669
+msgid "Node ID is required"
+msgstr "节点 ID 不能为空"
+
+#: nodes.js:759
+msgid "Node ping failed"
+msgstr "节点 Ping 失败"
+
+#: nodes.js:757
+msgid "Node ping passed in %d ms"
+msgstr "节点 Ping 通过（%d ms）"
+
+#: nodes.js:676
+msgid "Node saved"
+msgstr "节点已保存"
+
+#: nodes.js:717
+msgid "Node selected"
+msgstr "节点已选择"
+
+#: nodes.js:717
+msgid "Node selected and applied"
+msgstr "节点已选择并应用"
+
+#: nodes.js:715
+msgid "Node selected; reload failed: %s"
+msgstr "节点已选择；重载失败：%s"
+
+#: nodes.js:813, menu.d/luci-app-singbox-manager.json
+msgid "Nodes"
+msgstr "节点"
+
+#: network.js:387, network.js:412
+msgid "Off"
+msgstr "关闭"
+
+#: network.js:219
+msgid "Off — only listed devices"
+msgstr "关闭——仅列出的设备"
+
+#: dashboard.js:333
+msgid "Offline"
+msgstr "离线"
+
+#: network.js:357, network.js:387, network.js:412
+msgid "On"
+msgstr "开启"
+
+#: dashboard.js:333
+msgid "Online"
+msgstr "在线"
+
+#: dashboard.js:246, routing.js:204, routing.js:406
+msgid "Outbound"
+msgstr "出站"
+
+#: routing.js:375
+msgid "Outbound for traffic that matches no rule (rule mode only)."
+msgstr "不匹配任何规则的流量出站（仅 rule 模式）。"
+
+#: dashboard.js:217
+msgid "PID %s"
+msgstr "PID %s"
+
+#: nodes.js:464
+msgid "Password"
+msgstr "密码"
+
+#: routing.js:299
+msgid "Path (local / cache)"
+msgstr "路径（本地/缓存）"
+
+#: dashboard.js:239
+msgid "Paused"
+msgstr "已暂停"
+
+#: network.js:373
+msgid "Per-device overrides"
+msgstr "按设备覆盖"
+
+#: nodes.js:763
+msgid "Ping"
+msgstr "Ping"
+
+#: nodes.js:461
+msgid "Port"
+msgstr "端口"
+
+#: dashboard.js:313
+msgid "Proxied devices have no internet"
+msgstr "代理设备无网络"
+
+#: nodes.js:172
+msgid "Proxy"
+msgstr "代理"
+
+#: dashboard.js:319
+msgid "Proxy rules removed"
+msgstr "代理规则已移除"
+
+#: dns.js:314
+msgid "Queries from the matched sources (and/or rule sets) use the selected resolver. Provide at least one source or rule set."
+msgstr "来自匹配来源（和/或规则集）的查询使用选定的解析器。至少提供一个来源或规则集。"
+
+#: dashboard.js:283
+msgid "Re-render the config and hot-reload sing-box"
+msgstr "重新渲染配置并热重载 sing-box"
+
+#: nodes.js:474
+msgid "Reality public key"
+msgstr "Reality 公钥"
+
+#: nodes.js:475
+msgid "Reality short ID"
+msgstr "Reality 短 ID"
+
+#: network.js:418
+msgid "Redirect traffic into TUN automatically where supported."
+msgstr "在支持的平台上自动将流量重定向到 TUN。"
+
+#: dashboard.js:398, nodes.js:408
+msgid "Refresh"
+msgstr "刷新"
+
+#: nodes.js:443
+msgid "Refresh All"
+msgstr "全部刷新"
+
+#: nodes.js:405
+msgid "Refresh failed"
+msgstr "刷新失败"
+
+#: nodes.js:439
+msgid "Refresh-all finished with %d failures"
+msgstr "全部刷新完成，%d 个失败"
+
+#: nodes.js:437
+msgid "Refreshed %d subscriptions, imported %d nodes"
+msgstr "已刷新 %d 个订阅，导入 %d 个节点"
+
+#: dashboard.js:287
+msgid "Reload"
+msgstr "重载"
+
+#: dashboard.js:285
+msgid "Reload failed"
+msgstr "重载失败"
+
+#: network.js:255
+msgid "Remove"
+msgstr "移除"
+
+#: dashboard.js:321
+msgid "Remove proxy rules"
+msgstr "移除代理规则"
+
+#: dashboard.js:319
+msgid "Removing proxy rules failed"
+msgstr "移除代理规则失败"
+
+#: dns.js:477
+msgid "Rendered DNS"
+msgstr "渲染的 DNS"
+
+#: theme.js:202
+msgid "Request failed"
+msgstr "请求失败"
+
+#: dns.js:311, dns.js:442
+msgid "Resolver"
+msgstr "解析器"
+
+#: dashboard.js:279
+msgid "Restart"
+msgstr "重启"
+
+#: dashboard.js:277
+msgid "Restart failed"
+msgstr "重启失败"
+
+#: routing.js:493
+msgid "Route Rules"
+msgstr "路由规则"
+
+#: routing.js:246
+msgid "Route rule deleted"
+msgstr "路由规则已删除"
+
+#: routing.js:224
+msgid "Route rule saved"
+msgstr "路由规则已保存"
+
+#: network.js:389
+msgid "Routes LAN traffic through sing-box without configuring a proxy on each client. The default mode applies to every LAN device; pin individual devices below."
+msgstr "通过 sing-box 路由 LAN 流量，无需在每个客户端配置代理。默认模式适用于所有 LAN 设备；可在下方单独指定设备。"
+
+#: menu.d/luci-app-singbox-manager.json
+msgid "Routing"
+msgstr "路由"
+
+#: routing.js:355
+msgid "Routing Mode"
+msgstr "路由模式"
+
+#: dns.js:439, routing.js:403
+msgid "Rule"
+msgstr "规则"
+
+#: routing.js:503
+msgid "Rule Sets"
+msgstr "规则集"
+
+#: routing.js:435
+msgid "Rule set"
+msgstr "规则集"
+
+#: routing.js:343
+msgid "Rule set deleted"
+msgstr "规则集已删除"
+
+#: routing.js:321
+msgid "Rule set saved"
+msgstr "规则集已保存"
+
+#: routing.js:454
+msgid "Rule set updated (%d bytes)"
+msgstr "规则集已更新（%d 字节）"
+
+#: dns.js:441, routing.js:405
+msgid "Rule sets"
+msgstr "规则集"
+
+#: dns.js:304, routing.js:197
+msgid "Rule sets (optional)"
+msgstr "规则集（可选）"
+
+#: dns.js:483
+msgid "Rules"
+msgstr "规则"
+
+#: dashboard.js:239
+msgid "Running"
+msgstr "运行中"
+
+#: routing.js:365
+msgid "Runtime mode updated"
+msgstr "运行模式已更新"
+
+#: dns.js:229, dns.js:331, nodes.js:269
+msgid "Save"
+msgstr "保存"
+
+#: dns.js:222, dns.js:324, dns.js:378
+msgid "Save failed"
+msgstr "保存失败"
+
+#: nodes.js:749
+msgid "Select"
+msgstr "选择"
+
+#: nodes.js:713
+msgid "Select failed"
+msgstr "选择失败"
+
+#: nodes.js:749
+msgid "Selected"
+msgstr "已选择"
+
+#: nodes.js:190
+msgid "Selected node"
+msgstr "选中节点"
+
+#: nodes.js:147
+msgid "Selector"
+msgstr "选择器"
+
+#: network.js:263, network.js:356
+msgid "Send this device's UDP directly (TCP still proxied)"
+msgstr "直连此设备的 UDP（TCP 仍走代理）"
+
+#: dns.js:392, nodes.js:460, nodes.js:798
+msgid "Server"
+msgstr "服务器"
+
+#: dns.js:481
+msgid "Servers"
+msgstr "服务器"
+
+#: dashboard.js:227
+msgid "Set mode failed"
+msgstr "设置模式失败"
+
+#: menu.d/luci-app-singbox-manager.json
+msgid "SingBox Manager"
+msgstr "SingBox 管理器"
+
+#: nodes.js:799
+msgid "Source"
+msgstr "来源"
+
+#: dns.js:297
+msgid "Source IPs / CIDRs"
+msgstr "来源 IP/CIDR"
+
+#: routing.js:190
+msgid "Source IPs / CIDRs (optional)"
+msgstr "来源 IP/CIDR（可选）"
+
+#: dns.js:440, routing.js:404
+msgid "Sources"
+msgstr "来源"
+
+#: dashboard.js:214
+msgid "Start"
+msgstr "启动"
+
+#: dashboard.js:212
+msgid "Start failed"
+msgstr "启动失败"
+
+#: dashboard.js:207
+msgid "Stop"
+msgstr "停止"
+
+#: dashboard.js:205
+msgid "Stop failed"
+msgstr "停止失败"
+
+#: dashboard.js:203
+msgid "Stop the proxy and hold it down (survives reboot) until started again"
+msgstr "停止代理并保持暂停（重启后仍生效），直到再次启动"
+
+#: dashboard.js:239
+msgid "Stopped"
+msgstr "已停止"
+
+#: dashboard.js:337, nodes.js:177
+msgid "Strategy"
+msgstr "策略"
+
+#: nodes.js:160
+msgid "Strategy saved"
+msgstr "策略已保存"
+
+#: nodes.js:290
+msgid "Subscription deleted"
+msgstr "订阅已删除"
+
+#: nodes.js:303
+msgid "Subscription or config link"
+msgstr "订阅或配置链接"
+
+#: nodes.js:265
+msgid "Subscription saved"
+msgstr "订阅已保存"
+
+#: nodes.js:348
+msgid "Subscription saved and refreshed"
+msgstr "订阅已保存并刷新"
+
+#: nodes.js:353
+msgid "Subscription saved; import failed: %s"
+msgstr "订阅已保存；导入失败：%s"
+
+#: nodes.js:424
+msgid "Subscriptions"
+msgstr "订阅"
+
+#: network.js:414
+msgid "System-wide routing via a virtual interface. Cannot be enabled together with transparent proxy."
+msgstr "通过虚拟接口进行系统级路由。不能与透明代理同时启用。"
+
+#: nodes.js:752
+msgid "TCP connect to the node server"
+msgstr "TCP 连接节点服务器"
+
+#: nodes.js:480
+msgid "TLS"
+msgstr "TLS"
+
+#: nodes.js:473
+msgid "TLS ALPN"
+msgstr "TLS ALPN"
+
+#: nodes.js:472
+msgid "TLS SNI"
+msgstr "TLS SNI"
+
+#: network.js:411
+msgid "TUN"
+msgstr "TUN"
+
+#: network.js:158
+msgid "TUN settings applied"
+msgstr "TUN 设置已应用"
+
+#: nodes.js:656
+msgid "Tag (optional)"
+msgstr "标签（可选）"
+
+#: dns.js:418
+msgid "Test"
+msgstr "测试"
+
+#: nodes.js:831
+msgid "Test all"
+msgstr "测试全部"
+
+#: nodes.js:822
+msgid "Test all failed"
+msgstr "测试全部失败"
+
+#: nodes.js:827
+msgid "Tested %d nodes: %d reachable"
+msgstr "已测试 %d 个节点：%d 个可达"
+
+#: nodes.js:819
+msgid "Testing all nodes through their proxies…"
+msgstr "正在通过代理测试所有节点…"
+
+#: dns.js:242
+msgid "These DNS rules use it and will be deleted too:"
+msgstr "这些 DNS 规则使用了它，也将一并删除："
+
+#: dashboard.js:260
+msgid "Total %s"
+msgstr "共计 %s"
+
+#: network.js:386
+msgid "Transparent Proxy"
+msgstr "透明代理"
+
+#: network.js:147
+msgid "Transparent proxy settings applied"
+msgstr "透明代理设置已应用"
+
+#: nodes.js:469
+msgid "Transport"
+msgstr "传输"
+
+#: nodes.js:470
+msgid "Transport host"
+msgstr "传输主机"
+
+#: nodes.js:471
+msgid "Transport path"
+msgstr "传输路径"
+
+#: dns.js:190, dns.js:393, nodes.js:643
+msgid "Type"
+msgstr "类型"
+
+#: network.js:356
+msgid "UDP"
+msgstr "UDP"
+
+#: nodes.js:468
+msgid "UDP relay mode"
+msgstr "UDP 中继模式"
+
+#: nodes.js:232, nodes.js:369, nodes.js:777
+msgid "URL"
+msgstr "URL"
+
+#: routing.js:293
+msgid "URL (remote)"
+msgstr "URL（远程）"
+
+#: nodes.js:148
+msgid "URL test"
+msgstr "URL 测试"
+
+#: nodes.js:773
+msgid "URL test failed"
+msgstr "URL 测试失败"
+
+#: nodes.js:771
+msgid "URL test passed in %d ms"
+msgstr "URL 测试通过（%d ms）"
+
+#: nodes.js:463
+msgid "UUID"
+msgstr "UUID"
+
+#: network.js:285
+msgid "Unknown device"
+msgstr "未知设备"
+
+#: routing.js:460
+msgid "Update"
+msgstr "更新"
+
+#: nodes.js:245
+msgid "Update Interval"
+msgstr "更新间隔"
+
+#: nodes.js:324
+msgid "Update every"
+msgstr "更新周期"
+
+#: routing.js:456
+msgid "Update failed"
+msgstr "更新失败"
+
+#: routing.js:304
+msgid "Update interval"
+msgstr "更新间隔"
+
+#: routing.js:437
+msgid "Updated"
+msgstr "已更新"
+
+#: dashboard.js:267
+msgid "Upload"
+msgstr "上传"
+
+#: dashboard.js:295
+msgid "Validate"
+msgstr "验证"
+
+#: dns.js:405, dns.js:452, nodes.js:741
+msgid "Yes"
+msgstr "是"
+
+#: network.js:401
+msgid "absent"
+msgstr "缺失"
+
+#: nodes.js:319
+msgid "auto-detect"
+msgstr "自动检测"
+
+#: routing.js:358
+msgid "direct = no proxy, global = everything proxied, rule = apply the route rules below"
+msgstr "direct = 不代理，global = 全部代理，rule = 应用下方路由规则"
+
+#: network.js:430
+msgid "nftables Preview"
+msgstr "nftables 预览"
+
+#: network.js:401
+msgid "nftables include: %s"
+msgstr "nftables 包含：%s"
+
+#: network.js:391
+msgid "off = only listed devices are proxied; tproxy = TCP + UDP for everyone in scope."
+msgstr "off = 仅列出的设备走代理；tproxy = 范围内所有设备 TCP + UDP 全捕获。"
+
+#: nodes.js:474
+msgid "pbk (enables Reality)"
+msgstr "pbk（启用 Reality）"
+
+#: network.js:401
+msgid "present"
+msgstr "存在"
+
+#: dashboard.js:314
+msgid "sing-box is not running, but its transparent-proxy firewall rules and routing are still active. Start sing-box, or remove the rules to restore direct internet."
+msgstr "sing-box 未运行，但其透明代理防火墙规则和路由仍然生效。请启动 sing-box，或移除规则以恢复直连。"
+
+#: dashboard.js:285
+msgid "sing-box reloaded"
+msgstr "sing-box 已重载"
+
+#: dashboard.js:277
+msgid "sing-box restarted"
+msgstr "sing-box 已重启"
+
+#: dashboard.js:212
+msgid "sing-box started"
+msgstr "sing-box 已启动"
+
+#: dashboard.js:205
+msgid "sing-box stopped"
+msgstr "sing-box 已停止"
+
+#: network.js:225
+msgid "tproxy"
+msgstr "tproxy"
+
+#: network.js:399
+msgid "tproxy port: %s"
+msgstr "tproxy 端口：%s"
+
+#: network.js:220
+msgid "tproxy — TCP + UDP"
+msgstr "tproxy——TCP + UDP"
+
+#: nodes.js:476
+msgid "uTLS fingerprint"
+msgstr "uTLS 指纹"
+
