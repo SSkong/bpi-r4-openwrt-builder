@@ -54,7 +54,7 @@ luci-app-dae|https://github.com/498777/luci-app-dae.git|main
 luci-app-oxidns|https://github.com/hahaher123/luci-app-oxidns.git|main
 luci-app-mosdns|https://github.com/sbwml/luci-app-mosdns.git|v5
 # --- 去广告 ---
-luci-app-adguardhome|https://github.com/terrytyc/luci-app-adguardhome.git|main
+luci-app-adguardhome|https://github.com/w9315273/luci-app-adguardhome.git|main
 # --- 网络监控 ---
 luci-app-netmonitor|https://github.com/LianXia233/luci-app-netmonitor.git|main
 luci-app-cpu-status|https://github.com/gSpotx2f/luci-app-cpu-status.git|master
