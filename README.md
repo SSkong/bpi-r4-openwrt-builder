@@ -11,7 +11,7 @@ AIGC:
 
 # BPI-R4 OpenWrt 自动编译
 
-使用 GitHub Actions **定时自动编译** Banana Pi BPI-R4（标准版，MT7988A）的 ImmortalWrt 固件，内置 Passwall 科学上网插件、mihomo、dae/honk eBPF 透明代理与 57 个自定义仓库（85 个包：eBPF 代理 / DNS 分流 / QoS 限速 / 网络监控 / 应用过滤 / NAT 打洞 / Mesh 组网 / CDN 优选 / 7 款 LuCI 主题等），内核已启用 BTF 支持 eBPF 程序运行。
+使用 GitHub Actions **定时自动编译** Banana Pi BPI-R4（标准版，MT7988A）的 ImmortalWrt 固件，内置 Passwall 科学上网插件、mihomo、dae/honk eBPF 透明代理与 59 个自定义仓库（90 个包：eBPF 代理 / DNS 分流 / QoS 限速 / 网络监控 / 应用过滤 / NAT 打洞 / Mesh 组网 / CDN 优选 / 消息推送 / 7 款 LuCI 主题等），内核已启用 BTF 支持 eBPF 程序运行。
 
 ## 固件信息
 
@@ -20,7 +20,7 @@ AIGC:
 | 硬件平台 | Banana Pi BPI-R4 标准版 (MT7988A / 4GB RAM / 32GB eMMC) |
 | 固件源码 | [chasey-dev/immortalwrt-mt798x-rebase](https://github.com/chasey-dev/immortalwrt-mt798x-rebase) (ImmortalWrt 25.12 + MTK 官方 Feeds，内核 6.12) |
 | 科学上网 | **Passwall** (Xray / sing-box / Hysteria，SSR / Shadowsocks 等全协议)、**dae/honk** (eBPF 透明代理) |
-| 自定义插件 | 57 个仓库 85 个包：eBPF 代理、DNS 分流、去广告、QoS 限速、网络监控、带宽监控、应用过滤、Mesh 组网、CDN 优选、NAT 打洞、系统工具、网络唤醒、7 款 LuCI 主题等，完整清单见下方表格 |
+| 自定义插件 | 59 个仓库 90 个包：eBPF 代理、DNS 分流、去广告、QoS 限速、网络监控、带宽监控、应用过滤、Mesh 组网、CDN 优选、NAT 打洞、系统工具、消息推送、网络唤醒、7 款 LuCI 主题等，完整清单见下方表格 |
 | 内核特性 | 已启用 BTF（BPF Type Format），支持 dae/honk 等 eBPF 程序运行 |
 | 管理界面 | LuCI 中文 |
 | 默认地址 | `192.168.10.1`，账号 `root`，无密码 |
@@ -48,10 +48,10 @@ AIGC:
 | 分类 | 包 | 功能 | 来源仓库 |
 |---|---|---|---|
 | eBPF 代理 | luci-app-honk / honk | Honk eBPF 透明代理引擎 | [498777/luci-app-honk](https://github.com/498777/luci-app-honk) |
-| eBPF 代理 | luci-app-dae / dae | dae eBPF 透明代理（预编译二进制） | [498777/luci-app-dae](https://github.com/498777/luci-app-dae) |
+| eBPF 代理 | dae / daed / luci-app-daede | dae eBPF 透明代理 + daed 仪表盘后端 + 统一 LuCI 面板（源码编译，自带中文） | [kenzok8/openwrt-daede](https://github.com/kenzok8/openwrt-daede) |
 | DNS 分流 | luci-app-oxidns | OxiDNS DNS 分流 | [hahaher123/luci-app-oxidns](https://github.com/hahaher123/luci-app-oxidns) |
 | DNS 分流 | mosdns / luci-app-mosdns | mosdns DNS 分流（v5.3.4） | [sbwml/luci-app-mosdns](https://github.com/sbwml/luci-app-mosdns) |
-| 去广告 | adguardhome / luci-app-adguardhome | AdGuard Home 去广告（核心 Go 源码编译 0.107.78） | [terrytyc/luci-app-adguardhome](https://github.com/terrytyc/luci-app-adguardhome) |
+| 去广告 | adguardhome / luci-app-adguardhome | AdGuard Home 去广告（核心 Go 源码编译 0.107.78，翻译内嵌主包） | [w9315273/luci-app-adguardhome](https://github.com/w9315273/luci-app-adguardhome) |
 | AI 网关 | luci-app-model-gateway | AI 模型网关（OpenAI 兼容，多平台额度聚合；预编译 ipk 提取集成，含中文翻译） | [wanvfx/luci-app-model-gateway](https://github.com/wanvfx/luci-app-model-gateway) |
 | 网络监控 | luci-app-netmonitor | 网络质量监控（延迟/丢包） | [LianXia233/luci-app-netmonitor](https://github.com/LianXia233/luci-app-netmonitor) |
 | 网络监控 | luci-app-cpu-status | CPU 状态监控（频率/温度/占用） | [gSpotx2f/luci-app-cpu-status](https://github.com/gSpotx2f/luci-app-cpu-status) |
@@ -66,6 +66,7 @@ AIGC:
 | 组网 | zerotier / luci-app-zerotier | ZeroTier 虚拟局域网（Auto NAT） | [rabbitrogi/luci-app-zerotier](https://github.com/rabbitrogi/luci-app-zerotier) |
 | 组网 | easytier / luci-app-easytier | 去中心化 Mesh 组网 | [EasyTier/luci-app-easytier](https://github.com/EasyTier/luci-app-easytier) |
 | 代理 | mihomo / luci-app-fchomo | mihomo（Clash Meta）内核与 LuCI | [fcshark-org/openwrt-fchomo](https://github.com/fcshark-org/openwrt-fchomo) |
+| 代理 | singbox-manager / luci-app-singbox-manager | SingBox Manager：sing-box 节点/DNS/路由管理面板（Go 守护进程 + LuCI，注入 287 条中文翻译） | [aminmokhtari94/openwrt-singbox](https://github.com/aminmokhtari94/openwrt-singbox) |
 | CDN 优选 | luci-app-cloudflarespeedtest | Cloudflare CDN 节点优选测速 | [stevenjoezhang/luci-app-cloudflarespeedtest](https://github.com/stevenjoezhang/luci-app-cloudflarespeedtest) |
 | CDN 优选 | luci-app-cloudflare-ip | Cloudflare 优选 IP 自动更新 | [hello-yunshu/luci-app-cloudflare-ip](https://github.com/hello-yunshu/luci-app-cloudflare-ip) |
 | 网络工具 | openlist2 / luci-app-openlist2 | OpenList 多网盘挂载 | [sbwml/luci-app-openlist2](https://github.com/sbwml/luci-app-openlist2) |
@@ -82,6 +83,8 @@ AIGC:
 | 系统工具 | luci-app-taskplan | 任务计划 | [sirpdboy/luci-app-taskplan](https://github.com/sirpdboy/luci-app-taskplan) |
 | 系统工具 | luci-app-harbor-file-pro | 文件管理 | [whzhni1/luci-app-harbor-file-pro](https://github.com/whzhni1/luci-app-harbor-file-pro) |
 | 系统工具 | airconnect / luci-app-airconnect | AirPlay 音频转发 | [sbwml/luci-app-airconnect](https://github.com/sbwml/luci-app-airconnect) |
+| 系统工具 | luci-app-online-upgrade | 固件在线升级（GitHub Releases） | [Arthur97172/luci-app-online-upgrade](https://github.com/Arthur97172/luci-app-online-upgrade) |
+| 系统工具 | luci-app-wechatpush | 微信/Telegram/ServerChan 消息推送（设备上下线/CPU 负载/流量提醒） | [tty228/luci-app-wechatpush](https://github.com/tty228/luci-app-wechatpush) |
 | 运行时 | node / node-npm | Node.js（sbwml 预编译版，替换官方源码编译版） | [sbwml/feeds_packages_lang_node](https://github.com/sbwml/feeds_packages_lang_node) |
 | 主题 | luci-theme-graphite + luci-app-graphite | Graphite 主题与配置器 | [Zakkaus/luci-theme-graphite](https://github.com/Zakkaus/luci-theme-graphite) · [Zakkaus/luci-app-graphite](https://github.com/Zakkaus/luci-app-graphite) |
 | 主题 | luci-theme-aurora + luci-app-aurora-config | Aurora 主题与配置器 | [eamonxg/luci-theme-aurora](https://github.com/eamonxg/luci-theme-aurora) · [eamonxg/luci-app-aurora-config](https://github.com/eamonxg/luci-app-aurora-config) |
